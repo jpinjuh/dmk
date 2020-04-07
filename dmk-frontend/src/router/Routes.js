@@ -29,7 +29,7 @@ export const publicRoutes = [
   },
   {
     id: "login",
-    title: "Log in",
+    title: "Prijava",
     description: "Log in section",
     path: "login",
     component: LoginLayout

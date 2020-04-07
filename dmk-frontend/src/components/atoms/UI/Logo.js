@@ -47,7 +47,7 @@ const Logo = props => {
         <a href={goTo}>
           <img
             alt="logo"
-            src={logoLight}
+            src={logoDark}
             className={classes.logo}
             style={{ width }}
           />

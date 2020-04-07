@@ -2,7 +2,7 @@
 import React from "react";
 
 // Router
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import MainRouter from "Router/MainRouter";
 import { createBrowserHistory } from "history";
 

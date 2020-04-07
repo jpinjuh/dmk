@@ -9,8 +9,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Atoms
 import Input from "Components/atoms/inputs/Input";
-import Logo from "Components/atoms/UI/Logo";
 import Button from "Components/atoms/buttons/Button";
+import Title from 'Components/atoms/UI/Title'
 
 // Layout Components
 import Header from "Layouts/sections/Header";
@@ -20,10 +20,11 @@ import { login } from "Modules/units/Auth";
 
 const style = makeStyles(theme => ({
   container: {
-    marginTop: theme.spacing(18),
+    marginTop: theme.spacing(32),
     display: "flex",
     flexDirection: "column"
-  }
+  },
+
 }));
 
 const LoginLayout = () => {
@@ -50,25 +51,24 @@ const LoginLayout = () => {
     <>
       <Header />
       <Container maxWidth="xs" className={classes.container}>
-        <Logo type="dark" width="100%" />
+        <Title className={classes.title} title="Prijava"></Title>
         <form>
           <Input
-            label="Username"
+            label="Korisničko ime"
             value={username}
             onChange={setUsername}
             required
           />
           <Input
             type="password"
-            label="Password"
+            label="Lozinka"
             value={password}
             onChange={setPassword}
             required
           />
-          <Box mt={2}>
+          <Box mt={3}>
             <Button
-              label="Submit"
-              icon="chevron_right"
+              label="Prijavi se"
               type="submit"
               onClick={handleSubmit}
               fullWidth

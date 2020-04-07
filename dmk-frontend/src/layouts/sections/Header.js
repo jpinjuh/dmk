@@ -11,15 +11,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Logo from "Components/atoms/UI/Logo";
 import Button from "Components/atoms/buttons/Button";
 
-// Molecules
-import ChangeLanguage from "Components/molecules/ChangeLanguage";
-
 // Actions
 import { logOut } from "Modules/units/Auth";
 
 const style = makeStyles(() => ({
   title: {
     flexGrow: 1
+  },
+  appBar: {
+    backgroundColor: 'white',
+    '-webkit-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
+    '-moz-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
+    'box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)'
   }
 }));
 
@@ -31,13 +34,10 @@ const Header = () => {
   const classes = style();
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar position="fixed" className={classes.appBar} >
       <Toolbar>
         <Box className={classes.title}>
           <Logo width="115px" goTo={user ? "admin" : ""} />
-        </Box>
-        <Box>
-          <ChangeLanguage color="secondary" />
         </Box>
         <Box ml={1}>
           {user ? (
@@ -47,16 +47,7 @@ const Header = () => {
               icon="exit_to_app"
               onClick={() => dispatch(logOut(history))}
             />
-          ) : (
-            location.pathname !== "/login" && (
-              <Button
-                label="Log in"
-                color="secondary"
-                goTo="login"
-                icon="fingerprint"
-              />
-            )
-          )}
+          ) : ('')}
         </Box>
       </Toolbar>
     </AppBar>

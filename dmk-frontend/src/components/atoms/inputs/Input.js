@@ -1,12 +1,19 @@
 // React
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 // MUI
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
+const useStyles = makeStyles(theme => ({
+  input:{
+      color: `${theme.palette.secondary.main} !important`
+  }
+}));
+
 const Input = props => {
-  const { t } = useTranslation();
+
+  const classes = useStyles();
 
   const {
     type,
@@ -15,7 +22,8 @@ const Input = props => {
     validation,
     onChange,
     required,
-    disabled
+    disabled,
+    color
   } = props;
 
   return (
@@ -25,12 +33,19 @@ const Input = props => {
       margin="normal"
       disabled={disabled}
       type={type}
-      label={t(label)}
+      label={label}
       value={value}
+      color={color}
       required={required}
       error={validation}
       helperText={validation}
       onChange={e => onChange(e.currentTarget.value)}
+      className={classes.root}
+      InputProps={{
+        classes: {
+          root: classes.input,
+        },
+      }}
     />
   );
 };
@@ -42,7 +57,8 @@ Input.defaultProps = {
   error: false,
   helperText: "",
   required: false,
-  disabled: false
+  disabled: false,
+  color: "primary",
 };
 
 export default Input;

@@ -27,7 +27,7 @@ const PublicRoutes = ({
     render={props => (
       <TripleLayout>
         <Helmet>
-          <title>TripleS | {title}</title>
+          <title>DMK | {title}</title>
           <meta name="description" content={description} />
         </Helmet>
         <CustomComp {...props} />
@@ -49,7 +49,7 @@ const PrivateRoutes = ({
       user ? (
         <TripleLayout>
           <Helmet>
-            <title>TripleS | {title}</title>
+            <title>DMK | {title}</title>
             <meta name="description" content={description} />
           </Helmet>
           <CustomComp {...props} />

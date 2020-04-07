@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 
 // Atoms
 import Input from "Components/atoms/inputs/Input";
-import Automcomplete from "Components/atoms/inputs/Autocomplete";
+import Autocomplete from "Components/atoms/inputs/Autocomplete";
 
 const InputForm = props => {
   const { inputs, setInputs } = props;
@@ -24,7 +24,7 @@ const InputForm = props => {
       {inputs.map((input, index) =>
         input.type === "autocomplete" ? (
           <Grid item xs={12} md={6} key={input.name_in_db}>
-            <Automcomplete
+            <Autocomplete
               service={input.service}
               label={input.label}
               value={input.value}
