@@ -4,6 +4,7 @@ import { lazy } from "react";
 
 // Routes (Non splitted)
 import LoginLayout from "Layouts/LoginLayout";
+import PasswordResetLayout from "Layouts/PasswordResetLayout";
 
 // Routes (Code splitting)
 const Home = lazy(() => import("Pages/home/index.js"));
@@ -33,6 +34,13 @@ export const publicRoutes = [
     description: "Log in section",
     path: "login",
     component: LoginLayout
+  },
+  {
+    id: "reset",
+    title: "Promjena Lozinke",
+    description: "Password reset section",
+    path: "reset",
+    component: PasswordResetLayout
   },
   {
     id: "users",

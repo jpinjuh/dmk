@@ -23,15 +23,12 @@ const style = makeStyles(theme => ({
     marginTop: theme.spacing(32),
     display: "flex",
     flexDirection: "column"
-  },
-  link: {
-    float: 'right'
   }
 
 }));
 
-const LoginLayout = () => {
-  const [username, setUsername] = useState("");
+const PasswordResetLayout = () => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
@@ -42,48 +39,38 @@ const LoginLayout = () => {
     e.preventDefault();
 
     const body = {
-      username,
-      password,
+      email,
       lang: "en"
     };
 
-    dispatch(login("login", body, history));
+    //dispatch(login("login", body, history));
+    console.log(body)
   };
 
   return (
     <>
       <Header />
       <Container maxWidth="xs" className={classes.container}>
-        <Title className={classes.title} title="Prijava"></Title>
+        <Title className={classes.title} title="Promjena Lozinke"></Title>
         <form>
           <Input
-            label="Korisničko ime"
-            value={username}
-            onChange={setUsername}
-            required
-          />
-          <Input
-            type="password"
-            label="Lozinka"
-            value={password}
-            onChange={setPassword}
+            label="Email"
+            value={email}
+            onChange={setEmail}
             required
           />
           <Box mt={3}>
             <Button
-              label="Prijavi se"
+              label="Pošalji"
               type="submit"
               onClick={handleSubmit}
               fullWidth
             />
           </Box>
-          <a href="#" className={classes.link}>
-            Zaboravili ste lozinku?
-          </a>
         </form>
       </Container>
     </>
   );
 };
 
-export default LoginLayout;
+export default PasswordResetLayout;
