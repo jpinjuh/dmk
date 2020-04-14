@@ -3,18 +3,30 @@ import React from "react";
 
 // Material-UI
 import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 
 // Layout components
 import Header from "Layouts/sections/Header";
 
-const TripleLayout = state => (
+const style = makeStyles(theme => ({
+  container: {
+    maxWidth: '100vw',
+    padding: 0,
+    height: '100vh',
+    display: 'flex',
+  },
+}));
+
+const TripleLayout = state => {
+  const classes = style();
+
+  return (
   <>
     <Header />
-    <Container>
-      <Box mt={11}>{state.children}</Box>
+    <Container className={classes.container}>
+      {state.children}
     </Container>
   </>
-);
+)};
 
 export default TripleLayout;

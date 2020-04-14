@@ -8,12 +8,12 @@ import { Box, Divider } from "@material-ui/core";
 import Text from "Components/atoms/UI/Text";
 
 const Title = props => {
-  const { title, icon } = props;
+  const { title, variant, align } = props;
   return (
     <>
-      <Box mb={7} display="flex" justifyContent="center">
+      <Box display="flex" justifyContent={align}>
         <Box>
-          <Text title={title} variant="h3" color="secondary" />
+          <Text title={title} variant={variant} color="secondary" />
         </Box>
       </Box>
     </>

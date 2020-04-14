@@ -20,9 +20,9 @@ import { login } from "Modules/units/Auth";
 
 const style = makeStyles(theme => ({
   container: {
-    marginTop: theme.spacing(32),
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    alignSelf: 'center'
   },
   link: {
     float: 'right'
@@ -54,7 +54,13 @@ const LoginLayout = () => {
     <>
       <Header />
       <Container maxWidth="xs" className={classes.container}>
-        <Title className={classes.title} title="Prijava"></Title>
+        <Box mb={5}>
+          <Title 
+            variant="h3" 
+            align={'center'} 
+            title="Prijava"
+          />
+        </Box>
         <form>
           <Input
             label="Korisničko ime"

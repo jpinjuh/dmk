@@ -2,6 +2,9 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Montserrat, sans-serif',
+  },
   palette: {
     background: {
       default: "#fff"
@@ -13,7 +16,7 @@ const theme = createMuiTheme({
       main: "#2e3359"
     },
     spacing: 8
-  }
+  },
 });
 
 export default theme;

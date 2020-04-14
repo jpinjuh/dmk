@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     height: '56px',
     fontSize: '18px',
     borderRadius: '7px',
+    textTransform: 'none'
   },
 }));
 

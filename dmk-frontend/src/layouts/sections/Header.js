@@ -22,7 +22,8 @@ const style = makeStyles(() => ({
     backgroundColor: 'white',
     '-webkit-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
     '-moz-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
-    'box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)'
+    'box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
+    zIndex: '1300'
   }
 }));
 

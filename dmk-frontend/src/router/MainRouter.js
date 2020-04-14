@@ -8,6 +8,7 @@ import { publicRoutes, privateRoutes } from "Router/Routes";
 
 // Layouts
 import TripleLayout from "Layouts/TripleLayout";
+import MainLayout from "Layouts/MainLayout";
 import NotFoundPage from "Layouts/NotFoundPage";
 
 // Loaders
@@ -25,13 +26,13 @@ const PublicRoutes = ({
   <Route
     {...rest}
     render={props => (
-      <TripleLayout>
+      <MainLayout>
         <Helmet>
           <title>DMK | {title}</title>
           <meta name="description" content={description} />
         </Helmet>
         <CustomComp {...props} />
-      </TripleLayout>
+      </MainLayout>
     )}
   />
 );
