@@ -21,16 +21,15 @@ import { login } from "Modules/units/Auth";
 
 const style = makeStyles(theme => ({
   container: {
-    marginTop: theme.spacing(32),
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    alignSelf: 'center'
   }
 
 }));
 
 const PasswordResetLayout = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,7 +51,10 @@ const PasswordResetLayout = () => {
     <>
       <Header />
       <Container maxWidth="xs" className={classes.container}>
-        <Title className={classes.title} title="Promjena Lozinke"></Title>
+        <Box mb={5}>
+          <Title className={classes.title} variant="h3" 
+            align={'center'} title="Promjena Lozinke"></Title>
+        </Box>
         <form>
           <Input
             label="Email"
@@ -68,6 +70,7 @@ const PasswordResetLayout = () => {
               fullWidth
             />
           </Box>
+          <Link goTo="login" label="Povratak na prijavu"/>
         </form>
       </Container>
     </>

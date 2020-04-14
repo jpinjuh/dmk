@@ -24,9 +24,6 @@ const style = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignSelf: 'center'
-  },
-  link: {
-    float: 'right'
   }
 }));
 
@@ -83,7 +80,9 @@ const LoginLayout = () => {
               fullWidth
             />
           </Box>
+          <Link goTo="reset" label="Zaboravili ste lozinku?"/>
         </form>
+       
       </Container>
     </>
   );
