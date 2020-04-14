@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Input from "Components/atoms/inputs/Input";
 import Button from "Components/atoms/buttons/Button";
 import Title from 'Components/atoms/UI/Title'
+import Link from 'Components/atoms/hyperlinks/Link'
 
 // Layout Components
 import Header from "Layouts/sections/Header";
