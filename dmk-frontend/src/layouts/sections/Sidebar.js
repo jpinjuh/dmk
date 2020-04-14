@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    border: 'none',
+    border: 'none'
   },
   drawerPaper: {
     width: drawerWidth,
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: 'auto',
+    position: "fixed",
     marginTop: theme.spacing(16),
     '& .MuiListItem-button': {
         paddingLeft: '24px',
@@ -50,7 +51,7 @@ const Sidebar = () => {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['Role', 'Prava', 'Privilegije', 'Korisnici', 'Tenanti'].map((text, index) => (
+            {['Role', 'Prava', 'Privilegije', 'Korisnici', 'Tenanti', 'Zupe', 'Gradovi', 'Drzave'].map((text, index) => (
               <ListItem button key={text} component={Link} to={"/" + text.toLowerCase()} selected={('/' + text.toLowerCase()) === location.pathname}>
                 <ListItemText primary={text} />
               </ListItem>

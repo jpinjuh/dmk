@@ -15,6 +15,9 @@ const Posts = lazy(() => import("Pages/posts/index.js"));
 const Roles = lazy(() => import("Pages/roles/index.js"));
 const Permissions = lazy(() => import("Pages/permissions/index.js"));
 const Privileges = lazy(() => import("Pages/privileges/index.js"));
+const Districts = lazy(() => import("Pages/districts/index.js"));
+const Cities = lazy(() => import("Pages/cities/index.js"));
+const States = lazy(() => import("Pages/states/index.js"));
 
 /**
 |--------------------------------------------------
@@ -39,27 +42,6 @@ export const publicRoutes = [
     component: LoginLayout
   },
   {
-    id: "role",
-    title: "Roles",
-    description: "Roles section",
-    path: "role",
-    component: Roles,
-  },
-  {
-    id: "prava",
-    title: "Permissions",
-    description: "Permissions section",
-    path: "prava",
-    component: Permissions,
-  },
-  {
-    id: "privileges",
-    title: "Privileges",
-    description: "Privileges section",
-    path: "privilegije",
-    component: Privileges,
-  },
-  {
     id: "reset",
     title: "Promjena Lozinke",
     description: "Password reset section",
@@ -67,18 +49,53 @@ export const publicRoutes = [
     component: PasswordResetLayout
   },
   {
+    id: "role",
+    title: "Role",
+    description: "Roles section",
+    path: "role",
+    component: Roles,
+  },
+  {
+    id: "prava",
+    title: "Permisije",
+    description: "Permissions section",
+    path: "prava",
+    component: Permissions,
+  },
+  {
+    id: "privileges",
+    title: "Privilegije",
+    description: "Privileges section",
+    path: "privilegije",
+    component: Privileges,
+  },
+  {
+    id: "zupe",
+    title: "Župe",
+    description: "Districts section",
+    path: "zupe",
+    component: Districts
+  },
+  {
+    id: "cities",
+    title: "Gradovi",
+    description: "Cities section",
+    path: "gradovi",
+    component: Cities
+  },
+  {
+    id: "states",
+    title: "Države",
+    description: "States section",
+    path: "drzave",
+    component: States
+  },
+  {
     id: "users",
     title: "Users",
     description: "Users desc",
     path: "users",
     component: Users
-  },
-  {
-    id: "123",
-    title: "Posts",
-    description: "Posts desc",
-    path: "posts",
-    component: Posts
   }
 ];
 

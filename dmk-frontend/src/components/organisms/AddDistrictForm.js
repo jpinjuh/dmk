@@ -13,22 +13,16 @@ import InputForm from "Components/molecules/InputForm"
 
 const requiredInputs = [
   {
-    label: 'Naziv prava',
+    label: 'Naziv župe',
     type: 'text',
     disabled: false,
-    name_in_db: 'permission_name',
+    name_in_db: 'district_name',
   },
   {
-    label: 'Naziv rute',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'route_name',
-  },
-  {
-    label: 'Naziv metode',
+    label: 'Grad',
     type: 'autocomplete',
     disabled: false,
-    name_in_db: 'method_name',
+    name_in_db: 'grad_name',
   },
 ]
 
@@ -41,13 +35,13 @@ const AddPermissionsForm = () => {
         <Title 
           variant="h5" 
           align={'left'} 
-          title={'Dodaj pravo'}
+          title={'Dodaj župu'}
         />
       </Box>
       <form>
         <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
         <Box mt={2}>
-          <Button label="+ Dodaj pravo"/>
+          <Button label="+ Dodaj župu"/>
         </Box>
       </form>
     </>
