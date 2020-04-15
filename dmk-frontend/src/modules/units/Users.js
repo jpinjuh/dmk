@@ -6,6 +6,7 @@
 
 import { postFunc } from "Services/mainApiServices";
 import { NotificationManager } from "react-notifications";
+import { getFunc } from "../../services/mainApiServices";
 
 /**
 |--------------------------------------------------
@@ -26,11 +27,8 @@ const GET_DATA_FLR = "GET_DATA_FLR";
 export const getData = () => async dispatch => {
   dispatch({ type: GET_DATA_REQ });
 
-  const response = await postFunc("guest/pagination", {
-    filter_data: { search: "" },
-    pagination_data: { start: 0, length: 10 }
-  });
-
+  const response = await getFunc("user");
+  console.log(response)
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_DATA_SCS, payload: response.data });
   } else {

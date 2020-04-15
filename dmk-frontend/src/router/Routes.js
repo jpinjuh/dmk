@@ -11,7 +11,6 @@ import MainLayout from "Layouts/MainLayout";
 const Home = lazy(() => import("Pages/home/index.js"));
 const Admin = lazy(() => import("Pages/admin/index.js"));
 const Users = lazy(() => import("Pages/users/index.js"));
-const Posts = lazy(() => import("Pages/posts/index.js"));
 const Roles = lazy(() => import("Pages/roles/index.js"));
 const Permissions = lazy(() => import("Pages/permissions/index.js"));
 const Privileges = lazy(() => import("Pages/privileges/index.js"));
@@ -89,13 +88,6 @@ export const publicRoutes = [
     description: "States section",
     path: "drzave",
     component: States
-  },
-  {
-    id: "users",
-    title: "Users",
-    description: "Users desc",
-    path: "users",
-    component: Users
   }
 ];
 
@@ -112,5 +104,12 @@ export const privateRoutes = [
     description: "Dashboard section",
     path: "admin",
     component: Admin
+  },
+  {
+    id: "users",
+    title: "Users",
+    description: "Users desc",
+    path: "users",
+    component: Users
   }
 ];

@@ -26,13 +26,13 @@ const PublicRoutes = ({
   <Route
     {...rest}
     render={props => (
-      <MainLayout>
+      <TripleLayout>
         <Helmet>
           <title>DMK | {title}</title>
           <meta name="description" content={description} />
         </Helmet>
         <CustomComp {...props} />
-      </MainLayout>
+      </TripleLayout>
     )}
   />
 );
@@ -48,13 +48,13 @@ const PrivateRoutes = ({
     {...rest}
     render={props =>
       user ? (
-        <TripleLayout>
+        <MainLayout>
           <Helmet>
             <title>DMK | {title}</title>
             <meta name="description" content={description} />
           </Helmet>
           <CustomComp {...props} />
-        </TripleLayout>
+        </MainLayout>
       ) : (
         <Redirect
           to={{

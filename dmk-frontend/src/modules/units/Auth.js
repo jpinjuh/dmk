@@ -47,9 +47,9 @@ export const login = (url, body, history) => async dispatch => {
     decode = JSON.parse(decode.replace(/[^\x01-\x7F]/g, ""));
     if (decode && response.access_token) {
       localStorage.setItem("user", JSON.stringify(decode));
-      localStorage.setItem("data", JSON.stringify(response.data));
+      //localStorage.setItem("data", JSON.stringify(response.data));
       localStorage.setItem("jwt-token", JSON.stringify(response.access_token));
-      localStorage.setItem("meni", JSON.stringify(response.meni));
+      //localStorage.setItem("meni", JSON.stringify(response.meni));
       dispatch({ type: LOGIN_SCS, payload: { user: decode, data: response } });
       history.push("admin");
     }
@@ -101,7 +101,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
       return {
         ...state,
         items: {},
-        loadnig: true
+        loading: true
       };
     case LOGIN_SCS:
       return {

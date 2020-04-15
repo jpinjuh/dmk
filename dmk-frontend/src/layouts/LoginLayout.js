@@ -40,8 +40,7 @@ const LoginLayout = () => {
 
     const body = {
       username,
-      password,
-      lang: "en"
+      password
     };
 
     dispatch(login("login", body, history));
