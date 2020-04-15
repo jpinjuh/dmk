@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // MUI
 import MUIDataTable from "mui-datatables";
+import TextField from "@material-ui/core/TextField";
 
 const Table = () =>  {
   const [tableData, setTableData] = useState({
@@ -31,11 +32,17 @@ const Table = () =>  {
 
     options: {
         elevation: 0,
-        filter: false,
         print: false,
         download: false,
         viewColumns: false,
         customToolbar: null,
+        searchOpen: true,
+        /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+          return (
+            <TextField
+            />
+          );
+        }, */
         responsive: '',
     }
   });

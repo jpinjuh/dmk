@@ -47,6 +47,29 @@ export const publicRoutes = [
     path: "reset",
     component: PasswordResetLayout
   },
+];
+
+/**
+|--------------------------------------------------
+| PRIVATE ROUTES
+|--------------------------------------------------
+*/
+
+export const privateRoutes = [
+  {
+    id: "admin",
+    title: "Dashboard",
+    description: "Dashboard section",
+    path: "admin",
+    component: Admin
+  },
+  {
+    id: "users",
+    title: "Users",
+    description: "Users desc",
+    path: "korisnici",
+    component: Users
+  },
   {
     id: "role",
     title: "Role",
@@ -88,28 +111,5 @@ export const publicRoutes = [
     description: "States section",
     path: "drzave",
     component: States
-  }
-];
-
-/**
-|--------------------------------------------------
-| PRIVATE ROUTES
-|--------------------------------------------------
-*/
-
-export const privateRoutes = [
-  {
-    id: "admin",
-    title: "Dashboard",
-    description: "Dashboard section",
-    path: "admin",
-    component: Admin
-  },
-  {
-    id: "users",
-    title: "Users",
-    description: "Users desc",
-    path: "users",
-    component: Users
   }
 ];

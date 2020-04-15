@@ -4,7 +4,7 @@
   "description": "TripleS React Boilerplate",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --env.MAIN_API_URL='http://0.0.0.0:5010' --env.PANEL_API_URL='http://0.0.0.0:5000' --mode development --hot --open",
+    "start": "webpack-dev-server --env.MAIN_API_URL='http://0.0.0.0:5000' --env.PANEL_API_URL='http://0.0.0.0:5000' --mode development --hot --open",
     "build": "webpack  --env.MAIN_API_URL='http://0.0.0.0:5010' --env.PANEL_API_URL='http://0.0.0.0:5000' --mode production",
     "sw": "rm -rf build && webpack --env.MAIN_API_URL='http://0.0.0.0:5010' --env.PANEL_API_URL='http://0.0.0.0:5000' --mode production && serve -l 3001 -s build"
   },
