@@ -1,27 +1,21 @@
 // React
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getData } from "Modules/units/Users";
+import React from 'react';
 
-// MUI
-import { Typography, CircularProgress } from "@material-ui/core";
+// Organisms
+import ModeratorDataTable from 'Components/organisms/ModeratorDataTable';
+
+// Templates
+import ModeratorTemplate from 'Components/templates/ModeratorTemplate'
 
 const Users = () => {
-  const users = useSelector(state => state.users);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
-
   return (
     <>
-      <Typography variant="h4">Users screen</Typography>
-      {users.loading && <CircularProgress />}
-      {users.data &&
-        users.data.map(user => {
-          return <Typography key={user.id}>{user.first_name}</Typography>;
-        })}
+      <ModeratorTemplate
+        moderatorDataTable={<ModeratorDataTable 
+          label={'+ Dodaj korisnika'} 
+          title={'Popis korisnika'}
+        />}
+      ></ModeratorTemplate>
     </>
   );
 };
