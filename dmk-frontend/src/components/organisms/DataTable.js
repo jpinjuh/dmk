@@ -1,5 +1,7 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { getData } from "Modules/units/Roles";
 
 // MUI
 import Box from "@material-ui/core/Box";
@@ -10,7 +12,16 @@ import Title from 'Components/atoms/UI/Title'
 // Molecules
 import Table from "Components/molecules/Table"
 
-const DataTable = ({title}) => {
+const DataTable = ({title, selector}) => {
+
+  console.log(selector)
+  const roles = useSelector(state => state.roles);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
+
   return (
     <>
       <Box mb={7}>
@@ -20,7 +31,7 @@ const DataTable = ({title}) => {
           title={title}
         />
       </Box>
-      <Table></Table>
+      <Table data={roles}></Table>
     </>
   );
 };

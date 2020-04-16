@@ -4,55 +4,60 @@ import React, { useState } from 'react';
 import MUIDataTable from "mui-datatables";
 import TextField from "@material-ui/core/TextField";
 
-const Table = () =>  {
+const Table = ({data}) =>  {
+  
+  if(data.data)
+  console.log(data.data)
+  const columns = [
+    {
+     name: "created_at",
+     label: "Name",
+     options: {
+      filter: true,
+      sort: true,
+     }
+    },
+    {
+     name: "id",
+     label: "Company",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    }]
+
+  const options= {
+    elevation: 0,
+    print: false,
+    download: false,
+    viewColumns: false,
+    customToolbar: null,
+    searchOpen: true,
+    /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+      return (
+        <TextField
+        />
+      );
+    }, */
+    responsive: '',
+  }
   const [tableData, setTableData] = useState({
-    columns: ["Name", "Company", "City", "State"],
+    
 
-    data: [
-        ["Joe James", "Test Corp", "Yonkers", "NY"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Joe James", "Test Corp", "Yonkers", "NY"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Joe James", "Test Corp", "Yonkers", "NY"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-    ],
+    data: [data.data && data.data],
 
-    options: {
-        elevation: 0,
-        print: false,
-        download: false,
-        viewColumns: false,
-        customToolbar: null,
-        searchOpen: true,
-        /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
-          return (
-            <TextField
-            />
-          );
-        }, */
-        responsive: '',
-    }
+    
   });
 
+  if(data.data)
+  setTableData(data.data)
+  console.log(tableData)
   return (
     <MUIDataTable
       title={''}
       data={tableData.data}
-      columns={tableData.columns}
-      options={tableData.options}
+      columns={columns}
+      options={options}
     />
   );
 }
