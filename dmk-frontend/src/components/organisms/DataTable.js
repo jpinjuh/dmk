@@ -12,9 +12,9 @@ import Title from 'Components/atoms/UI/Title'
 // Molecules
 import Table from "Components/molecules/Table"
 
-const DataTable = ({title, selector}) => {
+const DataTable = ({title, selector, model}) => {
 
-  console.log(selector)
+  console.log(model)
   const roles = useSelector(state => state.roles);
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const DataTable = ({title, selector}) => {
           title={title}
         />
       </Box>
-      <Table data={roles}></Table>
+      <Table data={roles} model={model}></Table>
     </>
   );
 };
