@@ -5,7 +5,7 @@ import MUIDataTable from "mui-datatables";
 import TextField from "@material-ui/core/TextField";
 
 const Table = ({data}) =>  {
-  
+
   if(data.data)
   console.log(data.data)
   const columns = [
@@ -42,11 +42,11 @@ const Table = ({data}) =>  {
     responsive: '',
   }
   const [tableData, setTableData] = useState({
-    
+
 
     data: [data.data && data.data],
 
-    
+
   });
 
   if(data.data)
