@@ -39,10 +39,6 @@ const AddRoleForm = () => {
     dispatch(postData("role", body))
   };
 
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
-
   return (
     <>
       <Box mb={3}>

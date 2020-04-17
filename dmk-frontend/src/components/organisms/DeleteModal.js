@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+
+// MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -11,7 +14,9 @@ import InputForm from "Components/molecules/InputForm"
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
-import Title from "Components/atoms/UI/Title";
+
+// Actions
+import { deleteData } from "Modules/units/Roles";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -33,16 +38,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DeleteModal = ({ onDelete, closeDelete }) => {
+const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
   const classes = useStyles();
-  const [text, setText] = React.useState('');
+  const dispatch = useDispatch();
 
-  const handleChange = event => {
-    setText(event.target.value);
-  };
-
-  const editItem = (event) => {
-    event.preventDefault();
+  const deleteItem = (e) => {
+    e.preventDefault();
+    dispatch(deleteData(`role/${itemId}`))
+    closeDelete();
   }
 
   return (
@@ -69,6 +72,7 @@ const DeleteModal = ({ onDelete, closeDelete }) => {
                 <Box pr={1}>
                   <Button 
                     label="Potvrdi"
+                    onClick={deleteItem}
                   />
                 </Box>
                 <Box>

@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
+
+// MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -12,6 +15,9 @@ import InputForm from "Components/molecules/InputForm"
 // Atoms
 import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
+
+// Actions
+import { putData } from "Modules/units/Roles";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -39,21 +45,31 @@ const requiredInputs = [
     type: 'text',
     disabled: false,
     name_in_db: 'first_name',
+    value: ''
   },
 ]
 
-const EditModal = ({ onOpen, closeModal }) => {
+const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
-  const [text, setText] = useState('sda');
+  const dispatch = useDispatch();
+  
   const [inputs, setInputs] = useState(requiredInputs);
 
-  const handleChange = event => {
-    setText(event.target.value);
-  };
+  const editItem = (e) => {
+    e.preventDefault();
 
-  const editItem = (event) => {
-    event.preventDefault();
+    const name = inputs[0].value;
+    const body = {
+      name
+    }
+
+    dispatch(putData(`role/${itemId}`, body));
+    closeModal();
   }
+
+  useEffect(() => {
+    inputs[0].value = item[0]
+  }, [item[0]]);
 
   return (
     <div>
@@ -76,7 +92,6 @@ const EditModal = ({ onOpen, closeModal }) => {
                   variant="h5" 
                   align={'left'} 
                   title={'Uredi rolu'}
-                  value={text}
                 />
               </Box>
               <form>
@@ -85,6 +100,7 @@ const EditModal = ({ onOpen, closeModal }) => {
                   <Box pr={1}>
                     <Button 
                       label="Potvrdi"
+                      onClick={editItem}
                     />
                   </Box>
                   <Box>

@@ -5,7 +5,7 @@
 */
 
 import { NotificationManager } from "react-notifications";
-import { getFunc, postFunc } from "../../services/mainApiServices";
+import { getFunc, postFunc, deleteFunc, putFunc } from "../../services/mainApiServices";
 
 /**
 |--------------------------------------------------
@@ -27,7 +27,7 @@ export const getData = () => async dispatch => {
   dispatch({ type: GET_DATA_REQ });
 
   const response = await getFunc("role");
-  console.log(response)
+
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_DATA_SCS, payload: response.data });
   } else {
@@ -41,7 +41,32 @@ export const postData = (url, body) => async dispatch => {
   const response = await postFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    console.log('Uspješno!!')
+    console.log('Uspješno!!');
+    dispatch(getData());
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
+
+export const deleteData = url => async dispatch => {
+
+  const response = await deleteFunc(url);
+
+  if (response.status.errorCode === 200) {
+    console.log('Uspješno!!');
+    dispatch(getData());
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
+
+export const putData = (url, body) => async dispatch => {
+
+  const response = await putFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    console.log('Uspješno!!');
+    dispatch(getData());
   } else {
     NotificationManager.error(response.status.description);
   }
