@@ -42,6 +42,7 @@ export const postData = (url, body) => async dispatch => {
 
   if (response.status.errorCode === 200) {
     console.log('Uspješno!!')
+    dispatch(getData());
   } else {
     NotificationManager.error(response.status.description);
   }

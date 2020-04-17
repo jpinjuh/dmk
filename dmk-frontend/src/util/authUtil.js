@@ -24,7 +24,7 @@ export function checkToken() {
     const iat = new Date(user.iat * 1000);
     const exp = new Date(user.exp * 1000);
     const time = new Date();
-    iat.setMinutes(iat.getMinutes() + 30);
+    iat.setMinutes(iat.getMinutes() + 60);
     if (time > iat && time < exp) {
       renewToken("renew", history);
     } else if (new Date() > exp) {

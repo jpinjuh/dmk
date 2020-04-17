@@ -37,11 +37,13 @@ const AddRoleForm = () => {
     }
 
     dispatch(postData("role", body))
+    //setInputs([0].value = '')
+    //dispatch(getData());
   };
-
+/*
   useEffect(() => {
     dispatch(getData());
-  }, []);
+  });*/
 
   return (
     <>
