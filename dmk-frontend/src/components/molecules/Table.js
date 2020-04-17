@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
-import { Box } from "@material-ui/core";
+import React, { useState, useEffect } from 'react';
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
+
 // MUI
 import MUIDataTable from "mui-datatables";
+import { Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { Divider } from '@material-ui/core';
 
-const Table = ({data, model}) =>  {
+// Organisms
+import EditModal from 'Components/organisms/EditModal'
+import DeleteModal from 'Components/organisms/DeleteModal'
 
-  //console.log(data.data)
-  console.log(model)
+import { getData } from "Modules/units/Roles";
+
+const Table = ({data, model}) =>  {
+  const [ open, setOpen] = React.useState(false);
+  const [ deleteOpen, setDeleteOpen] = React.useState(false);
+
   const columns = [...model, {
     name: "id",
-    label: "Actions",
+    label: "Akcije",
     options: {
       filter: true,
       sort: true,
@@ -24,17 +31,15 @@ const Table = ({data, model}) =>  {
             <Box p={1} display="flex">
               <Box px={2}>
                 <Button 
-                  color="primary" 
-                  variant="contained"
-                  disableElevation
-                >Delete</Button>
+                  label={'Uredi'}
+                  onClick={() => setOpen(true)} 
+                />
               </Box>
               <Box>
                 <Button 
-                  color="primary" 
-                  variant="contained"
-                  disableElevation
-                >Edit</Button>
+                  label={'Obriši'}
+                  onClick={() => setDeleteOpen(true)}
+                />
               </Box>
             </Box>
           </div>                       
@@ -42,9 +47,8 @@ const Table = ({data, model}) =>  {
       }
     }
   }]
-  const [tableData, setTableData] = useState({
-  
 
+  const [tableData, setTableData] = useState({
     /*data: [
         ["Joe James", "Test Corp", "Yonkers", "NY"],
         ["John Walsh", "Test Corp", "Hartford", "CT"],
@@ -68,34 +72,41 @@ const Table = ({data, model}) =>  {
     ],*/
 
     options: {
-        elevation: 0,
-        print: false,
-        download: false,
-        viewColumns: false,
-        customToolbar: null,
-        searchOpen: true,
-        /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
-          return (
-            <TextField
-            />
-          );
-        }, */
-        responsive: '',
+      elevation: 0,
+      print: false,
+      download: false,
+      viewColumns: false,
+      customToolbar: null,
+      searchOpen: true,
+      selectableRows: 'none',
+      /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+        return (
+          <TextField
+          />
+        );
+      }, */
+      responsive: '',
     }
   });
-  if(data.data)
-  console.log(Object.keys(data.data[0]))
 
   return (
     <>
-     {data.data &&
-        
-      <MUIDataTable
-    title={''}
-    data={data.data}
-    columns={columns}
-    options={tableData.options}
-     />}
+      {data.data &&
+        <MUIDataTable
+          title={''}
+          data={data.data}
+          columns={columns}
+          options={tableData.options}
+      />}
+      <EditModal
+        onOpen={open} 
+        closeModal={() => setOpen(false)} 
+      ></EditModal>
+
+      <DeleteModal
+        onDelete={deleteOpen} 
+        closeDelete={() => setDeleteOpen(false)} 
+      ></DeleteModal>
     </>
     
   );

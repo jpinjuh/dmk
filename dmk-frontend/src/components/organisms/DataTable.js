@@ -13,10 +13,9 @@ import Title from 'Components/atoms/UI/Title'
 import Table from "Components/molecules/Table"
 
 const DataTable = ({title, selector, model}) => {
-
-  console.log(model)
-  const roles = useSelector(state => state.roles);
   const dispatch = useDispatch();
+  
+  const roles = useSelector(state => state.roles);
 
   useEffect(() => {
     dispatch(getData());

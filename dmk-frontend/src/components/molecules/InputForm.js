@@ -13,7 +13,7 @@ const InputForm = props => {
 
   const handleInputChange = index => value => {
     const tempInputs = [...inputs];
-
+    console.log(tempInputs)
     tempInputs[index].value = value;
 
     setInputs(tempInputs);

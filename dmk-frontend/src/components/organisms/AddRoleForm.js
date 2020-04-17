@@ -1,5 +1,6 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
 
 // MUI
 import { Box } from "@material-ui/core";
@@ -10,6 +11,9 @@ import Title from "Components/atoms/UI/Title";
 
 // Molecules
 import InputForm from "Components/molecules/InputForm"
+
+// Actions
+import { postData, getData } from "Modules/units/Roles";
 
 const requiredInputs = [
   {
@@ -22,6 +26,22 @@ const requiredInputs = [
 
 const AddRoleForm = () => {
   const [inputs, setInputs] = useState(requiredInputs);
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const name = inputs[0].value
+    const body = {
+      name
+    }
+
+    dispatch(postData("role", body))
+  };
+
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
 
   return (
     <>
@@ -33,9 +53,15 @@ const AddRoleForm = () => {
         />
       </Box>
       <form>
-        <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
+        <InputForm 
+          inputs={inputs} 
+          setInputs={setInputs}
+        />
         <Box mt={2}>
-          <Button label="+ Dodaj rolu"/>
+          <Button 
+            label="+ Dodaj rolu" 
+            type={"submit"}
+            onClick={handleSubmit} />
         </Box>
       </form>
     </>

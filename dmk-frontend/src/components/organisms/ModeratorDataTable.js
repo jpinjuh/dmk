@@ -20,14 +20,6 @@ const ModeratorDataTable = ({title, label}) => {
     e.preventDefault();
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
       <Box mb={7} display="flex" justifyContent="space-between">
@@ -38,7 +30,6 @@ const ModeratorDataTable = ({title, label}) => {
         />
         <Button
           label="+ Dodaj korisnika"
-          type="submit"
           onClick={() => setOpen(true)}
         />
       </Box>
