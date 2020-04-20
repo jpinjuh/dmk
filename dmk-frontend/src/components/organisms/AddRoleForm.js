@@ -31,6 +31,8 @@ const AddRoleForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
+   
+
     const name = inputs[0].value
     const body = {
       name
@@ -39,11 +41,21 @@ const AddRoleForm = () => {
     dispatch(postData("role", body))
     //setInputs([0].value = '')
     //dispatch(getData());
+    console.log(inputs)
+    //inputs[0].value=''
+    //console.log(inputs)
+    setInputs([
+      {
+        label: 'Naziv role',
+        type: 'text',
+        disabled: false,
+        name_in_db: 'role_name',
+      },
+    ]);
+    //setInputs([...requiredInputs]);
+    console.log(inputs)
+   
   };
-/*
-  useEffect(() => {
-    dispatch(getData());
-  });*/
 
   return (
     <>

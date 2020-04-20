@@ -8,15 +8,16 @@ import DataTable from 'Components/organisms/DataTable';
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
-const Roles = () => {
+const Privileges = () => {
+  const selector = '/privilegije'
   return (
     <>
       <AdminTemplate
         addForm={<AddPrivilegesForm />}
-        dataTable={<DataTable title={'Popis privilegija'}/>}
+        dataTable={<DataTable title={'Popis privilegija'} selector={selector}/>}
       ></AdminTemplate>
     </>
   );
 };
 
-export default Roles;
+export default Privileges;

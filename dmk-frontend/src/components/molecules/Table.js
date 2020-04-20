@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
@@ -13,11 +14,11 @@ import { Divider } from '@material-ui/core';
 import EditModal from 'Components/organisms/EditModal'
 import DeleteModal from 'Components/organisms/DeleteModal'
 
-import { getData } from "Modules/units/Roles";
-
 const Table = ({data, model}) =>  {
-  const [ open, setOpen] = React.useState(false);
-  const [ deleteOpen, setDeleteOpen] = React.useState(false);
+  const [ open, setOpen] = useState(false);
+  const [ deleteOpen, setDeleteOpen] = useState(false);
+  const [ itemId, setItemId] = useState('');
+  const [ item, setItem ] = useState('');
 
   const columns = [...model, {
     name: "id",
@@ -32,13 +33,13 @@ const Table = ({data, model}) =>  {
               <Box px={2}>
                 <Button 
                   label={'Uredi'}
-                  onClick={() => setOpen(true)} 
+                  onClick={() => {setOpen(true); setItemId(value); setItem(tableMeta.rowData)}} 
                 />
               </Box>
               <Box>
                 <Button 
                   label={'Obriši'}
-                  onClick={() => setDeleteOpen(true)}
+                  onClick={() => {setDeleteOpen(true); setItemId(value)}}
                 />
               </Box>
             </Box>
@@ -48,46 +49,22 @@ const Table = ({data, model}) =>  {
     }
   }]
 
-  const [tableData, setTableData] = useState({
-    /*data: [
-        ["Joe James", "Test Corp", "Yonkers", "NY"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Joe James", "Test Corp", "Yonkers", "NY"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Joe James", "Test Corp", "Yonkers", "NY"],
-        ["John Walsh", "Test Corp", "Hartford", "CT"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-        ["Bob Herm", "Test Corp", "Tampa", "FL"],
-        ["James Houston", "Test Corp", "Dallas", "TX"],
-    ],*/
-
-    options: {
-      elevation: 0,
-      print: false,
-      download: false,
-      viewColumns: false,
-      customToolbar: null,
-      searchOpen: true,
-      selectableRows: 'none',
-      /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
-        return (
-          <TextField
-          />
-        );
-      }, */
-      responsive: '',
-    }
-  });
+  const options = {
+    elevation: 0,
+    print: false,
+    download: false,
+    viewColumns: false,
+    customToolbar: null,
+    searchOpen: true,
+    selectableRows: 'none',
+    /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+      return (
+        <TextField
+        />
+      );
+    }, */
+    responsive: '',
+  }
 
   return (
     <>
@@ -96,16 +73,19 @@ const Table = ({data, model}) =>  {
           title={''}
           data={data.data}
           columns={columns}
-          options={tableData.options}
+          options={options}
       />}
       <EditModal
         onOpen={open} 
-        closeModal={() => setOpen(false)} 
+        closeModal={() => setOpen(false)}
+        item={item}
+        itemId={itemId}
       ></EditModal>
 
       <DeleteModal
         onDelete={deleteOpen} 
-        closeDelete={() => setDeleteOpen(false)} 
+        closeDelete={() => setDeleteOpen(false)}
+        itemId={itemId}
       ></DeleteModal>
     </>
     
