@@ -95,7 +95,7 @@ export const privateRoutes = [
     id: "zupe",
     title: "Župe",
     description: "Districts section",
-    path: "zupe",
+    path: "župe",
     component: Districts
   },
   {
@@ -109,7 +109,7 @@ export const privateRoutes = [
     id: "states",
     title: "Države",
     description: "States section",
-    path: "drzave",
+    path: "države",
     component: States
   }
 ];

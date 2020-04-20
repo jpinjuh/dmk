@@ -35,14 +35,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const sidebarListItems = [
-  'Role',
-  'Prava',
-  'Privilegije',
-  'Korisnici', 
-  'Tenanti', 
-  'Zupe', 
-  'Gradovi', 
-  'Drzave',
+  {name:'Role', path: '/role'},
+  {name:'Prava', path: '/prava'},
+  {name:'Privilegije', path: '/privilegije'},
+  {name:'Korisnici', path: '/korisnici'},
+  {name:'Tenanti', path: '/tenanti'},
+  {name:'Župe', path: '/župe'} ,
+  {name:'Gradovi', path: '/gradovi'},
+  {name:'Države', path: '/države'},
 ]
 
 const Sidebar = () => {
@@ -61,14 +61,14 @@ const Sidebar = () => {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {sidebarListItems.map((text, index) => (
+            {sidebarListItems.map(route => (
               <ListItem 
-                button key={text} 
+                button key={route.name} 
                 component={Link} 
-                to={"/" + text.toLowerCase()} 
-                selected={('/' + text.toLowerCase()) === location.pathname}
+                to={route.path} 
+                selected={route.path === location.pathname}
               >
-                <ListItemText primary={text} />
+                <ListItemText primary={route.name} />
               </ListItem>
             ))}
           </List>

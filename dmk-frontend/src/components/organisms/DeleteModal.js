@@ -14,6 +14,7 @@ import InputForm from "Components/molecules/InputForm"
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
+import Title from "Components/atoms/UI/Title"
 
 // Actions
 import { deleteData } from "Modules/units/Roles";
@@ -65,7 +66,11 @@ const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
           <div className={classes.paper}>
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
-                <p>Jeste li sigurni da želite obrisati odabranu rolu?</p>
+                <Title 
+                  variant="h6" 
+                  align={'left'} 
+                  title={'Jeste li sigurni da želite obrisati odabranu rolu?'}
+                />
               </Box>
               
               <Box pt={3} display="flex" justifyContent="flex-start">

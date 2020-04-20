@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 
-// Atoms
-import Button from "Components/atoms/buttons/Button";
+// Molecules
+import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // MUI
 import MUIDataTable from "mui-datatables";
@@ -29,16 +29,18 @@ const Table = ({data, model}) =>  {
       customBodyRender: (value, tableMeta) => {
         return (
           <div>
-            <Box p={1} display="flex">
-              <Box px={2}>
-                <Button 
+            <Box display="flex">
+              <Box mr={3}>
+                <ButtonWithIcon 
                   label={'Uredi'}
+                  icon={"edit"}
                   onClick={() => {setOpen(true); setItemId(value); setItem(tableMeta.rowData)}} 
                 />
               </Box>
               <Box>
-                <Button 
+                <ButtonWithIcon 
                   label={'Obriši'}
+                  icon={"delete"}
                   onClick={() => {setDeleteOpen(true); setItemId(value)}}
                 />
               </Box>
