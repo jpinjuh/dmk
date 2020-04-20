@@ -2,21 +2,23 @@
 import React, { useState } from 'react';
 
 // Organisms
-import AddPermissionForm from 'Components/organisms/AddPermissionForm';
+import AddPrivilegesForm from 'Components/organisms/AddPrivilegesForm';
 import DataTable from 'Components/organisms/DataTable';
+import Permission from './model/permission';
 
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
-const Permissions = () => {
+const Privileges = () => {
+  const selector = 'prava'
   return (
     <>
       <AdminTemplate
-        addForm={<AddPermissionForm />}
-        dataTable={<DataTable title={'Popis prava'}/>}
+        addForm={<AddPrivilegesForm />}
+        dataTable={<DataTable title={'Popis prava'} selector={selector} model={Permission}/>}
       ></AdminTemplate>
     </>
   );
 };
 
-export default Permissions;
+export default Privileges;

@@ -11,8 +11,7 @@ import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Roles = () => {
 
-  const selector = '/role'
-  console.log(Role)
+  const selector = 'role'
   return (
     <>
       <AdminTemplate

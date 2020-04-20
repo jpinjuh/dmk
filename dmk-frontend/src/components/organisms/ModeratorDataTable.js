@@ -1,5 +1,7 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { getData as getUsers} from "Modules/units/Users";
 
 // MUI
 import Box from "@material-ui/core/Box";
@@ -14,11 +16,19 @@ import Table from "Components/molecules/Table"
 // Organisms 
 import AddUserModal from 'Components/organisms/AddUserModal'
 
-const ModeratorDataTable = ({title, label}) => {
+const ModeratorDataTable = ({title, label, model}) => {
+  const dispatch = useDispatch();
+
   const [ open, setOpen] = React.useState(false);
   const handleSubmit = e => {
     e.preventDefault();
   };
+
+  const users = useSelector(state => state.users);
+
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [])
 
   return (
     <>
@@ -33,7 +43,7 @@ const ModeratorDataTable = ({title, label}) => {
           onClick={() => setOpen(true)}
         />
       </Box>
-      <Table></Table>
+      <Table data={users} model={model}></Table>
       <AddUserModal
         onOpen={open} 
         closeModal={() => setOpen(false)} 
