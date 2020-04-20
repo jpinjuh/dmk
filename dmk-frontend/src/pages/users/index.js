@@ -6,6 +6,7 @@ import ModeratorDataTable from 'Components/organisms/ModeratorDataTable';
 
 // Templates
 import ModeratorTemplate from 'Components/templates/ModeratorTemplate'
+import User from './model/user';
 
 const Users = () => {
   return (
@@ -14,6 +15,7 @@ const Users = () => {
         moderatorDataTable={<ModeratorDataTable 
           label={'+ Dodaj korisnika'} 
           title={'Popis korisnika'}
+          model={User}
         />}
       ></ModeratorTemplate>
     </>

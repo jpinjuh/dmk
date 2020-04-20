@@ -2,18 +2,20 @@
 import React, { useState } from 'react';
 
 // Organisms
-import AddDistrictForm from 'Components/organisms/AddDistrictForm';
+import AddCityForm from 'Components/organisms/AddCityForm';
 import DataTable from 'Components/organisms/DataTable';
+import District from './model/district';
 
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Permissions = () => {
+  const selector = 'zupe'
   return (
     <>
       <AdminTemplate
-        addForm={<AddDistrictForm />}
-        dataTable={<DataTable title={'Popis župa'}/>}
+        addForm={<AddCityForm />}
+        dataTable={<DataTable title={'Popis župa'} selector={selector} model={District}/>}
       ></AdminTemplate>
     </>
   );
