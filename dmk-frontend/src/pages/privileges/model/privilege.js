@@ -22,14 +22,14 @@ export const PrivilegeForm = [
     label: 'Rola',
     type: 'autocomplete',
     disabled: false,
-    name_in_db: 'roles_id',
+    name_in_db: 'role',
     service: 'role/autocomplete'
   },
   {
     label: 'Pravo',
     type: 'autocomplete',
     disabled: false,
-    name_in_db: 'permissions_id',
+    name_in_db: 'permission',
     service: 'permission/autocomplete'
   },
 ]

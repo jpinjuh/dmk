@@ -20,7 +20,7 @@ export const Districtform = [
     label: 'Grad',
     type: 'autocomplete',
     disabled: false,
-    name_in_db: 'cities_id',
+    name_in_db: 'city',
     service: 'city/autocomplete'
   },
 ]

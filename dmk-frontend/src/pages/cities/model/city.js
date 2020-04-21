@@ -28,7 +28,7 @@ export const CitiesForm = [
     label: 'Država',
     type: 'autocomplete',
     disabled: false,
-    name_in_db: 'states_id',
+    name_in_db: 'state',
     service: 'state/autocomplete'
   },
 ]
