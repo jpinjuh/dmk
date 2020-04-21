@@ -1,4 +1,4 @@
-const Permission = [
+export const PermissionTableData = [
     {
         label: 'Naziv permisije',
         name: 'name',
@@ -25,4 +25,24 @@ const Permission = [
     }
     ]
     
-    export default Permission;
+  
+export const PermissionForm = [
+        {
+          label: 'Naziv prava',
+          type: 'text',
+          disabled: false,
+          name_in_db: 'name',
+        },
+        {
+            label: 'Ruta',
+            type: 'text',
+            disabled: false,
+            name_in_db: 'route',
+        },
+        {
+          label: 'Metoda',
+          type: 'text',
+          disabled: false,
+          name_in_db: 'method',
+        },
+      ]  

@@ -1,4 +1,4 @@
-const State = [
+export const StateTableData = [
     {
         label: 'Naziv države',
         name: 'name',
@@ -6,7 +6,14 @@ const State = [
             filter: true,
             sort: true,
            }
-    }
+    },
     ]
-    
-    export default State;
+  
+export const StateForm = [
+  {
+    label: 'Naziv države',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'name',
+  },
+]

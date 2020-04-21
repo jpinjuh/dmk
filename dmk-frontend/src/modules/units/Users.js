@@ -4,9 +4,8 @@
 |--------------------------------------------------
 */
 
-import { postFunc } from "Services/mainApiServices";
 import { NotificationManager } from "react-notifications";
-import { getFunc } from "../../services/mainApiServices";
+import { getFunc, postFunc } from "../../services/mainApiServices";
 
 /**
 |--------------------------------------------------

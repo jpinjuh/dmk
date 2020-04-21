@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 
 // Organisms
-import AddCityForm from 'Components/organisms/AddCityForm';
+import AddRoleForm from 'Components/organisms/AddRoleForm';
 import DataTable from 'Components/organisms/DataTable';
-import District from './model/district';
+
+// Models
+import { DistrictTableData } from 'Pages/districts/model/district'
 
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
@@ -14,8 +16,8 @@ const Permissions = () => {
   return (
     <>
       <AdminTemplate
-        addForm={<AddCityForm />}
-        dataTable={<DataTable title={'Popis župa'} selector={selector} model={District}/>}
+        addForm={<AddRoleForm selector={selector} title={'Dodaj župu'} />}
+        dataTable={<DataTable title={'Popis župa'} selector={selector} model={DistrictTableData}/>}
       ></AdminTemplate>
     </>
   );

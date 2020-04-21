@@ -15,11 +15,19 @@ import InputForm from "Components/molecules/InputForm"
 
 // Actions
 import { postData as postRoles } from "Modules/units/Roles";
+import { postData as postPrivileges } from "Modules/units/Privileges";
+import { postData as postPermissions } from "Modules/units/Permissions";
+import { postData as postCities } from "Modules/units/Cities";
+import { postData as postDistricts } from "Modules/units/Districts";
+import { postData as postStates } from "Modules/units/States";
 
 // Models
 import { RoleForm } from 'Pages/roles/model/role'
 import { PrivilegeForm } from 'Pages/privileges/model/privilege'
 import { CitiesForm } from 'Pages/cities/model/city'
+import { PermissionForm } from '../../pages/permissions/model/permission';
+import { StateForm } from '../../pages/states/model/state';
+import { DistrictForm } from '../../pages/districts/model/district';
 
 let requiredInputs = [], postAction;
 
@@ -32,9 +40,23 @@ const AddRoleForm = ({selector, title}) => {
       break;
     case 'privilege':
       requiredInputs = PrivilegeForm;
+      postAction = postPrivileges;
+      break;
+    case 'permission':
+      requiredInputs = PermissionForm;
+      postAction = postPermissions;
       break;
     case 'city':
       requiredInputs = CitiesForm;
+      postAction = postCities;
+      break;
+    case 'district':
+      requiredInputs = DistrictForm;
+      postAction = postDistricts;
+      break;
+    case 'state':
+      requiredInputs = StateForm;
+      postAction = postStates;
       break;
     default: 
       console.log("Not working!");
@@ -48,7 +70,9 @@ const AddRoleForm = ({selector, title}) => {
 
     const body = {};
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value;
+      //if(input.value.id)
+      //console.log(input.value.id)
+      body[input.name_in_db] = input.value.id ? (input.value.id) : (input.value);
     })
 
     dispatch(postAction(selector, body))
