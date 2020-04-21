@@ -11,7 +11,7 @@ import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const States = () => {
 
-  const selector = 'drzave'
+  const selector = 'state'
   return (
     <>
       <AdminTemplate

@@ -23,6 +23,7 @@ const requiredInputs = [
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'state_name',
+    service: 'state/autocomplete'
   },
 ]
 

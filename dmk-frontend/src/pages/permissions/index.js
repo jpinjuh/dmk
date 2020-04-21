@@ -10,7 +10,7 @@ import Permission from './model/permission';
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Privileges = () => {
-  const selector = 'prava'
+  const selector = 'permission'
   return (
     <>
       <AdminTemplate

@@ -36,6 +36,9 @@ export const getData = () => async dispatch => {
   }
 };
 
+export const postData = () => async dispatch => {
+  
+};
 /**
 |--------------------------------------------------
 | REDUCERS

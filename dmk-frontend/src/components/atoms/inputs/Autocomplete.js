@@ -38,6 +38,7 @@ const Autocomplete = props => {
     disabled
   } = props;
 
+
   const searchFunc = async value => {
     const body = {
       search: value
@@ -92,7 +93,7 @@ Autocomplete.defaultProps = {
   error: false,
   helperText: "",
   required: false,
-  valuesToDisplay: [1, 2, 3],
+  valuesToDisplay: [2],
   charsToTrigger: 1,
   disabled: false
 };

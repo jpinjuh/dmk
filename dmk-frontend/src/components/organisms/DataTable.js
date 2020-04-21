@@ -19,10 +19,8 @@ import Table from "Components/molecules/Table"
 
 const DataTable = ({title, selector, model}) => {
   const dispatch = useDispatch();
-  //const location = useLocation();
 
-  //if(selector === location.pathname)
-  const roles = useSelector(state => state.roles);
+  const tableData = useSelector(state => state.users);
 
   switch(selector) {
     case 'role':
@@ -30,27 +28,27 @@ const DataTable = ({title, selector, model}) => {
         dispatch(getRoles())
       }, [])
       break;
-    case 'drzave':
+    case 'state':
       useEffect(() => {
         dispatch(getStates())
       }, [])
       break;
-    case 'privilegije':
+    case 'privilege':
       useEffect(() => {
         dispatch(getPrivileges())
       }, [])
       break;
-    case 'prava':
+    case 'permission':
       useEffect(() => {
         dispatch(getPermissions())
       }, [])
       break;
-    case 'gradovi':
+    case 'city':
       useEffect(() => {
         dispatch(getCities())
       }, [])
       break;
-    case 'zupe':
+    case 'district':
       useEffect(() => {
         dispatch(getDistricts())
       }, [])
@@ -75,7 +73,7 @@ const DataTable = ({title, selector, model}) => {
           title={title}
         />
       </Box>
-      <Table data={roles} model={model}></Table>
+      <Table data={tableData} model={model}></Table>
     </>
   );
 };

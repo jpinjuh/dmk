@@ -10,7 +10,7 @@ import District from './model/district';
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Permissions = () => {
-  const selector = 'zupe'
+  const selector = 'district'
   return (
     <>
       <AdminTemplate

@@ -25,7 +25,7 @@ const InputForm = props => {
         input.type === "autocomplete" ? (
           <Grid item xs={12} md={6} key={input.name_in_db}>
             <Autocomplete
-              // service={input.service}
+              service={input.service}
               label={input.label}
               value={input.value}
               setParentState={handleInputChange(index)}

@@ -1,4 +1,4 @@
-const City = [
+export const CityTableData = [
     {
         label: 'Naziv grada',
         name: 'name',
@@ -16,5 +16,19 @@ const City = [
            }
     }
     ]
-    
-    export default City;
+  
+export const CitiesForm = [
+  {
+    label: 'Naziv grada',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'name',
+  },
+  {
+    label: 'Država',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'states_id',
+    service: 'state/autocomplete'
+  },
+]

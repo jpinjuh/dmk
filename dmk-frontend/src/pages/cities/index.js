@@ -2,20 +2,22 @@
 import React, { useState } from 'react';
 
 // Organisms
-import AddCityForm from 'Components/organisms/AddCityForm';
+import AddRoleForm from 'Components/organisms/AddRoleForm';
 import DataTable from 'Components/organisms/DataTable';
-import City from 'Pages/cities/model/city'
+
+// Models
+import { CityTableData } from 'Pages/cities/model/city'
 
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Permissions = () => {
-  const selector = 'gradovi'
+  const selector = 'city'
   return (
     <>
       <AdminTemplate
-        addForm={<AddCityForm />}
-        dataTable={<DataTable title={'Popis gradova'} selector={selector} model={City}/>}
+        addForm={<AddRoleForm selector={selector} title={'Dodaj grad'} />}
+        dataTable={<DataTable title={'Popis gradova'} selector={selector} model={CityTableData}/>}
       ></AdminTemplate>
     </>
   );

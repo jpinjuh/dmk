@@ -39,7 +39,6 @@ const sidebarListItems = [
   {name:'Prava', path: '/prava'},
   {name:'Privilegije', path: '/privilegije'},
   {name:'Korisnici', path: '/korisnici'},
-  {name:'Tenanti', path: '/tenanti'},
   {name:'Župe', path: '/župe'} ,
   {name:'Gradovi', path: '/gradovi'},
   {name:'Države', path: '/države'},

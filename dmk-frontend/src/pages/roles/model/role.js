@@ -1,4 +1,4 @@
-const Role = [
+export const RoleTableData = [
 {
     label: 'Naziv role',
     name: 'name',
@@ -9,4 +9,11 @@ const Role = [
 }
 ]
 
-export default Role;
+export const RoleForm = [
+  {
+    label: 'Naziv role',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'name',
+  },
+]
