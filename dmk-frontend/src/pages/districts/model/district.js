@@ -7,9 +7,17 @@ export const DistrictTableData = [
             sort: true,
            }
     },
-    ]
+    {
+      label: 'Grad',
+      name: 'city.name',
+      options: {
+          filter: true,
+          sort: true,
+         }
+  },
+]
   
-export const Districtform = [
+export const DistrictForm = [
   {
     label: 'Naziv župe',
     type: 'text',

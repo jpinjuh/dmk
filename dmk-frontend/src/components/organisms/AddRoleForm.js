@@ -70,11 +70,10 @@ const AddRoleForm = ({selector, title}) => {
 
     const body = {};
     inputs.forEach(input => {
-      //if(input.value.id)
-      //console.log(input.value.id)
-      body[input.name_in_db] = input.value.id ? (input.value.id) : (input.value);
+      body[input.name_in_db] = input.value;
     })
 
+    console.log(body)                                                                               
     dispatch(postAction(selector, body))
   };
 

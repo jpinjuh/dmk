@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +18,12 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title"
 
 // Actions
-import { deleteData } from "Modules/units/Roles";
+import { deleteData as deleteRole } from "Modules/units/Roles";
+import { deleteData as deletePermisson } from "Modules/units/Permissions";
+import { deleteData as deletePrivilege } from "Modules/units/Privileges";
+import { deleteData as deleteDistrict } from "Modules/units/Districts";
+import { deleteData as deleteCity } from "Modules/units/Cities";
+import { deleteData as deleteState } from "Modules/units/States";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -39,13 +45,52 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+let deleteAction, path, title;
+
 const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
+  
+  switch(location.pathname){
+    case '/role':
+      deleteAction = deleteRole;
+      path = 'role';
+      title= 'Jeste li sigurni da želite obrisati odabranu rolu?';
+      break;
+    case '/prava':
+      deleteAction = deletePermisson;
+      path = '/permission';
+      title= 'Jeste li sigurni da želite obrisati odabrano pravo?';
+      break;
+    case '/privilegije':
+      deleteAction = deletePrivilege;
+      path = 'privilege';
+      title= 'Jeste li sigurni da želite obrisati odabranu privilegiju?';
+      break;
+    case '/župe':
+      deleteAction = deleteDistrict;
+      path = 'district';
+      title= 'Jeste li sigurni da želite obrisati odabranu župu?';
+      break;
+    case '/gradovi':
+      deleteAction = deleteCity;
+      path = 'city';
+      title= 'Jeste li sigurni da želite obrisati odabrani grad?';
+      break;
+    case '/države':
+      deleteAction = deleteState;
+      path = 'state';
+      title= 'Jeste li sigurni da želite obrisati odabranu državu?';
+      break;
+    default:
+      console.log('Not working!!!');
+  }
 
   const deleteItem = (e) => {
     e.preventDefault();
-    dispatch(deleteData(`role/${itemId}`))
+    
+    dispatch(deleteAction(`${path}/${itemId}`))
     closeDelete();
   }
 
@@ -69,7 +114,7 @@ const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
                 <Title 
                   variant="h6" 
                   align={'left'} 
-                  title={'Jeste li sigurni da želite obrisati odabranu rolu?'}
+                  title={title}
                 />
               </Box>
               

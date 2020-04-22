@@ -58,12 +58,13 @@ const Autocomplete = props => {
         charsToTrigger <= e.currentTarget.value.length &&
         searchFunc(e.currentTarget.value)
       }
-      onChange={(e, value) =>
+      onChange={(e, value) =>{
+        console.log(value)
         setParentState({
           label: value ? optionText(value, valuesToDisplay) : "",
           id: value ? value.id : ""
         })
-      }
+      }}
       getOptionLabel={option =>
         option ? optionText(option, valuesToDisplay) : ""
       }
