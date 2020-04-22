@@ -6,7 +6,7 @@ import ModeratorDataTable from 'Components/organisms/ModeratorDataTable';
 
 // Templates
 import ModeratorTemplate from 'Components/templates/ModeratorTemplate'
-import User from './model/user';
+import { User } from './model/user';
 
 const Users = () => {
   return (

@@ -1,4 +1,4 @@
-const User = [
+export const User = [
     {
         label: 'Ime',
         name: 'first_name',
@@ -48,5 +48,36 @@ const User = [
            }
     }
     ]
-    
-    export default User;
+
+export const UserForm = [
+  {
+    label: 'Ime',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'first_name',
+  },
+  {
+    label: 'Prezime',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'last_name',
+  },
+  {
+    label: 'Korisničko ime',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'username',
+  },
+  {
+    label: 'Lozinka',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'password',
+  },
+  {
+    label: 'Uloga',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'role',
+  },
+]

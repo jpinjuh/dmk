@@ -20,6 +20,11 @@ import Title from "Components/atoms/UI/Title";
 // Actions
 import { putData as putRoles } from "Modules/units/Roles";
 import { putData as putPermissions } from "Modules/units/Permissions";
+import { putData as putPrivileges } from "Modules/units/Privileges";
+import { putData as putDistricts } from "Modules/units/Districts";
+import { putData as putCities } from "Modules/units/Cities";
+import { putData as putStates } from "Modules/units/States";
+import { putData as putUsers } from "Modules/units/Users";
 
 // Models
 import { RoleForm } from 'Pages/roles/model/role'
@@ -28,6 +33,7 @@ import { CitiesForm } from 'Pages/cities/model/city'
 import { PermissionForm } from '../../pages/permissions/model/permission';
 import { StateForm } from '../../pages/states/model/state';
 import { DistrictForm } from '../../pages/districts/model/district';
+import { UserForm } from 'Pages/users/model/user'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -70,22 +76,32 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
       title= 'Uredi pravo';
       break;
     case '/privilegije':
+      requiredInputs = PrivilegeForm;
+      putAction = putPrivileges;
       path = 'privilege';
       title= 'Uredi privilegije';
       break;
     case '/župe':
+      requiredInputs = DistrictForm;
+      putAction = putDistricts;
       path = 'district';
       title= 'Uredi župu';
       break;
     case '/gradovi':
+      requiredInputs = CitiesForm;
+      putAction = putCities;
       path = 'city';
       title= 'Uredi gradove';
       break;
     case '/države':
+      requiredInputs = StateForm;
+      putAction = putStates;
       path = 'state';
       title= 'Uredi države';
       break;
     case '/korisnici':
+      requiredInputs = UserForm;
+      putAction = putUsers;
       path = 'user';
       title= 'Uredi korisnika';
       break;
