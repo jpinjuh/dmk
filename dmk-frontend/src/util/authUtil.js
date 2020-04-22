@@ -9,7 +9,7 @@ export const authHeader = () => {
 
   if (user && token) {
     return {
-      Authorization: `${token}`,
+      Authorization: `JWT ${token}`,
       //Token: token
     };
   }

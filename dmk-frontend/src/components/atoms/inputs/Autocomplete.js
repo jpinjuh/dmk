@@ -94,7 +94,7 @@ Autocomplete.defaultProps = {
   error: false,
   helperText: "",
   required: false,
-  valuesToDisplay: [2],
+  valuesToDisplay: [1,2,3],
   charsToTrigger: 1,
   disabled: false
 };

@@ -70,9 +70,9 @@ const AddRoleForm = ({selector, title}) => {
 
     const body = {};
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value;
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? {id: input.value['id']} : input.value;
     })
-
+    
     console.log(body)                                                                               
     dispatch(postAction(selector, body))
   };
@@ -93,7 +93,7 @@ const AddRoleForm = ({selector, title}) => {
         />
         <Box mt={2}>
           <Button 
-            label="+ Dodaj rolu" 
+            label={`+ ${title}`} 
             type={"submit"}
             onClick={handleSubmit} />
         </Box>
