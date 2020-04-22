@@ -32,6 +32,14 @@ export const User = [
            }
     },
     {
+      label: 'Lozinka',
+      name: 'password_hash',
+      options: {
+          filter: true,
+          sort: true,
+         }
+    },
+    {
         label: 'Rola',
         name: 'role.name',
         options: {
@@ -69,15 +77,27 @@ export const UserForm = [
     name_in_db: 'username',
   },
   {
+    label: 'Email',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'email',
+  },
+  {
     label: 'Lozinka',
     type: 'text',
     disabled: false,
-    name_in_db: 'password',
+    name_in_db: 'password_hash',
   },
   {
     label: 'Uloga',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'role',
+  },
+  {
+    label: 'Župa',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'district',
   },
 ]

@@ -5,7 +5,7 @@
 */
 
 import { NotificationManager } from "react-notifications";
-import { getFunc, postFunc, deleteFunc } from "../../services/mainApiServices";
+import { getFunc, postFunc, deleteFunc, putFunc } from "../../services/mainApiServices";
 
 /**
 |--------------------------------------------------
