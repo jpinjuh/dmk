@@ -24,6 +24,7 @@ import { deleteData as deletePrivilege } from "Modules/units/Privileges";
 import { deleteData as deleteDistrict } from "Modules/units/Districts";
 import { deleteData as deleteCity } from "Modules/units/Cities";
 import { deleteData as deleteState } from "Modules/units/States";
+import { deleteData as deleteUser } from "Modules/units/Users";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -83,6 +84,11 @@ const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
       path = 'state';
       title= 'Jeste li sigurni da želite obrisati odabranu državu?';
       break;
+    case '/korisnici':
+        deleteAction = deleteUser;
+        path = 'user';
+        title= 'Jeste li sigurni da želite obrisati odabranog korisnika?';
+        break;
     default:
       console.log('Not working!!!');
   }

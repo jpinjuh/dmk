@@ -10,7 +10,7 @@ export const authHeader = () => {
   if (user && token) {
     return {
       Authorization: `Bearer ${token}`,
-      // Token: token
+      //Token: token
     };
   }
   return {};
