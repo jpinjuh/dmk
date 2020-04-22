@@ -1,12 +1,12 @@
 export const RoleTableData = [
-{
+  {
     label: 'Naziv role',
     name: 'name',
     options: {
-        filter: true,
-        sort: true,
-       }
-}
+      filter: true,
+      sort: true,
+    }
+  }
 ]
 
 export const RoleForm = [

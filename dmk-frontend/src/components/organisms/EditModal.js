@@ -35,6 +35,9 @@ import { StateForm } from '../../pages/states/model/state';
 import { DistrictForm } from '../../pages/districts/model/district';
 import { UserForm } from 'Pages/users/model/user'
 
+// Services
+import { getFunc } from "Services/mainApiServices";
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',
@@ -62,48 +65,48 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  switch(location.pathname){
+  switch (location.pathname) {
     case '/role':
       requiredInputs = RoleForm;
       putAction = putRoles;
       path = 'role';
-      title= 'Uredi rolu';
+      title = 'Uredi rolu';
       break;
     case '/prava':
       requiredInputs = PermissionForm;
       putAction = putPermissions;
       path = '/permission';
-      title= 'Uredi pravo';
+      title = 'Uredi pravo';
       break;
     case '/privilegije':
       requiredInputs = PrivilegeForm;
       putAction = putPrivileges;
       path = 'privilege';
-      title= 'Uredi privilegije';
+      title = 'Uredi privilegije';
       break;
     case '/župe':
       requiredInputs = DistrictForm;
       putAction = putDistricts;
       path = 'district';
-      title= 'Uredi župu';
+      title = 'Uredi župu';
       break;
     case '/gradovi':
       requiredInputs = CitiesForm;
       putAction = putCities;
       path = 'city';
-      title= 'Uredi gradove';
+      title = 'Uredi gradove';
       break;
     case '/države':
       requiredInputs = StateForm;
       putAction = putStates;
       path = 'state';
-      title= 'Uredi države';
+      title = 'Uredi države';
       break;
     case '/korisnici':
       requiredInputs = UserForm;
       putAction = putUsers;
       path = 'user';
-      title= 'Uredi korisnika';
+      title = 'Uredi korisnika';
       break;
     default:
       console.log('Not working!!!');
@@ -116,15 +119,16 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
     const body = {};
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? {id: input.value['id']} : input.value;
+      body[input.name_in_db] = input.value;
     })
-    console.log(body)
+
     dispatch(putAction(`${path}/${itemId}`, body));
+
     closeModal();
   }
 
   useEffect(() => {
-    inputs.forEach(( input, index ) => {
+    inputs.forEach((input, index) => {
       input.value = item[index];
     })
   }, [item]);
@@ -146,9 +150,9 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
           <div className={classes.paper}>
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
-                <Title 
-                  variant="h5" 
-                  align={'left'} 
+                <Title
+                  variant="h5"
+                  align={'left'}
                   title={title}
                 />
               </Box>
@@ -156,7 +160,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
                 <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
-                    <Button 
+                    <Button
                       label="Potvrdi"
                       onClick={editItem}
                     />

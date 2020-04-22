@@ -31,9 +31,9 @@ import { DistrictForm } from '../../pages/districts/model/district';
 
 let requiredInputs = [], postAction;
 
-const AddRoleForm = ({selector, title}) => {
+const AddRoleForm = ({ selector, title }) => {
 
-  switch(selector){
+  switch (selector) {
     case 'role':
       requiredInputs = RoleForm;
       postAction = postRoles;
@@ -58,7 +58,7 @@ const AddRoleForm = ({selector, title}) => {
       requiredInputs = StateForm;
       postAction = postStates;
       break;
-    default: 
+    default:
       console.log("Not working!");
   }
 
@@ -70,30 +70,30 @@ const AddRoleForm = ({selector, title}) => {
 
     const body = {};
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? {id: input.value['id']} : input.value;
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
     })
-    
-    console.log(body)                                                                               
+
+    console.log(body)
     dispatch(postAction(selector, body))
   };
 
   return (
     <>
       <Box mb={3}>
-        <Title 
-          variant="h5" 
-          align={'left'} 
+        <Title
+          variant="h5"
+          align={'left'}
           title={title}
         />
       </Box>
       <form>
-        <InputForm 
-          inputs={inputs} 
+        <InputForm
+          inputs={inputs}
           setInputs={setInputs}
         />
         <Box mt={2}>
-          <Button 
-            label={`+ ${title}`} 
+          <Button
+            label={`+ ${title}`}
             type={"submit"}
             onClick={handleSubmit} />
         </Box>

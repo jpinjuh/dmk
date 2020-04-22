@@ -1,22 +1,22 @@
 export const CityTableData = [
-    {
-        label: 'Naziv grada',
-        name: 'name',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-        label: 'Država',
-        name: 'state.name',
-        options: {
-            filter: true,
-            sort: true,
-           }
+  {
+    label: 'Naziv grada',
+    name: 'name',
+    options: {
+      filter: true,
+      sort: true,
     }
-    ]
-  
+  },
+  {
+    label: 'Država',
+    name: 'state.name',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  }
+]
+
 export const CitiesForm = [
   {
     label: 'Naziv grada',

@@ -36,6 +36,18 @@ export const getData = () => async dispatch => {
   }
 };
 
+export const postData = (url, body) => async dispatch => {
+
+  const response = await postFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    NotificationManager.success(response.status.description);
+    dispatch(getData());
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
+
 export const deleteData = url => async dispatch => {
 
   const response = await deleteFunc(url);
@@ -49,7 +61,20 @@ export const deleteData = url => async dispatch => {
 };
 
 export const putData = (url, body) => async dispatch => {
+  /* const responseItemProps = Object.keys((await getFunc(url)).data);
+  const response1 = await getFunc(url)
 
+  const itemProps =  Object.keys(item);
+  let body = {};
+
+  responseItemProps.forEach(prop => {
+    itemProps.forEach(iProp => {
+      if(prop === iProp){
+        body[prop] = response1.data[prop];
+      }
+    })
+  }) */
+  console.log(body)
   const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {

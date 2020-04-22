@@ -1,14 +1,14 @@
 export const StateTableData = [
-    {
-        label: 'Naziv države',
-        name: 'name',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    ]
-  
+  {
+    label: 'Naziv države',
+    name: 'name',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+]
+
 export const StateForm = [
   {
     label: 'Naziv države',

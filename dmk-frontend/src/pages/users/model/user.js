@@ -93,11 +93,13 @@ export const UserForm = [
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'role',
+    service: 'role/autocomplete'
   },
   {
     label: 'Župa',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'district',
+    service: 'district/autocomplete'
   },
 ]

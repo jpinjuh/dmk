@@ -1,22 +1,22 @@
 export const DistrictTableData = [
-    {
-        label: 'Naziv župe',
-        name: 'name',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-      label: 'Grad',
-      name: 'city.name',
-      options: {
-          filter: true,
-          sort: true,
-         }
+  {
+    label: 'Naziv župe',
+    name: 'name',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    label: 'Grad',
+    name: 'city.name',
+    options: {
+      filter: true,
+      sort: true,
+    }
   },
 ]
-  
+
 export const DistrictForm = [
   {
     label: 'Naziv župe',

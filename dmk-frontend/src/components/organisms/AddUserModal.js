@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+
+// MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -12,6 +16,12 @@ import InputForm from "Components/molecules/InputForm"
 // Atoms
 import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
+
+// Models
+import { UserForm } from 'Pages/users/model/user'
+
+// Actions
+import { postData as postUsers } from "Modules/units/Users";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -33,50 +43,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const requiredInputs = [
-  {
-    label: 'Ime',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'first_name',
-  },
-  {
-    label: 'Prezime',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'last_name',
-  },
-  {
-    label: 'Korisničko ime',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'username',
-  },
-  {
-    label: 'Lozinka',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'password',
-  },
-  {
-    label: 'Uloga',
-    type: 'autocomplete',
-    disabled: false,
-    name_in_db: 'role',
-  },
-]
+let requiredInputs = [], postAction, path, title;
 
 const AddUserModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
-  const [text, setText] = React.useState('');
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  switch (location.pathname) {
+    case '/korisnici':
+      requiredInputs = UserForm;
+      postAction = postUsers;
+      path = 'user';
+      title = 'Dodaj korisnika';
+      break;
+    default:
+      console.log("Not working!!!");
+  }
+
   const [inputs, setInputs] = useState(requiredInputs);
 
-  const handleChange = event => {
-    setText(event.target.value);
-  };
 
-  const addItem = (event) => {
-    event.preventDefault();
+  const addItem = (e) => {
+    e.preventDefault();
+
+    const body = {};
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+    })
+
+    console.log(body)
+    dispatch(postUsers(path, body))
+    closeModal();
   }
 
   return (
@@ -96,18 +94,19 @@ const AddUserModal = ({ onOpen, closeModal }) => {
           <div className={classes.paper}>
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
-                <Title 
-                  variant="h5" 
-                  align={'left'} 
-                  title={'Dodaj korisnika'}
+                <Title
+                  variant="h5"
+                  align={'left'}
+                  title={title}
                 />
               </Box>
               <form>
                 <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
-                    <Button 
+                    <Button
                       label="Potvrdi"
+                      onClick={addItem}
                     />
                   </Box>
                   <Box>
