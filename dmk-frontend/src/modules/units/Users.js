@@ -47,6 +47,18 @@ export const deleteData = url => async dispatch => {
     NotificationManager.error(response.status.description);
   }
 };
+
+export const putData = (url, body) => async dispatch => {
+
+  const response = await putFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    NotificationManager.success(response.status.description);
+    dispatch(getData());
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
 /**
 |--------------------------------------------------
 | REDUCERS

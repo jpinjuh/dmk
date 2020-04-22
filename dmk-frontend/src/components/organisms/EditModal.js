@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +18,16 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Actions
-import { putData } from "Modules/units/Roles";
+import { putData as putRoles } from "Modules/units/Roles";
+import { putData as putPermissions } from "Modules/units/Permissions";
+
+// Models
+import { RoleForm } from 'Pages/roles/model/role'
+import { PrivilegeForm } from 'Pages/privileges/model/privilege'
+import { CitiesForm } from 'Pages/cities/model/city'
+import { PermissionForm } from '../../pages/permissions/model/permission';
+import { StateForm } from '../../pages/states/model/state';
+import { DistrictForm } from '../../pages/districts/model/district';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -39,37 +49,69 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const requiredInputs = [
-  {
-    label: 'Naziv role',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'first_name',
-    value: ''
-  },
-]
+let requiredInputs = [], putAction, path, title;
 
 const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  
+  const location = useLocation();
+
+  switch(location.pathname){
+    case '/role':
+      requiredInputs = RoleForm;
+      putAction = putRoles;
+      path = 'role';
+      title= 'Uredi rolu';
+      break;
+    case '/prava':
+      requiredInputs = PermissionForm;
+      putAction = putPermissions;
+      path = '/permission';
+      title= 'Uredi pravo';
+      break;
+    case '/privilegije':
+      path = 'privilege';
+      title= 'Uredi privilegije';
+      break;
+    case '/župe':
+      path = 'district';
+      title= 'Uredi župu';
+      break;
+    case '/gradovi':
+      path = 'city';
+      title= 'Uredi gradove';
+      break;
+    case '/države':
+      path = 'state';
+      title= 'Uredi države';
+      break;
+    case '/korisnici':
+      path = 'user';
+      title= 'Uredi korisnika';
+      break;
+    default:
+      console.log('Not working!!!');
+  }
+
   const [inputs, setInputs] = useState(requiredInputs);
 
   const editItem = (e) => {
     e.preventDefault();
 
-    const name = inputs[0].value;
-    const body = {
-      name
-    }
-
-    dispatch(putData(`role/${itemId}`, body));
+    const body = {};
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? {id: input.value['id']} : input.value;
+    })
+    console.log(body)
+    dispatch(putAction(`${path}/${itemId}`, body));
     closeModal();
   }
 
   useEffect(() => {
-    inputs[0].value = item[0]
-  }, [item[0]]);
+    inputs.forEach(( input, index ) => {
+      input.value = item[index];
+    })
+  }, [item]);
 
   return (
     <div>
@@ -91,7 +133,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
                 <Title 
                   variant="h5" 
                   align={'left'} 
-                  title={'Uredi rolu'}
+                  title={title}
                 />
               </Box>
               <form>

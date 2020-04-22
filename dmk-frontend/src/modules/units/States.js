@@ -5,7 +5,7 @@
 */
 
 import { NotificationManager } from "react-notifications";
-import { getFunc, postFunc, deleteFunc } from "../../services/mainApiServices";
+import { getFunc, postFunc, deleteFunc, putFunc } from "../../services/mainApiServices";
 
 /**
 |--------------------------------------------------
@@ -51,6 +51,18 @@ export const postData = (url, body) => async dispatch => {
 export const deleteData = url => async dispatch => {
 
   const response = await deleteFunc(url);
+
+  if (response.status.errorCode === 200) {
+    NotificationManager.success(response.status.description);
+    dispatch(getData());
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
+
+export const putData = (url, body) => async dispatch => {
+
+  const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
