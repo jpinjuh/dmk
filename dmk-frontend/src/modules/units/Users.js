@@ -5,7 +5,7 @@
 */
 
 import { NotificationManager } from "react-notifications";
-import { getFunc, postFunc } from "../../services/mainApiServices";
+import { getFunc, postFunc, deleteFunc } from "../../services/mainApiServices";
 
 /**
 |--------------------------------------------------
@@ -36,6 +36,17 @@ export const getData = () => async dispatch => {
   }
 };
 
+export const deleteData = url => async dispatch => {
+
+  const response = await deleteFunc(url);
+
+  if (response.status.errorCode === 200) {
+    NotificationManager.success(response.status.description);
+    dispatch(getData());
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
 /**
 |--------------------------------------------------
 | REDUCERS
