@@ -9,14 +9,13 @@ import TextField from "@material-ui/core/TextField";
 // Services
 import { postFunc } from "Services/mainApiServices";
 
-const optionText = (option, valuesToDisplay) => {
+const optionText = (option) => {
   let label = "";
   const values = Object.values(option);
-console.log(valuesToDisplay)
   if (typeof option === "object") {
-    valuesToDisplay.forEach(number => {
-      label += `${values[number]} `;
-    });
+    for (let property in option) {
+      label = option['name']
+    }
     return label;
   }
   return option;
@@ -31,7 +30,6 @@ const Autocomplete = props => {
     label,
     validation,
     required,
-    valuesToDisplay,
     service,
     setParentState,
     charsToTrigger,
@@ -40,7 +38,6 @@ const Autocomplete = props => {
 
 
   const searchFunc = async value => {
-    console.log(value)
     const body = {
       search: value
     };
@@ -61,12 +58,12 @@ const Autocomplete = props => {
       }
       onChange={(e, value) =>{
         setParentState({
-          label: value ? optionText(value, valuesToDisplay) : "",
+          label: value ? optionText(value) : "",
           id: value ? value.id : ""
         })
       }}
       getOptionLabel={option =>
-        option ? optionText(option, valuesToDisplay) : ""
+        option ? optionText(option) : ""
       }
       options={options}
       value={value.label ? value.label : ''}
@@ -94,7 +91,6 @@ Autocomplete.defaultProps = {
   error: false,
   helperText: "",
   required: false,
-  valuesToDisplay: [1,2,3,4,5],
   charsToTrigger: 1,
   disabled: false
 };
