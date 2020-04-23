@@ -9,14 +9,13 @@ import TextField from "@material-ui/core/TextField";
 // Services
 import { postFunc } from "Services/mainApiServices";
 
-const optionText = (option, valuesToDisplay) => {
+const optionText = (option) => {
   let label = "";
   const values = Object.values(option);
-  
   if (typeof option === "object") {
-    valuesToDisplay.forEach(number => {
-      label += `${values[number]} `;
-    });
+    for (let property in option) {
+      label = option['name']
+    }
     return label;
   }
   return option;
@@ -31,7 +30,6 @@ const Autocomplete = props => {
     label,
     validation,
     required,
-    valuesToDisplay,
     service,
     setParentState,
     charsToTrigger,
@@ -52,24 +50,23 @@ const Autocomplete = props => {
   return (
     <AutocompleteMUI
       autoHighlight
-      disableOpenOnFocus
+      disableopenonfocus="true"
       onInputChange={e =>
         e &&
         charsToTrigger <= e.currentTarget.value.length &&
         searchFunc(e.currentTarget.value)
       }
       onChange={(e, value) =>{
-        console.log(value)
         setParentState({
-          label: value ? optionText(value, valuesToDisplay) : "",
+          label: value ? optionText(value) : "",
           id: value ? value.id : ""
         })
       }}
       getOptionLabel={option =>
-        option ? optionText(option, valuesToDisplay) : ""
+        option ? optionText(option) : ""
       }
       options={options}
-      value={value.label}
+      value={value.label ? value.label : ''}
       disabled={disabled}
       renderInput={params => (
         <TextField
@@ -94,7 +91,6 @@ Autocomplete.defaultProps = {
   error: false,
   helperText: "",
   required: false,
-  valuesToDisplay: [1,2,3],
   charsToTrigger: 1,
   disabled: false
 };

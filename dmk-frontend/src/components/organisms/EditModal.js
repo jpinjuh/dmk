@@ -119,7 +119,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
     const body = {};
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;;
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
     })
     console.log(body)
     dispatch(putAction(`${path}/${itemId}`, body));
@@ -129,7 +129,9 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      input.value = item[index];
+      input.name_in_db === 'password_hash' ?
+      (input.value = '')
+      : (input.value = item[index])
     })
   }, [item]);
 
