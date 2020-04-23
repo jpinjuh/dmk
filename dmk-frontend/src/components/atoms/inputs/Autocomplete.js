@@ -12,7 +12,7 @@ import { postFunc } from "Services/mainApiServices";
 const optionText = (option, valuesToDisplay) => {
   let label = "";
   const values = Object.values(option);
-
+console.log(valuesToDisplay)
   if (typeof option === "object") {
     valuesToDisplay.forEach(number => {
       label += `${values[number]} `;
@@ -40,6 +40,7 @@ const Autocomplete = props => {
 
 
   const searchFunc = async value => {
+    console.log(value)
     const body = {
       search: value
     };
@@ -52,14 +53,13 @@ const Autocomplete = props => {
   return (
     <AutocompleteMUI
       autoHighlight
-      disableOpenOnFocus
+      disableopenonfocus="true"
       onInputChange={e =>
         e &&
         charsToTrigger <= e.currentTarget.value.length &&
         searchFunc(e.currentTarget.value)
       }
       onChange={(e, value) =>{
-        console.log(value)
         setParentState({
           label: value ? optionText(value, valuesToDisplay) : "",
           id: value ? value.id : ""
@@ -69,7 +69,7 @@ const Autocomplete = props => {
         option ? optionText(option, valuesToDisplay) : ""
       }
       options={options}
-      value={value.label}
+      value={value.label ? value.label : ''}
       disabled={disabled}
       renderInput={params => (
         <TextField
@@ -94,7 +94,7 @@ Autocomplete.defaultProps = {
   error: false,
   helperText: "",
   required: false,
-  valuesToDisplay: [1,2,3],
+  valuesToDisplay: [1,2,3,4,5],
   charsToTrigger: 1,
   disabled: false
 };

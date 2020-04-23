@@ -32,14 +32,6 @@ export const User = [
            }
     },
     {
-      label: 'Lozinka',
-      name: 'password_hash',
-      options: {
-          filter: true,
-          sort: true,
-         }
-    },
-    {
         label: 'Rola',
         name: 'role.name',
         options: {
