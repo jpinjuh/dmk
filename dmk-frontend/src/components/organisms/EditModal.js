@@ -129,9 +129,9 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      input.name_in_db === 'password_hash' ?
-      (input.value = '')
-      : (input.value = item[index])
+      input.name_in_db === 'password_hash'
+        ? (input.type = 'password')
+        : (input.value = item[index])
     })
   }, [item]);
 

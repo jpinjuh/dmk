@@ -62,7 +62,7 @@ const AddRoleForm = ({ selector, title }) => {
       console.log("Not working!");
   }
 
-  const [inputs, setInputs] = useState(requiredInputs);
+  let [inputs, setInputs] = useState(requiredInputs);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -75,6 +75,12 @@ const AddRoleForm = ({ selector, title }) => {
 
     console.log(body)
     dispatch(postAction(selector, body))
+    let clearVal = inputs.filter(input => {
+      input.value = '';
+      return input;
+    }) 
+  
+    setInputs(clearVal)
   };
 
   return (
