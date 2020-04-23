@@ -12,7 +12,7 @@ import { postFunc } from "Services/mainApiServices";
 const optionText = (option, valuesToDisplay) => {
   let label = "";
   const values = Object.values(option);
-
+  
   if (typeof option === "object") {
     valuesToDisplay.forEach(number => {
       label += `${values[number]} `;
