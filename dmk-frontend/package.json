@@ -11,6 +11,7 @@
   "author": "Pavlović i Gagro d.o.o.",
   "devDependencies": {
     "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "babel-eslint": "^10.0.3",

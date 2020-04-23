@@ -29,7 +29,7 @@ export const getData = () => async dispatch => {
   const response = await getFunc("role");
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: GET_DATA_SCS, payload: response.data });
+    dispatch({ type: GET_DATA_SCS, payload: response.data, total: response.total });
   } else {
     NotificationManager.error(response.status.description);
     dispatch({ type: GET_DATA_FLR });
@@ -93,6 +93,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
       return {
         ...state,
         data: action.payload,
+        total: action.total,
         loading: false
       };
     case GET_DATA_FLR:

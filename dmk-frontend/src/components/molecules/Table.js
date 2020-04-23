@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
+import CustomFooter from "Components/molecules/CustomFooter";
+
 
 // MUI
 import MUIDataTable from "mui-datatables";
@@ -19,6 +21,7 @@ const Table = ({data, model}) =>  {
   const [ deleteOpen, setDeleteOpen] = useState(false);
   const [ itemId, setItemId] = useState('');
   const [ item, setItem ] = useState('');
+  const tableData = useSelector(state => state.roles);
 
   const columns = [...model, {
     name: "id",
@@ -58,6 +61,7 @@ const Table = ({data, model}) =>  {
     viewColumns: false,
     customToolbar: null,
     searchOpen: true,
+    count: tableData.total,
     selectableRows: 'none',
     /* customSearchRender: (searchText, handleSearch, hideSearch, options) => {
       return (
@@ -65,6 +69,17 @@ const Table = ({data, model}) =>  {
         />
       );
     }, */
+    customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
+      return (  
+        <CustomFooter 
+          count={count} 
+          page={page} 
+          rowsPerPage={rowsPerPage} 
+          changeRowsPerPage={changeRowsPerPage} 
+          changePage={changePage} 
+          textLabels={textLabels} />
+      );
+    },
     responsive: '',
   }
 
