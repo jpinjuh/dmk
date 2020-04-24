@@ -22,7 +22,7 @@ const DataTable = ({title, selector, model}) => {
 
   const tableData = useSelector(state => state.users);
 
-  switch(selector) {
+  /* switch(selector) {
     case 'role':
       useEffect(() => {
         dispatch(getRoles())
@@ -55,7 +55,7 @@ const DataTable = ({title, selector, model}) => {
       break;
     default:
       console.log("not working")
-  }
+  } */
   
   
 

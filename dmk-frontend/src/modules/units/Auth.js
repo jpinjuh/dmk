@@ -68,9 +68,9 @@ export const renewToken = async (url, history) => {
     decode = JSON.parse(decode.replace(/[^\x01-\x7F]/g, ""));
     if (decode && response.access_token) {
       localStorage.setItem("user", JSON.stringify(decode));
-      localStorage.setItem("data", JSON.stringify(response.data));
+      // localStorage.setItem("data", JSON.stringify(response.data));
       localStorage.setItem("jwt-token", JSON.stringify(response.access_token));
-      localStorage.setItem("meni", JSON.stringify(response.meni));
+      // localStorage.setItem("meni", JSON.stringify(response.meni));
       history.push("admin");
     }
   }
