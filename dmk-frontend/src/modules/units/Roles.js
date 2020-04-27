@@ -23,10 +23,10 @@ const GET_DATA_FLR = "GET_DATA_FLR";
 |--------------------------------------------------
 */
 
-export const getData = () => async dispatch => {
+export const getData = (url) => async dispatch => {
   dispatch({ type: GET_DATA_REQ });
 
-  const response = await getFunc("role");
+  const response = await getFunc(url);
 
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_DATA_SCS, payload: response.data, total: response.total });
@@ -42,7 +42,7 @@ export const postData = (url, body) => async dispatch => {
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
-    dispatch(getData());
+    dispatch(getData(url));
   } else {
     NotificationManager.error(response.status.description);
   }

@@ -25,32 +25,32 @@ const DataTable = ({title, selector, model}) => {
    switch(selector) {
     case 'role':
       useEffect(() => {
-        dispatch(getRoles())
+        dispatch(getRoles(selector))
       }, [])
       break;
     case 'state':
       useEffect(() => {
-        dispatch(getStates())
+        dispatch(getStates(selector))
       }, [])
       break;
     case 'privilege':
       useEffect(() => {
-        dispatch(getPrivileges())
+        dispatch(getPrivileges(selector))
       }, [])
       break;
     case 'permission':
       useEffect(() => {
-        dispatch(getPermissions())
+        dispatch(getPermissions(selector))
       }, [])
       break;
     case 'city':
       useEffect(() => {
-        dispatch(getCities())
+        dispatch(getCities(selector))
       }, [])
       break;
     case 'district':
       useEffect(() => {
-        dispatch(getDistricts())
+        dispatch(getDistricts(selector))
       }, [])
       break;
     default:

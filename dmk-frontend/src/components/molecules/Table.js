@@ -29,6 +29,7 @@ const Table = ({ data, model }) => {
   const [itemId, setItemId] = useState('');
   const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
+  const [rows, setRows] = useState(10);
   let tableData = useSelector(state => state.roles);
   const dispatch = useDispatch();
 
@@ -100,6 +101,11 @@ const Table = ({ data, model }) => {
     default:
       console.log("not working")
   }*/
+  const changePage = (page, rows) => {
+    console.log(page, rows)
+    dispatch(getRoles(`role?start=${page+1}&limit=${rows}`))
+    console.log(tableData)
+  };
   
   const options = {
     elevation: 0,
@@ -108,8 +114,10 @@ const Table = ({ data, model }) => {
     viewColumns: false,
     customToolbar: null,
     searchOpen: true,
+    serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
+    rowsPerPage: rows,
     searchText: searchVal,
     customSearchRender: (searchText, handleSearch, hideSearch, options) => {
       return (
@@ -133,9 +141,19 @@ const Table = ({ data, model }) => {
       );
     },
     onTableChange: (action, tableState) => {
+      console.log(action)
       switch (action) {
         case 'search':
+          console.log(tableState)
           setSearchVal(tableState.searchText)
+          break;
+        case 'changePage':
+          changePage(tableState.page, tableState.rowsPerPage);
+          break;
+        case 'changeRowsPerPage':
+          setRows(tableState.rowsPerPage);
+          console.log(rows)
+          changePage(tableState.page, tableState.rowsPerPage);
           break;
       }
     },
