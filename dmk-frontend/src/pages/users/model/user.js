@@ -82,10 +82,10 @@ export const UserForm = [
   },
   {
     label: 'Uloga',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
-    service: 'role/autocomplete'
+    service: 'role'
   },
   {
     label: 'Župa',

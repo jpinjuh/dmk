@@ -41,8 +41,9 @@ export const PermissionForm = [
   },
   {
     label: 'Metoda',
-    type: 'text',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'method',
+    service: 'methods'
   },
 ]  

@@ -66,7 +66,7 @@ const Table = ({ data, model }) => {
     }
   ]
 
-  switch(location.pathname) {
+  /*switch(location.pathname) {
     case '/role':
       useEffect(() => {
         dispatch(getRoles())
@@ -99,7 +99,7 @@ const Table = ({ data, model }) => {
       break;
     default:
       console.log("not working")
-  }
+  }*/
   
   const options = {
     elevation: 0,

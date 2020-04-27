@@ -14,16 +14,24 @@ export const PrivilegeTableData = [
             filter: true,
             sort: true,
            }
-    }
+    },
+    {
+      label: 'Metoda',
+      name: 'permission.method',
+      options: {
+          filter: true,
+          sort: true,
+         }
+  }
     ]
 
 export const PrivilegeForm = [
   {
     label: 'Rola',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
-    service: 'role/autocomplete'
+    service: 'role'
   },
   {
     label: 'Pravo',

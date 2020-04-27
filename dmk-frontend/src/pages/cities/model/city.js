@@ -26,9 +26,9 @@ export const CitiesForm = [
   },
   {
     label: 'Država',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'state',
-    service: 'state/autocomplete'
+    service: 'state'
   },
 ]
