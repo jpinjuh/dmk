@@ -52,71 +52,61 @@ const Dropdown = props => {
     disabled
   } = props;
 
-  /*const getData = async service => {
-
-    const response = await getFunc(service);
-    setOptions(response.data);
-  };*/
 
   useEffect(() => {
-    if (service !== 'methods') {
-      getFunc(service).then(data => {
-        setOptions(data)
-      })
-    }
-    else {
-      console.log(methods)
-      setOptions(methods)
-    }
+      if(service !== 'methods')
+      {
+        getFunc(service).then(data => {
+          setOptions(data)
+         })
+      }
+      else {
+        setOptions(methods)
+      }
+      
 
-  }, [options])
+  }, [])
 
-  const handleChange = event => {
-    console.log(event.target.value)
-    setItem(event.target.value);
-
+  useEffect(() => {
     if(service !== 'methods')
     setParentState({
-      id: event.target.value
+      id: item
     })
     else
-    setParentState(event.target.value)
+    setParentState(item)
+
+  }, [item])
+
+  const handleChange = event => {
+    setItem(event.target.value);
   };
+
+  
   return (
     <>
       {options.data &&
         <Select
-          native
           displayEmpty
           variant="outlined"
           fullWidth
           value={item}
           onChange={handleChange}
 
-          //inputProps={{ 'aria-label': 'Without label' }}
+          
           input={<OutlinedInput
             required={required}
             error={validation} />}
-        /*renderValue={selected => {
-          if (selected.length === 0) {
-            return <em>Placeholder</em>;
-          }
-  
-          return selected.join(", ");
-        }}*/
-        //MenuProps={MenuProps}
         >
-          <option disabled value="">
+          <MenuItem disabled value="">
             {label}
-          </option>
+          </MenuItem>
           {options.data.map(name => (
-            <option
+            <MenuItem
               key={name.id}
               value={name.id}
-            // style={getStyles(name, this)}
             >
               {name.name}
-            </option>
+            </MenuItem>
           ))}
         </Select>
       }

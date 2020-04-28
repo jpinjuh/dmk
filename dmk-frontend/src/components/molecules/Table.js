@@ -6,6 +6,8 @@ import { getData as getPrivileges } from "Modules/units/Privileges";
 import { getData as getPermissions} from "Modules/units/Permissions";
 import { getData as getCities } from "Modules/units/Cities";
 import { getData as getDistricts} from "Modules/units/Districts";
+
+
 import { useHistory, useLocation } from "react-router-dom";
 
 // Molecules
@@ -23,6 +25,8 @@ import { Divider } from '@material-ui/core';
 import EditModal from 'Components/organisms/EditModal'
 import DeleteModal from 'Components/organisms/DeleteModal'
 
+import { postFunc } from "Services/mainApiServices";
+
 const Table = ({ data, model }) => {
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -30,6 +34,7 @@ const Table = ({ data, model }) => {
   const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
+  const [page, setPage] = useState(0)
   let tableData = useSelector(state => state.roles);
   const dispatch = useDispatch();
 
@@ -101,10 +106,32 @@ const Table = ({ data, model }) => {
     default:
       console.log("not working")
   }*/
+  useEffect(() => {
+    console.log(searchVal)
+    if(searchVal !== '')
+    getSearchData(searchVal)
+  }, [searchVal])
+
+  useEffect(() => {
+    changePage(page, rows);
+  }, [page, rows])
+  
+
   const changePage = (page, rows) => {
     console.log(page, rows)
     dispatch(getRoles(`role?start=${page+1}&limit=${rows}`))
     console.log(tableData)
+  };
+
+  const getSearchData = value => {
+    const body = {
+      search: value
+    };
+   
+    postFunc('role/autocomplete', body).then(res =>
+      tableData.data = res.data
+    );
+   
   };
   
   const options = {
@@ -118,6 +145,7 @@ const Table = ({ data, model }) => {
     count: tableData.total,
     selectableRows: 'none',
     rowsPerPage: rows,
+    page: page,
     searchText: searchVal,
     customSearchRender: (searchText, handleSearch, hideSearch, options) => {
       return (
@@ -144,21 +172,22 @@ const Table = ({ data, model }) => {
       console.log(action)
       switch (action) {
         case 'search':
-          console.log(tableState)
+          //console.log(tableState.searchText)
           setSearchVal(tableState.searchText)
+          //getSearchData(tableState.searchText)
           break;
         case 'changePage':
-          changePage(tableState.page, tableState.rowsPerPage);
+          setPage(tableState.page);
           break;
         case 'changeRowsPerPage':
           setRows(tableState.rowsPerPage);
-          console.log(rows)
-          changePage(tableState.page, tableState.rowsPerPage);
+          //changePage(tableState.page, tableState.rowsPerPage);
           break;
+        
       }
     },
   }
-
+  
   return (
     <>
       {data.data &&
