@@ -1,53 +1,74 @@
+import React, { useState, useEffect } from 'react';
+import Chip from '@material-ui/core/Chip';
+
 export const User = [
-    {
-        label: 'Ime',
-        name: 'first_name',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-        label: 'Prezime',
-        name: 'last_name',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-        label: 'Korisničko ime',
-        name: 'username',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-        label: 'Email',
-        name: 'email',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-        label: 'Rola',
-        name: 'role.name',
-        options: {
-            filter: true,
-            sort: true,
-           }
-    },
-    {
-        label: 'Župa',
-        name: 'district.name',
-        options: {
-            filter: true,
-            sort: true,
-           }
+  {
+    label: 'Ime',
+    name: 'first_name',
+    options: {
+      filter: true,
+      sort: true,
     }
-    ]
+  },
+  {
+    label: 'Prezime',
+    name: 'last_name',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    label: 'Korisničko ime',
+    name: 'username',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    label: 'Email',
+    name: 'email',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    label: 'Rola',
+    name: 'role.name',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    label: 'Župa',
+    name: 'district.name',
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    label: 'Aktivnost',
+    name: 'status',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: (value, tableMeta, updateValue) => {
+        return (
+          <div>
+            {(value === 1)
+              ? <Chip label="Aktivan" color="primary" />
+              : <Chip label="Neaktivan" disabled />
+            }
+          </div>
+        );
+      }
+    }
+  }
+]
 
 export const UserForm = [
   {

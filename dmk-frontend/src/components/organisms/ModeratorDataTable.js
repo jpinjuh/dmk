@@ -27,7 +27,7 @@ const ModeratorDataTable = ({title, label, model}) => {
   const users = useSelector(state => state.users);
 
   useEffect(() => {
-    dispatch(getUsers())
+    dispatch(getUsers('user'))
   }, [])
 
   return (
