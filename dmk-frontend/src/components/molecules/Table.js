@@ -22,10 +22,12 @@ import { Divider } from '@material-ui/core';
 // Organisms
 import EditModal from 'Components/organisms/EditModal'
 import DeleteModal from 'Components/organisms/DeleteModal'
+import ActivateModal from 'Components/organisms/ActivateModal'
 
 const Table = ({ data, model }) => {
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
   const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
@@ -52,13 +54,24 @@ const Table = ({ data, model }) => {
                     onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
                   />
                 </Box>
-                <Box>
-                  <ButtonWithIcon
-                    label={'Obriši'}
-                    icon={"delete"}
-                    onClick={() => { setDeleteOpen(true); setItemId(value) }}
-                  />
-                </Box>
+                <div>
+                  {(tableMeta.rowData[tableMeta.rowData.length - 2] === 0)
+                    ? <Box mr={3}>
+                        <ButtonWithIcon
+                          label={'Aktiviraj'}
+                          icon={"visibility"}
+                          onClick={() => { setActivateOpen(true); setItemId(value) }}
+                        />
+                      </Box>
+                    : <Box>
+                        <ButtonWithIcon
+                          label={'Deaktiviraj'}
+                          icon={"visibility_off"}
+                          onClick={() => { setDeleteOpen(true); setItemId(value) }}
+                        />
+                      </Box>
+                  }
+                </div>
               </Box>
             </div>
           );
@@ -180,6 +193,12 @@ const Table = ({ data, model }) => {
         closeDelete={() => setDeleteOpen(false)}
         itemId={itemId}
       ></DeleteModal>
+
+      <ActivateModal
+        onActivate={activateOpen}
+        closeActivate={() => setActivateOpen(false)}
+        itemId={itemId}
+      ></ActivateModal>
     </>
 
   );

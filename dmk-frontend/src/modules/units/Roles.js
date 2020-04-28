@@ -42,7 +42,7 @@ export const postData = (url, body) => async dispatch => {
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
-    dispatch(getData(url));
+    dispatch(getData('role'));
   } else {
     NotificationManager.error(response.status.description);
   }
@@ -54,7 +54,7 @@ export const deleteData = url => async dispatch => {
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
-    dispatch(getData());
+    dispatch(getData('role'));
   } else {
     NotificationManager.error(response.status.description);
   }
@@ -66,7 +66,19 @@ export const putData = (url, body) => async dispatch => {
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
-    dispatch(getData());
+    dispatch(getData('role'));
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
+
+export const activateData = (url, body) => async dispatch => {
+
+  const response = await postFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    NotificationManager.success(response.status.description);
+    dispatch(getData('role'));
   } else {
     NotificationManager.error(response.status.description);
   }

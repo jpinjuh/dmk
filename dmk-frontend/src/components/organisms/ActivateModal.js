@@ -18,13 +18,13 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title"
 
 // Actions
-import { deleteData as deleteRole } from "Modules/units/Roles";
-import { deleteData as deletePermisson } from "Modules/units/Permissions";
-import { deleteData as deletePrivilege } from "Modules/units/Privileges";
-import { deleteData as deleteDistrict } from "Modules/units/Districts";
-import { deleteData as deleteCity } from "Modules/units/Cities";
-import { deleteData as deleteState } from "Modules/units/States";
-import { deleteData as deleteUser } from "Modules/units/Users";
+import { activateData as activateRole } from "Modules/units/Roles";
+import { activateData as activatePermisson } from "Modules/units/Permissions";
+import { activateData as activatePrivilege } from "Modules/units/Privileges";
+import { activateData as activateDistrict } from "Modules/units/Districts";
+import { activateData as activateCity } from "Modules/units/Cities";
+import { activateData as activateState } from "Modules/units/States";
+import { activateData as activateUser } from "Modules/units/Users";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -46,58 +46,58 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-let deleteAction, path, title;
+let activateAction, path, title;
 
-const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
+const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
   
   switch(location.pathname){
     case '/role':
-      deleteAction = deleteRole;
+      activateAction = activateRole;
       path = 'role';
-      title= 'Jeste li sigurni da želite deaktivirati odabranu rolu?';
+      title= 'Jeste li sigurni da želite aktivirati odabranu rolu?';
       break;
     case '/prava':
-      deleteAction = deletePermisson;
+      activateAction = activatePermisson;
       path = '/permission';
-      title= 'Jeste li sigurni da želite deaktivirati odabrano pravo?';
+      title= 'Jeste li sigurni da želite aktivirati odabrano pravo?';
       break;
     case '/privilegije':
-      deleteAction = deletePrivilege;
+      activateAction = activatePrivilege;
       path = 'privilege';
-      title= 'Jeste li sigurni da želite deaktivirati odabranu privilegiju?';
+      title= 'Jeste li sigurni da želite aktivirati odabranu privilegiju?';
       break;
     case '/župe':
-      deleteAction = deleteDistrict;
+      activateAction = activateDistrict;
       path = 'district';
-      title= 'Jeste li sigurni da želite deaktivirati odabranu župu?';
+      title= 'Jeste li sigurni da želite aktivirati odabranu župu?';
       break;
     case '/gradovi':
-      deleteAction = deleteCity;
+      activateAction = activateCity;
       path = 'city';
-      title= 'Jeste li sigurni da želite deaktivirati odabrani grad?';
+      title= 'Jeste li sigurni da želite aktivirati odabrani grad?';
       break;
     case '/države':
-      deleteAction = deleteState;
+      activateAction = activateState;
       path = 'state';
-      title= 'Jeste li sigurni da želite deaktivirati odabranu državu?';
+      title= 'Jeste li sigurni da želite aktivirati odabranu državu?';
       break;
     case '/korisnici':
-        deleteAction = deleteUser;
+        activateAction = activateUser;
         path = 'user';
-        title= 'Jeste li sigurni da želite deaktivirati odabranog korisnika?';
+        title= 'Jeste li sigurni da želite aktivirati odabranog korisnika?';
         break;
     default:
       console.log('Not working!!!');
   }
 
-  const deleteItem = (e) => {
+  const activateItem = (e) => {
     e.preventDefault();
     
-    dispatch(deleteAction(`${path}/${itemId}`))
-    closeDelete();
+    dispatch(activateAction(`${path}/activate`, {id: itemId}))
+    closeActivate();
   }
 
   return (
@@ -105,15 +105,15 @@ const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
       <Modal
         aria-labelledby="transition-modal-title"
         className={classes.modal}
-        open={onDelete}
-        onClose={closeDelete}
+        open={onActivate}
+        onClose={closeActivate}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={onDelete}>
+        <Fade in={onActivate}>
           <div className={classes.paper}>
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
@@ -128,14 +128,14 @@ const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
                 <Box pr={1}>
                   <Button 
                     label="Potvrdi"
-                    onClick={deleteItem}
+                    onClick={activateItem}
                   />
                 </Box>
                 <Box>
                   <MUIButton
                     variant="contained"
                     disableElevation
-                    onClick={closeDelete}
+                    onClick={closeActivate}
                     className={classes.button}
                   >Cancel</MUIButton>
                 </Box>
@@ -148,4 +148,4 @@ const DeleteModal = ({ onDelete, closeDelete, itemId }) => {
   );
 }
 
-export default DeleteModal;
+export default ActivateModal;

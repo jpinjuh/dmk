@@ -23,10 +23,10 @@ const GET_DATA_FLR = "GET_DATA_FLR";
 |--------------------------------------------------
 */
 
-export const getData = () => async dispatch => {
+export const getData = (url) => async dispatch => {
   dispatch({ type: GET_DATA_REQ });
 
-  const response = await getFunc("city");
+  const response = await getFunc(url);
   console.log(response)
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_DATA_SCS, payload: response.data });
@@ -41,10 +41,10 @@ export const postData = (url, body) => async dispatch => {
   const response = await postFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    console.log('uspjesno')
-    dispatch(getData());
+    NotificationManager.success(response.status.description);
+    dispatch(getData('city'));
   } else {
-    console.log("neuspjesno")
+    NotificationManager.error(response.status.description);
   }
 };
 
@@ -54,7 +54,7 @@ export const deleteData = url => async dispatch => {
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
-    dispatch(getData());
+    dispatch(getData('city'));
   } else {
     NotificationManager.error(response.status.description);
   }
@@ -66,7 +66,19 @@ export const putData = (url, body) => async dispatch => {
 
   if (response.status.errorCode === 200) {
     NotificationManager.success(response.status.description);
-    dispatch(getData());
+    dispatch(getData('city'));
+  } else {
+    NotificationManager.error(response.status.description);
+  }
+};
+
+export const activateData = (url, body) => async dispatch => {
+
+  const response = await postFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    NotificationManager.success(response.status.description);
+    dispatch(getData('city'));
   } else {
     NotificationManager.error(response.status.description);
   }
