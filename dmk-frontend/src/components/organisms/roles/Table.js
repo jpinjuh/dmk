@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { getData as getRoles } from "Modules/units/Roles";
-import { getData as getStates} from "Modules/units/States";
-import { getData as getPrivileges } from "Modules/units/Privileges";
-import { getData as getPermissions} from "Modules/units/Permissions";
-import { getData as getCities } from "Modules/units/Cities";
-import { getData as getDistricts} from "Modules/units/Districts";
-import { getData as getUsers} from "Modules/units/Users";
-
-import { useHistory, useLocation } from "react-router-dom";
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
@@ -18,31 +9,57 @@ import CustomSearch from "Components/molecules/CustomSearch";
 // MUI
 import MUIDataTable from "mui-datatables";
 import { Box } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import { Divider } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
 
 // Organisms
-import EditModal from 'Components/organisms/EditModal'
-import DeleteModal from 'Components/organisms/DeleteModal'
+import EditModal from 'Components/organisms/roles/EditModal'
+import DeactivateModal from 'Components/organisms/roles/DeactivateModal'
 import ActivateModal from 'Components/organisms/ActivateModal'
 
+// Actions
 import { postFunc } from "Services/mainApiServices";
+import { getData } from "Modules/units/Roles";
 
-const Table = ({ data, model }) => {
+const Table = () => {
   const [open, setOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
   const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
-  let tableData = useSelector(state => state.roles);
 
   const dispatch = useDispatch();
+  const tableData = useSelector(state => state.roles);
 
   const columns = [
-    ...model,
+    {
+      label: 'Naziv role',
+      name: 'name',
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      label: 'Aktivnost',
+      name: 'status',
+      options: {
+        filter: true,
+        sort: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <div>
+              {(value === 1)
+                ? <Chip label="Aktivan" color="primary" />
+                : <Chip label="Neaktivan" disabled />
+              }
+            </div>
+          );
+        }
+      }
+    },
     {
       name: "id",
       label: "Akcije",
@@ -63,19 +80,19 @@ const Table = ({ data, model }) => {
                 <div>
                   {(tableMeta.rowData[tableMeta.rowData.length - 2] === 0)
                     ? <Box mr={3}>
-                        <ButtonWithIcon
-                          label={'Aktiviraj'}
-                          icon={"visibility"}
-                          onClick={() => { setActivateOpen(true); setItemId(value) }}
-                        />
-                      </Box>
+                      <ButtonWithIcon
+                        label={'Aktiviraj'}
+                        icon={"visibility"}
+                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                      />
+                    </Box>
                     : <Box>
-                        <ButtonWithIcon
-                          label={'Deaktiviraj'}
-                          icon={"visibility_off"}
-                          onClick={() => { setDeleteOpen(true); setItemId(value) }}
-                        />
-                      </Box>
+                      <ButtonWithIcon
+                        label={'Deaktiviraj'}
+                        icon={"visibility_off"}
+                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                      />
+                    </Box>
                   }
                 </div>
               </Box>
@@ -87,53 +104,26 @@ const Table = ({ data, model }) => {
   ]
 
   useEffect(() => {
-    if(searchVal){
-      if(searchVal.length > 2){
-        getSearchData(searchVal)
-      }
-    }
+    getSearchData(searchVal)
   }, [searchVal])
 
   useEffect(() => {
     changePage(page, rows);
   }, [page, rows])
-  
+
   const changePage = (page, rows) => {
-    switch(location.pathname){
-      case '/role':
-        dispatch(getRoles(`role?start=${page+1}&limit=${rows}`))
-        break;
-      case '/prava':
-        dispatch(getPermissions(`permission?start=${page+1}&limit=${rows}`))
-        break;
-      case '/privilegije':
-        dispatch(getPrivileges(`privilege?start=${page+1}&limit=${rows}`))
-        break;
-      case '/gradovi':
-        dispatch(getCities(`city?start=${page+1}&limit=${rows}`))
-        break;
-      case '/župe':
-        dispatch(getDistricts(`district?start=${page+1}&limit=${rows}`))
-        break;
-      case '/korisnici':
-        dispatch(getUsers(`user?start=${page+1}&limit=${rows}`))
-        break;
-      default:
-        console.log('ne radi')
-    }
-    
+    dispatch(getData(`role?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {
     const body = {
       search: value
     };
-    
+
     const response = await postFunc('role/autocomplete', body)
     tableData.data = response.data
-    console.log(tableData)
   };
-  
+
   const options = {
     elevation: 0,
     print: false,
@@ -171,21 +161,18 @@ const Table = ({ data, model }) => {
     onTableChange: (action, tableState) => {
       switch (action) {
         case 'search':
-          //console.log(tableState.searchText)
           setSearchVal(tableState.searchText)
-          //getSearchData(tableState.searchText)
           break;
         case 'changePage':
           setPage(tableState.page);
           break;
         case 'changeRowsPerPage':
           setRows(tableState.rowsPerPage);
-          //changePage(tableState.page, tableState.rowsPerPage);
           break;
       }
     },
   }
-  
+
   return (
     <>
       {tableData.data &&
@@ -202,11 +189,11 @@ const Table = ({ data, model }) => {
         itemId={itemId}
       ></EditModal>
 
-      <DeleteModal
-        onDelete={deleteOpen}
-        closeDelete={() => setDeleteOpen(false)}
+      <DeactivateModal
+        onDeactivate={deactivateOpen}
+        closeDeactivate={() => setDeactivateOpen(false)}
         itemId={itemId}
-      ></DeleteModal>
+      ></DeactivateModal>
 
       <ActivateModal
         onActivate={activateOpen}
