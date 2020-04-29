@@ -20,7 +20,7 @@ import Table from "Components/molecules/Table"
 const DataTable = ({title, selector, model}) => {
   const dispatch = useDispatch();
 
-  const tableData = useSelector(state => state.users);
+  /* const tableData = useSelector(state => state.users);
 
    switch(selector) {
     case 'role':
@@ -31,7 +31,7 @@ const DataTable = ({title, selector, model}) => {
         dispatch(getStates(selector))
       }, [])
       break;
-    /* case 'privilege':
+     case 'privilege':
       useEffect(() => {
         dispatch(getPrivileges(selector))
       }, [])
@@ -40,7 +40,7 @@ const DataTable = ({title, selector, model}) => {
       useEffect(() => {
         dispatch(getPermissions(selector))
       }, [])
-      break; */
+      break;
     
     case 'district':
       useEffect(() => {
@@ -52,11 +52,11 @@ const DataTable = ({title, selector, model}) => {
   
   
 
-  /*useEffect(() => {
+  useEffect(() => {
     
-  }, []);*/
-  /*if(roles.data)
-  console.log(Object.keys(roles.data[0]).filter(value => !["id", "status", "created_at", "updated_at"].includes(value)))*/
+  }, []);
+  if(roles.data)
+  console.log(Object.keys(roles.data[0]).filter(value => !["id", "status", "created_at", "updated_at"].includes(value))) */
   return (
     <>
       <Box mb={7}>

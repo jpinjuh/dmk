@@ -14,7 +14,7 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title"
 
 // Actions
-import { activateData } from "Modules/units/Roles";
+import { activateData } from "Modules/units/Districts";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -43,7 +43,7 @@ const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
   const activateItem = (e) => {
     e.preventDefault();
     
-    dispatch(activateData(`role/activate`, {id: itemId}))
+    dispatch(activateData(`district/activate`, {id: itemId}))
     closeActivate();
   }
 
@@ -67,7 +67,7 @@ const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
                 <Title 
                   variant="h6" 
                   align={'left'} 
-                  title={'Jeste li sigurni da želite deaktivirati odabranu rolu?'}
+                  title={'Jeste li sigurni da želite deaktivirati odabranu župu?'}
                 />
               </Box>
               

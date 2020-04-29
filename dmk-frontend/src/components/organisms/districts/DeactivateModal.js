@@ -14,7 +14,7 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title"
 
 // Actions
-import { activateData } from "Modules/units/Roles";
+import { deactivateData } from "Modules/units/Districts";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -36,15 +36,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
+const DeactivateModal = ({ onDeactivate, closeDeactivate, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const activateItem = (e) => {
+  const deleteItem = (e) => {
     e.preventDefault();
-    
-    dispatch(activateData(`role/activate`, {id: itemId}))
-    closeActivate();
+
+    dispatch(deactivateData(`district/${itemId}`))
+    closeDeactivate();
   }
 
   return (
@@ -52,37 +52,37 @@ const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
       <Modal
         aria-labelledby="transition-modal-title"
         className={classes.modal}
-        open={onActivate}
-        onClose={closeActivate}
+        open={onDeactivate}
+        onClose={closeDeactivate}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={onActivate}>
+        <Fade in={onDeactivate}>
           <div className={classes.paper}>
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
-                <Title 
-                  variant="h6" 
-                  align={'left'} 
-                  title={'Jeste li sigurni da želite deaktivirati odabranu rolu?'}
+                <Title
+                  variant="h6"
+                  align={'left'}
+                  title={'Jeste li sigurni da želite deaktivirati odabranu župu?'}
                 />
               </Box>
-              
+
               <Box pt={3} display="flex" justifyContent="flex-start">
                 <Box pr={1}>
-                  <Button 
+                  <Button
                     label="Potvrdi"
-                    onClick={activateItem}
+                    onClick={deleteItem}
                   />
                 </Box>
                 <Box>
                   <MUIButton
                     variant="contained"
                     disableElevation
-                    onClick={closeActivate}
+                    onClick={closeDeactivate}
                     className={classes.button}
                   >Otkaži</MUIButton>
                 </Box>
@@ -95,4 +95,4 @@ const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
   );
 }
 
-export default ActivateModal;
+export default DeactivateModal;

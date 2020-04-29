@@ -12,13 +12,13 @@ import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
 // Organisms
-import EditModal from 'Components/organisms/roles/EditModal'
-import DeactivateModal from 'Components/organisms/roles/DeactivateModal'
-import ActivateModal from 'Components/organisms/roles/ActivateModal'
+import EditModal from 'Components/organisms/districts/EditModal'
+import DeactivateModal from 'Components/organisms/districts/DeactivateModal'
+import ActivateModal from 'Components/organisms/districts/ActivateModal'
 
 // Actions
 import { postFunc } from "Services/mainApiServices";
-import { getData } from "Modules/units/Roles";
+import { getData } from "Modules/units/Districts";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -31,12 +31,20 @@ const Table = () => {
   const [page, setPage] = useState(0)
 
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.roles);
+  const tableData = useSelector(state => state.districts);
 
   const columns = [
     {
-      label: 'Naziv role',
+      label: 'Naziv župe',
       name: 'name',
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      label: 'Grad',
+      name: 'city.name',
       options: {
         filter: true,
         sort: true,
@@ -112,7 +120,7 @@ const Table = () => {
   }, [page, rows])
 
   const changePage = (page, rows) => {
-    dispatch(getData(`role?start=${page + 1}&limit=${rows}`))
+    dispatch(getData(`district?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {

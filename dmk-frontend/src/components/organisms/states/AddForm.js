@@ -13,13 +13,13 @@ import Title from "Components/atoms/UI/Title";
 import InputForm from "Components/molecules/InputForm"
 
 // Model
-import { RoleForm } from 'Pages/roles/model/role'
+import { StateForm } from 'Pages/states/model/state'
 
 // Action
-import { postData } from "Modules/units/Roles";
+import { postData } from "Modules/units/States";
 
-const AddRoleForm = () => {
-  const [inputs, setInputs] = useState(RoleForm);
+const AddForm = () => {
+  const [inputs, setInputs] = useState(StateForm);
   const dispatch = useDispatch();
 
   const addItem = e => {
@@ -30,7 +30,7 @@ const AddRoleForm = () => {
       body[input.name_in_db] = input.value;
     })
 
-    dispatch(postData('role', body))
+    dispatch(postData('state', body))
     let clearVal = inputs.filter(input => {
       input.value = '';
       return input;
@@ -45,14 +45,14 @@ const AddRoleForm = () => {
         <Title
           variant="h5"
           align={'left'}
-          title={'Dodaj rolu'}
+          title={'Dodaj državu'}
         />
       </Box>
       <form>
         <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
         <Box mt={2}>
           <Button
-            label="+ Dodaj rolu"
+            label="+ Dodaj državu"
             onClick={addItem}
           />
         </Box>
@@ -61,4 +61,4 @@ const AddRoleForm = () => {
   );
 };
 
-export default AddRoleForm;
+export default AddForm;

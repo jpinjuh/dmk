@@ -145,7 +145,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case POST_DATA_SCS:
       return {
         ...state,
-        data: state.data.concat(action.payload),
+        data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
         loading: false
       };
@@ -185,7 +185,6 @@ export default function reducer(state = INIT_STATE, action = {}) {
       return {
         ...state,
         data: state.data.map(item => {
-          (item.id === action.payload.id)
           if(item.id === action.payload.id){
             const { ...itemCopy} = item;
             return { ...itemCopy, ...action.payload }

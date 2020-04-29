@@ -2,18 +2,17 @@
 import React from 'react';
 
 // Organisms
-import AddRoleForm from 'Components/organisms/roles/AddRoleForm';
+import AddForm from 'Components/organisms/roles/AddForm';
 import DataTable from 'Components/organisms/roles/DataTable';
 
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Roles = () => {
-
   return (
     <>
       <AdminTemplate
-        addForm={<AddRoleForm />}
+        addForm={<AddForm />}
         dataTable={<DataTable />}
       ></AdminTemplate>
     </>
