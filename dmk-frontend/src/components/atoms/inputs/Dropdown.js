@@ -18,32 +18,31 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { getFunc } from "../../../services/mainApiServices";
 
 const useStyles = makeStyles(theme => ({
-  input:{
-      color: `${theme.palette.secondary.main} !important`,
-      marginTop: '8px'
+  input: {
+    color: `${theme.palette.secondary.main} !important`,
+    marginTop: '8px'
   }
 }));
 
 const methods = {
   data: [
-  {
-    id: "GET",
-    name: "GET"
-  },
-  {
-    id: "POST",
-    name: "POST"
-  },
-  {
-    id: "PUT",
-    name: "PUT"
-  },
-  {
-    id: "DELETE",
-    name: "DELETE"
-  }]
+    {
+      id: "GET",
+      name: "GET"
+    },
+    {
+      id: "POST",
+      name: "POST"
+    },
+    {
+      id: "PUT",
+      name: "PUT"
+    },
+    {
+      id: "DELETE",
+      name: "DELETE"
+    }]
 }
-
 
 const Dropdown = props => {
 
@@ -62,28 +61,24 @@ const Dropdown = props => {
     disabled
   } = props;
 
-
   useEffect(() => {
-      if(service !== 'methods')
-      {
-        getFunc(service).then(data => {
-          setOptions(data)
-         })
-      }
-      else {
-        setOptions(methods)
-      }
-      
-
+    if (service !== 'methods') {
+      getFunc(service).then(data => {
+        setOptions(data)
+      })
+    }
+    else {
+      setOptions(methods)
+    }
   }, [])
 
   useEffect(() => {
-    if(service !== 'methods')
-    setParentState({
-      id: item
-    })
+    if (service !== 'methods')
+      setParentState({
+        id: item
+      })
     else
-    setParentState(item)
+      setParentState(item)
 
   }, [item])
 
@@ -91,7 +86,6 @@ const Dropdown = props => {
     setItem(event.target.value);
   };
 
-  
   return (
     <>
       {options.data &&
@@ -105,7 +99,7 @@ const Dropdown = props => {
           input={<OutlinedInput
             required={required}
             error={validation}
-             />}
+          />}
         >
           <MenuItem disabled value="">
             {label}

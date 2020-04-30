@@ -17,7 +17,10 @@ import DeactivateModal from 'Components/organisms/privileges/DeactivateModal'
 import ActivateModal from 'Components/organisms/privileges/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Privileges";
+import { getData, getOneItem, searchData } from "Modules/units/Privileges";
+
+// Services
+import { getFunc } from "Services/mainApiServices";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -27,10 +30,16 @@ const Table = () => {
   const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(0);
+  const [autocompleteItem, setAutocompleteItem] = useState(null);
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.privileges);
+
+  const getItem = async id => {
+    dispatch(getOneItem(`privilege/${id}`))
+    setTimeout(() => setOpen(true), 500)
+  };
 
   const columns = [
     {
@@ -89,7 +98,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setItemId(value); getItem(value); setItem(tableMeta.rowData) }}
                   />
                 </Box>
                 <div>
