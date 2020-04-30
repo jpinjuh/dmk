@@ -32,6 +32,10 @@ const PUT_DATA_FLR = "PUT_DATA_FLR";
 const ACTIVATE_DATA_REQ = "ACTIVATE_DATA_REQ";
 const ACTIVATE_DATA_SCS = "ACTIVATE_DATA_SCS";
 const ACTIVATE_DATA_FLR = "ACTIVATE_DATA_FLR";
+// SEARCH
+const SEARCH_DATA_REQ = "SEARCH_DATA_REQ";
+const SEARCH_DATA_SCS = "SEARCH_DATA_SCS";
+const SEARCH_DATA_FLR = "SEARCH_DATA_FLR";
 
 /**
 |--------------------------------------------------
@@ -108,6 +112,18 @@ export const activateData = (url, body) => async dispatch => {
   }
 };
 
+export const searchData = (url, body) => async dispatch => {
+  dispatch({ type: SEARCH_DATA_REQ });
+
+  const response = await postFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    dispatch({ type: SEARCH_DATA_SCS, payload: response.data});
+  } else {
+    dispatch({ type: SEARCH_DATA_FLR });
+    NotificationManager.error(response.status.description);
+  }
+};
 /**
 |--------------------------------------------------
 | REDUCERS
@@ -216,6 +232,22 @@ export default function reducer(state = INIT_STATE, action = {}) {
         loading: false
       };
     case ACTIVATE_DATA_FLR:
+      return {
+        ...state,
+        loading: false
+      };
+      case SEARCH_DATA_REQ:
+      return {
+        ...state,
+        loading: true
+      };
+    case SEARCH_DATA_SCS:
+      return {
+        ...state,
+        data: action.payload,
+        loading: false
+      };
+    case SEARCH_DATA_FLR:
       return {
         ...state,
         loading: false

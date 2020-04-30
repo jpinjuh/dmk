@@ -12,13 +12,12 @@ import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
 // Organisms
-import EditModal from 'Components/organisms/roles/EditModal'
-import DeactivateModal from 'Components/organisms/roles/DeactivateModal'
-import ActivateModal from 'Components/organisms/roles/ActivateModal'
+import EditModal from 'Components/organisms/privileges/EditModal'
+import DeactivateModal from 'Components/organisms/privileges/DeactivateModal'
+import ActivateModal from 'Components/organisms/privileges/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Roles";
-
+import { getData, searchData } from "Modules/units/Privileges";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -31,12 +30,28 @@ const Table = () => {
   const [page, setPage] = useState(0)
 
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.roles);
+  const tableData = useSelector(state => state.privileges);
 
   const columns = [
     {
-      label: 'Naziv role',
-      name: 'name',
+      label: 'Rola',
+      name: 'role.name',
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      label: 'Pravo',
+      name: 'permission.name',
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      label: 'Metoda',
+      name: 'permission.method',
       options: {
         filter: true,
         sort: true,
@@ -112,7 +127,7 @@ const Table = () => {
   }, [page, rows])
 
   const changePage = (page, rows) => {
-    dispatch(getData(`role?start=${page + 1}&limit=${rows}`))
+    dispatch(getData(`privilege?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {
@@ -120,7 +135,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('role/autocomplete', body))
+    dispatch(searchData('privilege/autocomplete', body))
   };
 
   const options = {

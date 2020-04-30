@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 // MUI
+import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
@@ -15,6 +16,13 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 // Services
 import { getFunc } from "../../../services/mainApiServices";
+
+const useStyles = makeStyles(theme => ({
+  input:{
+      color: `${theme.palette.secondary.main} !important`,
+      marginTop: '8px'
+  }
+}));
 
 const methods = {
   data: [
@@ -38,6 +46,8 @@ const methods = {
 
 
 const Dropdown = props => {
+
+  const classes = useStyles();
 
   const [item, setItem] = useState('');
   const [options, setOptions] = useState([]);
@@ -91,11 +101,11 @@ const Dropdown = props => {
           fullWidth
           value={item}
           onChange={handleChange}
-
-          
+          className={classes.input}
           input={<OutlinedInput
             required={required}
-            error={validation} />}
+            error={validation}
+             />}
         >
           <MenuItem disabled value="">
             {label}

@@ -8,7 +8,7 @@ import DataTable from 'Components/organisms/cities/DataTable';
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
-const States = () => {
+const Cities = () => {
   return (
     <>
       <AdminTemplate
@@ -19,4 +19,4 @@ const States = () => {
   );
 };
 
-export default States;
+export default Cities;

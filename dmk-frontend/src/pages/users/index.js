@@ -2,22 +2,17 @@
 import React from 'react';
 
 // Organisms
-import ModeratorDataTable from 'Components/organisms/ModeratorDataTable';
+import ModeratorDataTable from 'Components/organisms/users/ModeratorDataTable';
 
 // Templates
 import ModeratorTemplate from 'Components/templates/ModeratorTemplate'
-import { User } from './model/user';
 
 const Users = () => {
   return (
     <>
       <ModeratorTemplate
-        moderatorDataTable={<ModeratorDataTable 
-          label={'+ Dodaj korisnika'} 
-          title={'Popis korisnika'}
-          model={User}
-        />}
-      ></ModeratorTemplate>
+        moderatorDataTable={<ModeratorDataTable />}>
+      </ModeratorTemplate>
     </>
   );
 };

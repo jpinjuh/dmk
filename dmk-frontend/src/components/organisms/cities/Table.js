@@ -17,8 +17,7 @@ import DeactivateModal from 'Components/organisms/cities/DeactivateModal'
 import ActivateModal from 'Components/organisms/cities/ActivateModal'
 
 // Actions
-import { postFunc } from "Services/mainApiServices";
-import { getData } from "Modules/units/Cities";
+import { getData, searchData } from "Modules/units/Cities";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -128,8 +127,7 @@ const Table = () => {
       search: value
     };
 
-    const response = await postFunc('city/autocomplete', body)
-    tableData.data = response.data
+    dispatch(searchData('city/autocomplete', body))
   };
 
   const options = {

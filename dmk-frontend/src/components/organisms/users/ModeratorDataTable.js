@@ -1,7 +1,5 @@
 // React
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { getData } from "Modules/units/Users";
+import React, { useState } from 'react';
 
 // MUI
 import Box from "@material-ui/core/Box";
@@ -11,24 +9,14 @@ import Title from 'Components/atoms/UI/Title'
 import Button from 'Components/atoms/buttons/Button'
 
 // Molecules
-import Table from "Components/molecules/Table"
+import Table from "Components/organisms/users/Table"
 
 // Organisms 
-import AddUserModal from 'Components/organisms/AddUserModal'
+import AddUserModal from 'Components/organisms/users/AddUserModal'
 
 const ModeratorDataTable = () => {
-  const dispatch = useDispatch();
 
   const [ open, setOpen] = useState(false);
-  const handleSubmit = e => {
-    e.preventDefault();
-  };
-
-  const users = useSelector(state => state.users);
-
-  useEffect(() => {
-    dispatch(getUsers('user'))
-  }, [])
 
   return (
     <>
@@ -36,14 +24,14 @@ const ModeratorDataTable = () => {
         <Title 
           variant="h4" 
           align={'left'} 
-          title={title}
+          title={'Popis korisnika'}
         />
         <Button
           label="+ Dodaj korisnika"
           onClick={() => setOpen(true)}
         />
       </Box>
-      <Table data={users} model={model}></Table>
+      <Table></Table>
       <AddUserModal
         onOpen={open} 
         closeModal={() => setOpen(false)} 

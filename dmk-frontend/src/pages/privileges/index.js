@@ -1,23 +1,19 @@
 // React
-import React, { useState } from 'react';
+import React from 'react';
 
 // Organisms
-import AddRoleForm from 'Components/organisms/AddRoleForm';
-import DataTable from 'Components/organisms/DataTable';
-
-// models
-import { PrivilegeTableData } from 'Pages/privileges/model/privilege'
+import AddForm from 'Components/organisms/privileges/AddForm';
+import DataTable from 'Components/organisms/privileges/DataTable';
 
 // Templates
 import AdminTemplate from 'Components/templates/AdminTemplate'
 
 const Privileges = () => {
-  const selector = 'privilege'
   return (
     <>
       <AdminTemplate
-        addForm={<AddRoleForm  selector={selector} title={'Dodaj privilegiju'} />}
-        dataTable={<DataTable title={'Popis privilegija'} selector={selector} model={PrivilegeTableData}/>}
+        addForm={<AddForm />}
+        dataTable={<DataTable />}
       ></AdminTemplate>
     </>
   );
