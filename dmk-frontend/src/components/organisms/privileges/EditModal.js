@@ -20,7 +20,7 @@ import Title from "Components/atoms/UI/Title";
 import { putData } from "Modules/units/Privileges";
 
 // Models
-import { PrivilegeForm } from 'Pages/privileges/model/privilege'
+import { EditForm } from 'Pages/privileges/model/privilege'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -48,7 +48,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
   const oneItem = useSelector(state => state.privileges.oneItem);
 
-  const [inputs, setInputs] = useState(PrivilegeForm);
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();

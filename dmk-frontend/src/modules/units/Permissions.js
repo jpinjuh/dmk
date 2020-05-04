@@ -16,6 +16,10 @@ import { getFunc, postFunc, deleteFunc, putFunc } from "../../services/mainApiSe
 const GET_DATA_REQ = "GET_DATA_REQ";
 const GET_DATA_SCS = "GET_DATA_SCS";
 const GET_DATA_FLR = "GET_DATA_FLR";
+// GET ONE ITEM
+const GET_ONE_ITEM_REQ = "GET_ONE_ITEM_REQ";
+const GET_ONE_ITEM_SCS = "GET_ONE_ITEM_SCS";
+const GET_ONE_ITEM_FLR = "GET_ONE_ITEM_FLR";
 // POST
 const POST_DATA_REQ = "POST_DATA_REQ";
 const POST_DATA_SCS = "POST_DATA_SCS";
@@ -52,6 +56,19 @@ export const getData = (url) => async dispatch => {
     dispatch({ type: GET_DATA_SCS, payload: response.data, total: response.total });
   } else {
     dispatch({ type: GET_DATA_FLR });
+    NotificationManager.error(response.status.description);
+  }
+};
+
+export const getOneItem = (url) => async dispatch => {
+  dispatch({ type: GET_ONE_ITEM_REQ });
+
+  const response = await getFunc(url);
+
+  if (response.status.errorCode === 200) {
+    dispatch({ type: GET_ONE_ITEM_SCS, payload: response.data });
+  } else {
+    dispatch({ type: GET_ONE_ITEM_FLR });
     NotificationManager.error(response.status.description);
   }
 };
@@ -153,6 +170,22 @@ export default function reducer(state = INIT_STATE, action = {}) {
         ...state,
         loading: false
       };
+    case GET_ONE_ITEM_REQ:
+      return {
+        ...state,
+        loading: true
+      };
+    case GET_ONE_ITEM_SCS:
+      return {
+        ...state,
+        oneItem: state.data.find(element => element.id === action.payload.id),
+        loading: false
+      };
+    case GET_ONE_ITEM_FLR:
+      return {
+        ...state,
+        loading: false
+      };
     case POST_DATA_REQ:
       return {
         ...state,
@@ -163,6 +196,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
         ...state,
         data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
+        oneItem: action.payload,
         loading: false
       };
     case POST_DATA_FLR:

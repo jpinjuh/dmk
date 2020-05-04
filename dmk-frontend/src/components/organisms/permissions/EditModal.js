@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ import Title from "Components/atoms/UI/Title";
 import { putData } from "Modules/units/Permissions";
 
 // Models
-import { PermissionForm } from 'Pages/permissions/model/permission'
+import { EditForm } from 'Pages/permissions/model/permission'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -45,8 +45,9 @@ const useStyles = makeStyles(theme => ({
 const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const [inputs, setInputs] = useState(PermissionForm);
+  console.log(item);
+  console.log(itemId)
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();
@@ -87,7 +88,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Uredi grad'}
+                  title={'Uredi pravo'}
                 />
               </Box>
               <form>

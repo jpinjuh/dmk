@@ -31,7 +31,6 @@ const Table = () => {
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0);
-  const [autocompleteItem, setAutocompleteItem] = useState(null);
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.privileges);

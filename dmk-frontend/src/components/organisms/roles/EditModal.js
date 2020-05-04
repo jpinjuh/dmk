@@ -65,7 +65,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     inputs.forEach((input, index) => {
       input.value = item[index]
     })
-  }, [onOpen]);
+  }, [item]);
 
   return (
     <div>

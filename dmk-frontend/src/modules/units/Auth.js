@@ -79,7 +79,7 @@ export const renewToken = async (url, history) => {
 export const logOut = history => dispatch => {
   dispatch({ type: LOGOUT_USER });
   localStorage.clear();
-  history.push("/");
+  history.push("/login");
 };
 
 /**

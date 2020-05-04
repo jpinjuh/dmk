@@ -196,6 +196,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
         ...state,
         data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
+        oneItem: action.payload,
         loading: false
       };
     case POST_DATA_FLR:

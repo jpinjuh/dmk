@@ -39,12 +39,14 @@ const AddForm = () => {
     e.preventDefault();
 
     const body = {};
+    const arr = []
 
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
-      setItem(item => [...item, input.value]);
+      arr.push(input.value)
     })
-
+    setItem(arr)
+    
     dispatch(postData(`role`, body));
 
     let clearVal = inputs.filter(input => {
@@ -84,6 +86,7 @@ const AddForm = () => {
         closeModal={closeModal}
         item={item}
         itemId={itemId}
+        onAdd={'dodad'}
       ></EditModal>
     </>
   );

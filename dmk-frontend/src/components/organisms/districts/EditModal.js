@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ import Title from "Components/atoms/UI/Title";
 import { putData } from "Modules/units/Districts";
 
 // Models
-import { DistrictForm } from 'Pages/districts/model/district'
+import { EditForm } from 'Pages/districts/model/district'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -46,7 +46,9 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [inputs, setInputs] = useState(DistrictForm);
+  const oneItem = useSelector(state => state.privileges.oneItem);
+
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();
@@ -63,9 +65,18 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      input.value = item[index]
-    })
-  }, [item]);
+      if(oneItem){
+        if(input.name_in_db === 'city'){
+          input.value = {
+            label: oneItem.city.name,
+            id: oneItem.city_id, 
+          }
+        } else {
+          input.value = item[index]
+        }
+      }
+    }) 
+  }, [item, oneItem]);
 
   return (
     <div>
