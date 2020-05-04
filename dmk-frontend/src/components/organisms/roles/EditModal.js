@@ -17,10 +17,10 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Actions
-import { putData } from "Modules/units/Roles";
+import { putData, postData } from "Modules/units/Roles";
 
 // Models
-import { RoleForm } from 'Pages/roles/model/role'
+import { EditForm } from 'Pages/roles/model/role'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -46,7 +46,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [inputs, setInputs] = useState(RoleForm);
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();
@@ -55,9 +55,9 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    console.log(body)
+    
     dispatch(putData(`role/${itemId}`, body));
-
+ 
     closeModal();
   }
 
@@ -65,7 +65,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     inputs.forEach((input, index) => {
       input.value = item[index]
     })
-  }, [item]);
+  }, [onOpen]);
 
   return (
     <div>

@@ -62,7 +62,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
     closeModal();
   }
-
+  console.log(oneItem)
   useEffect(() => {
     inputs.forEach((input, index) => {
       if(oneItem){
@@ -70,8 +70,8 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
         console.log(oneItem)
         if(input.name_in_db === 'district'){
           input.value = {
-            label: oneItem.permission.name,
-            id: oneItem.permissions_id, 
+            label: oneItem.district.name,
+            id: oneItem.districts_id, 
           }
         } else if(input.name_in_db === 'role') {
           input.value = oneItem.roles_id
@@ -85,7 +85,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
         input.value = item[index]*/
       }      
     })
-  }, [item]);
+  }, [item, oneItem]);
 
   return (
     <div>
