@@ -178,7 +178,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case GET_ONE_ITEM_SCS:
       return {
         ...state,
-        oneItem: action.payload,
+        oneItem: state.data.find(element => element.id === action.payload.id),
         loading: false
       };
     case GET_ONE_ITEM_FLR:

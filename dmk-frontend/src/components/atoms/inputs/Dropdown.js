@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
@@ -48,8 +48,6 @@ const Dropdown = props => {
 
   const classes = useStyles();
 
-  const [item, setItem] = useState('');
-  const [options, setOptions] = useState([]);
   const {
     value,
     label,
@@ -60,6 +58,10 @@ const Dropdown = props => {
     charsToTrigger,
     disabled
   } = props;
+
+  const [item, setItem] = useState(value ? value : '');
+  const [options, setOptions] = useState([]);
+  
 
   useEffect(() => {
     if (service !== 'methods') {
@@ -72,6 +74,7 @@ const Dropdown = props => {
     }
   }, [])
 
+  
   useEffect(() => {
     if (service !== 'methods')
       setParentState({

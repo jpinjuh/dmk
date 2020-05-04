@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -46,6 +46,8 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const oneItem = useSelector(state => state.users.oneItem);
+
   const [inputs, setInputs] = useState(UserForm);
 
   const editItem = (e) => {
@@ -63,7 +65,25 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      input.value = item[index]
+      if(oneItem){
+       // console.log('Hello World!')
+        console.log(oneItem)
+        if(input.name_in_db === 'district'){
+          input.value = {
+            label: oneItem.permission.name,
+            id: oneItem.permissions_id, 
+          }
+        } else if(input.name_in_db === 'role') {
+          input.value = oneItem.roles_id
+        } else if(input.name_in_db === 'password_hash'){
+          input.value = ''
+        }
+        else{
+          input.value = item[index]
+        }
+        /*if(input.name_in_db !== 'password_hash')
+        input.value = item[index]*/
+      }      
     })
   }, [item]);
 

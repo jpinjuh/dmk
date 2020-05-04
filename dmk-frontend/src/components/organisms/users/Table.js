@@ -17,7 +17,7 @@ import DeactivateModal from 'Components/organisms/users/DeactivateModal'
 import ActivateModal from 'Components/organisms/users/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Users";
+import { getData, getOneItem, searchData } from "Modules/units/Users";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -31,6 +31,11 @@ const Table = () => {
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.users);
+
+  const getItem = async id => {
+    dispatch(getOneItem(`user/${id}`))
+    setTimeout(() => setOpen(true), 500)
+  };
 
   const columns = [
     {
@@ -113,7 +118,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setItemId(value); getItem(value); setItem(tableMeta.rowData) }}
                   />
                 </Box>
                 <div>

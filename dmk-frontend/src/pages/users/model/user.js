@@ -28,6 +28,7 @@ export const UserForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'password_hash',
+    value: ''
   },
   {
     label: 'Uloga',
