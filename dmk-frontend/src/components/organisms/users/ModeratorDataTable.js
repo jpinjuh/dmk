@@ -12,7 +12,7 @@ import Button from 'Components/atoms/buttons/Button'
 import Table from "Components/organisms/users/Table"
 
 // Organisms 
-import AddUserModal from 'Components/organisms/users/AddUserModal'
+import AddModal from 'Components/organisms/users/AddModal'
 
 const ModeratorDataTable = () => {
 
@@ -32,10 +32,10 @@ const ModeratorDataTable = () => {
         />
       </Box>
       <Table></Table>
-      <AddUserModal
+      <AddModal
         onOpen={open} 
         closeModal={() => setOpen(false)} 
-      ></AddUserModal>
+      ></AddModal>
     </>
   );
 };

@@ -17,7 +17,7 @@ import DeactivateModal from 'Components/organisms/cities/DeactivateModal'
 import ActivateModal from 'Components/organisms/cities/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Cities";
+import { getData, searchData, getOneItem } from "Modules/units/Cities";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -31,6 +31,11 @@ const Table = () => {
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.cities);
+
+  const getItem = async id => {
+    dispatch(getOneItem(`city/${id}`))
+    setTimeout(() => setOpen(true), 500)
+  };
 
   const columns = [
     {
@@ -81,7 +86,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setItemId(value); getItem(value); }}
                   />
                 </Box>
                 <div>

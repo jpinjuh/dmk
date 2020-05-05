@@ -20,7 +20,7 @@ import Title from "Components/atoms/UI/Title";
 import { putData } from "Modules/units/States";
 
 // Models
-import { StateForm } from 'Pages/states/model/state'
+import { EditForm } from 'Pages/states/model/state'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -46,7 +46,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [inputs, setInputs] = useState(StateForm);
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();

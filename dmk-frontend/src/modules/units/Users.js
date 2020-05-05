@@ -66,7 +66,6 @@ export const getOneItem = (url) => async dispatch => {
   const response = await getFunc(url);
 
   if (response.status.errorCode === 200) {
-    console.log(response.data)
     dispatch({ type: GET_ONE_ITEM_SCS, payload: response.data });
   } else {
     dispatch({ type: GET_ONE_ITEM_FLR });
@@ -197,6 +196,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
         ...state,
         data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
+        oneItem: action.payload,
         loading: false
       };
     case POST_DATA_FLR:

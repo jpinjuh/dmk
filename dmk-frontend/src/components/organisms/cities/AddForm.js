@@ -1,6 +1,6 @@
 // React
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { Box } from "@material-ui/core";
@@ -15,29 +15,55 @@ import InputForm from "Components/molecules/InputForm"
 // Model
 import { CityForm } from 'Pages/cities/model/city'
 
+// Organisms
+import EditModal from 'Components/organisms/cities/EditModal'
+
 // Action
 import { postData } from "Modules/units/Cities";
 
 const AddForm = () => {
   const [inputs, setInputs] = useState(CityForm);
   const dispatch = useDispatch();
+  const [item, setItem] = useState([]);
+  const [itemId, setItemId] = useState('');
+  const [open, setOpen] = useState(false);
+
+  const newItem = useSelector(state => state.cities.oneItem);
+
+  useEffect(() => {
+    if(newItem)
+    setItemId(newItem.id)
+  }, [newItem])
 
   const addItem = e => {
     e.preventDefault();
 
     const body = {};
-    inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
-    })
+    const arr = []
 
-    dispatch(postData('city', body))
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;;
+      arr.push(body[input.name_in_db])
+    })
+    setItem(arr)
+    console.log(item)
+    dispatch(postData(`city`, body));
+
     let clearVal = inputs.filter(input => {
       input.value = '';
       return input;
-    })
+    });
 
+    setTimeout(() => {
+      setOpen(true)
+    }, 500);
     setInputs(clearVal)
   };
+
+  const closeModal = () => {
+    setOpen(false);
+    setItem([]);
+  }
 
   return (
     <>
@@ -57,6 +83,13 @@ const AddForm = () => {
           />
         </Box>
       </form>
+
+      <EditModal
+        onOpen={open}
+        closeModal={closeModal}
+        item={item}
+        itemId={itemId}
+      ></EditModal>
     </>
   );
 };

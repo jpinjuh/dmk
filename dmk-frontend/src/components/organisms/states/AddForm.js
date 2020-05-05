@@ -1,6 +1,6 @@
 // React
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { Box } from "@material-ui/core";
@@ -15,29 +15,52 @@ import InputForm from "Components/molecules/InputForm"
 // Model
 import { StateForm } from 'Pages/states/model/state'
 
+// Organisms
+import EditModal from 'Components/organisms/states/EditModal'
+
 // Action
 import { postData } from "Modules/units/States";
 
 const AddForm = () => {
   const [inputs, setInputs] = useState(StateForm);
   const dispatch = useDispatch();
+  const [item, setItem] = useState([]);
+  const [itemId, setItemId] = useState('');
+  const [open, setOpen] = useState(false);
+
+  const newItem = useSelector(state => state.states.oneItem);
+
+  useEffect(() => {
+    if(newItem)
+    setItemId(newItem.id)
+  }, [newItem])
 
   const addItem = e => {
     e.preventDefault();
 
     const body = {};
+    const arr = []
+
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
+      arr.push(input.value)
     })
+    setItem(arr)
+    
+    dispatch(postData(`state`, body));
 
-    dispatch(postData('state', body))
     let clearVal = inputs.filter(input => {
       input.value = '';
       return input;
     })
-
+    setOpen(true)
     setInputs(clearVal)
   };
+
+  const closeModal = () => {
+    setOpen(false);
+    setItem([]);
+  }
 
   return (
     <>
@@ -57,6 +80,13 @@ const AddForm = () => {
           />
         </Box>
       </form>
+
+      <EditModal
+        onOpen={open}
+        closeModal={closeModal}
+        item={item}
+        itemId={itemId}
+      ></EditModal>
     </>
   );
 };

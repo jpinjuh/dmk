@@ -86,7 +86,6 @@ const AddForm = () => {
         closeModal={closeModal}
         item={item}
         itemId={itemId}
-        onAdd={'dodad'}
       ></EditModal>
     </>
   );

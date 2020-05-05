@@ -17,7 +17,7 @@ import DeactivateModal from 'Components/organisms/districts/DeactivateModal'
 import ActivateModal from 'Components/organisms/districts/ActivateModal'
 
 // Actions
-import { getData, searchData, getOneItem } from "Modules/units/Districts";
+import { getData, getOneItem, searchData } from "Modules/units/Districts";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -86,7 +86,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { getItem(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setItemId(value); getItem(value); }}
                   />
                 </Box>
                 <div>

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +18,9 @@ import Title from "Components/atoms/UI/Title";
 
 // Models
 import { UserForm } from 'Pages/users/model/user'
+
+// Organisms
+import EditModal from 'Components/organisms/users/EditModal'
 
 // Actions
 import { postData } from "Modules/units/Users";
@@ -43,23 +45,48 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-const AddUserModal = ({ onOpen, closeModal }) => {
+const AddModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const [inputs, setInputs] = useState(UserForm);
+  const [item, setItem] = useState([]);
+  const [itemId, setItemId] = useState('');
+  const [open, setOpen] = useState(false);
 
+  const newItem = useSelector(state => state.users.oneItem);
 
-  const addItem = (e) => {
+  useEffect(() => {
+    if (newItem)
+      setItemId(newItem.id)
+  }, [newItem])
+
+  const addItem = e => {
     e.preventDefault();
 
     const body = {};
+    const arr = []
+
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;;
+      arr.push(body[input.name_in_db])
     })
-    dispatch(postData('user', body))
+    setItem(arr)
+    dispatch(postData(`user`, body));
+
+    let clearVal = inputs.filter(input => {
+      input.value = '';
+      return input;
+    });
     closeModal();
+    setTimeout(() => {
+      setOpen(true)
+    }, 500);
+    setInputs(clearVal)
+  };
+
+  const closeEditModal = () => {
+    setOpen(false);
+    setItem([]);
   }
 
   return (
@@ -108,8 +135,14 @@ const AddUserModal = ({ onOpen, closeModal }) => {
           </div>
         </Fade>
       </Modal>
+      <EditModal
+        onOpen={open}
+        closeModal={closeEditModal}
+        item={item}
+        itemId={itemId}
+      ></EditModal>
     </div>
   );
 }
 
-export default AddUserModal;
+export default AddModal;

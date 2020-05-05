@@ -118,7 +118,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setItemId(value); getItem(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setItemId(value); getItem(value); }}
                   />
                 </Box>
                 <div>

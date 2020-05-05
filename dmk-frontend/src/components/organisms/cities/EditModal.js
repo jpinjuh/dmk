@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ import Title from "Components/atoms/UI/Title";
 import { putData } from "Modules/units/Cities";
 
 // Models
-import { CityForm } from 'Pages/cities/model/city'
+import { EditForm } from 'Pages/cities/model/city'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -42,11 +42,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, item, itemId }) => {
+const EditModal = ({ onOpen, closeModal, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [inputs, setInputs] = useState(CityForm);
+  const oneItem = useSelector(state => state.cities.oneItem);
+
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();
@@ -56,16 +58,21 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
       body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
     })
 
-    dispatch(putData(`city/${itemId}`, body));
+    dispatch(putData(`state/${itemId}`, body));
 
     closeModal();
   }
-
   useEffect(() => {
     inputs.forEach((input, index) => {
-      input.value = item[index]
+      if (oneItem) {
+        if(input.name_in_db === 'state') {
+          input.value = oneItem.state_id
+        } else {
+          input.value = oneItem[input.name_in_db]
+        }
+      }
     })
-  }, [item]);
+  }, [oneItem]);
 
   return (
     <div>

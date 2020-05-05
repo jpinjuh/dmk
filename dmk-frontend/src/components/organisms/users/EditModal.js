@@ -20,7 +20,7 @@ import Title from "Components/atoms/UI/Title";
 import { putData } from "Modules/units/Users";
 
 // Models
-import { UserForm } from 'Pages/users/model/user'
+import { EditForm } from 'Pages/users/model/user'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -42,13 +42,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, item, itemId }) => {
+const EditModal = ({ onOpen, closeModal, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const oneItem = useSelector(state => state.users.oneItem);
 
-  const [inputs, setInputs] = useState(UserForm);
+  const [inputs, setInputs] = useState(EditForm);
 
   const editItem = (e) => {
     e.preventDefault();
@@ -62,30 +62,26 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
 
     closeModal();
   }
-  console.log(oneItem)
+
   useEffect(() => {
     inputs.forEach((input, index) => {
-      if(oneItem){
-       // console.log('Hello World!')
-        console.log(oneItem)
-        if(input.name_in_db === 'district'){
+      if (oneItem) {
+        if (input.name_in_db === 'district') {
           input.value = {
             label: oneItem.district.name,
-            id: oneItem.districts_id, 
+            id: oneItem.districts_id,
           }
-        } else if(input.name_in_db === 'role') {
+        } else if (input.name_in_db === 'role') {
           input.value = oneItem.roles_id
-        } else if(input.name_in_db === 'password_hash'){
+        } else if (input.name_in_db === 'password_hash') {
           input.value = ''
         }
-        else{
-          input.value = item[index]
+        else {
+          input.value = oneItem[input.name_in_db]
         }
-        /*if(input.name_in_db !== 'password_hash')
-        input.value = item[index]*/
-      }      
+      }
     })
-  }, [item, oneItem]);
+  }, [oneItem]);
 
   return (
     <div>
@@ -107,7 +103,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Uredi grad'}
+                  title={'Uredi korisnika'}
                 />
               </Box>
               <form>
