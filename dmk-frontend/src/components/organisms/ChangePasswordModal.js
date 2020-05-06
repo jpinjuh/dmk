@@ -41,6 +41,7 @@ const requiredInputs = [
     label: 'Lozinka',
     type: 'text',
     disabled: false,
+    name_in_db: 'password_hash'
   }
 ]
 

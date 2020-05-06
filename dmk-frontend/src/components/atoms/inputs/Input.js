@@ -37,8 +37,8 @@ const Input = props => {
       value={value}
       color={color}
       required={required}
-      error={validation}
-      helperText={validation}
+      error={validation.error}
+      helperText={validation.text}
       onChange={e => onChange(e.currentTarget.value)}
       className={classes.root}
       InputProps={{

@@ -46,6 +46,13 @@ const InputForm = props => {
                   />
                   </Grid>;
         case 'text':
+          if(input.value){
+            if(input.value.length > 1){
+              input.validation = {error: false, text: ''}
+            } else {
+              input.validation = {error: true, text: 'Polje treba sadržavati min 2 znaka'}
+            }
+          }
           return <Grid item xs={12} md={6} key={input.name_in_db}>
                   <Input
                     type={input.type}
@@ -53,6 +60,7 @@ const InputForm = props => {
                     disabled={input.disabled}
                     onChange={handleInputChange(index)}
                     label={input.label}
+                    validation={input.validation}
                   />
                   </Grid>;
         default:

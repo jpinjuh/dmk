@@ -40,21 +40,31 @@ const AddForm = () => {
 
     const body = {};
     const arr = []
+    let isCorrect = false;
+    let counter = 0;
 
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
       arr.push(input.value)
+
+      if(input.validation.error === false){
+        counter++;
+      }
     })
     setItem(arr)
+    if(counter === inputs.length)
+    isCorrect = true
     
-    dispatch(postData(`role`, body));
+    if(isCorrect){
+      dispatch(postData(`role`, body));
 
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      return input;
-    })
-    setOpen(true)
-    setInputs(clearVal)
+      let clearVal = inputs.filter(input => {
+        input.value = '';
+        return input;
+      })
+      setOpen(true)
+      setInputs(clearVal)
+    }
   };
 
   const closeModal = () => {
