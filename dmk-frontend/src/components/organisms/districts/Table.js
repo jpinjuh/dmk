@@ -132,7 +132,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('district/autocomplete', body))
+    dispatch(searchData('district/search', body))
   };
 
   const options = {

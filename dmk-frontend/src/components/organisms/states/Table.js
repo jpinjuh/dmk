@@ -119,7 +119,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('state/autocomplete', body))
+    dispatch(searchData('state/search', body))
   };
 
   const options = {

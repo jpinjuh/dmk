@@ -164,7 +164,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('user/autocomplete', body))
+    dispatch(searchData('user/search', body))
   };
 
   const options = {

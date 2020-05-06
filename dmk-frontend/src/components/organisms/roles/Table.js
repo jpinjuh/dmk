@@ -120,7 +120,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('role/autocomplete', body))
+    dispatch(searchData('role/search', body))
   };
 
   const options = {
