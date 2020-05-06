@@ -29,6 +29,7 @@ const AddForm = () => {
   const [open, setOpen] = useState(false);
 
   const newItem = useSelector(state => state.roles.oneItem);
+  const items = useSelector(state => state.roles);
 
   useEffect(() => {
     if(newItem)
@@ -62,7 +63,8 @@ const AddForm = () => {
         input.value = '';
         return input;
       })
-      setOpen(true)
+      if(!items.data.some(item => body.name === item.name))
+        setOpen(true)
       setInputs(clearVal)
     }
   };
@@ -72,6 +74,7 @@ const AddForm = () => {
     setItem([]);
   }
 
+  
   return (
     <>
       <Box mb={3}>

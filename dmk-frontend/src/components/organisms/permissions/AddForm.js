@@ -29,6 +29,7 @@ const AddForm = () => {
   const [open, setOpen] = useState(false);
 
   const newItem = useSelector(state => state.permissions.oneItem);
+  const items = useSelector(state => state.permissions);
 
   useEffect(() => {
     if(newItem)
@@ -54,7 +55,8 @@ const AddForm = () => {
       return input;
     });
 
-    setOpen(true)
+    if (!items.data.some(item => body.route === item.route && body.method === item.method))
+      setOpen(true)
     setInputs(clearVal)
   };
 

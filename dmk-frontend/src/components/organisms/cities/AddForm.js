@@ -29,6 +29,7 @@ const AddForm = () => {
   const [open, setOpen] = useState(false);
 
   const newItem = useSelector(state => state.cities.oneItem);
+  const items = useSelector(state => state.cities);
 
   useEffect(() => {
     if(newItem)
@@ -54,9 +55,11 @@ const AddForm = () => {
       return input;
     });
 
-    setTimeout(() => {
-      setOpen(true)
-    }, 500);
+    if (!items.data.some(item => body.name === item.name)) {
+      setTimeout(() => {
+        setOpen(true)
+      }, 500);
+    }
     setInputs(clearVal)
   };
 

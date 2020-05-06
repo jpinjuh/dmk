@@ -29,6 +29,7 @@ const AddForm = () => {
   const [open, setOpen] = useState(false);
 
   const newItem = useSelector(state => state.privileges.oneItem);
+  const items = useSelector(state => state.privileges);
 
   useEffect(() => {
     if(newItem)
@@ -53,10 +54,13 @@ const AddForm = () => {
       input.value = '';
       return input;
     });
-
-    setTimeout(() => {
-      setOpen(true)
-    }, 500);
+    
+    if (!items.data.some(item => body.permission.id === item.permissions_id && body.role.id === item.roles_id)){
+      setTimeout(() => {
+        setOpen(true)
+      }, 500);
+    }
+    
     setInputs(clearVal)
   };
 
