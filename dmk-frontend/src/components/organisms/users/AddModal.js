@@ -54,6 +54,7 @@ const AddModal = ({ onOpen, closeModal }) => {
   const [open, setOpen] = useState(false);
 
   const newItem = useSelector(state => state.users.oneItem);
+  const items = useSelector(state => state.users);
 
   useEffect(() => {
     if (newItem)
@@ -73,15 +74,20 @@ const AddModal = ({ onOpen, closeModal }) => {
     setItem(arr)
     dispatch(postData(`user`, body));
 
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      return input;
-    });
-    closeModal();
-    setTimeout(() => {
-      setOpen(true)
-    }, 500);
-    setInputs(clearVal)
+    
+
+    if (!items.data.some(item => body.username === item.username || body.email === item.email)) {
+      closeModal();
+      setTimeout(() => {
+        setOpen(true)
+      }, 500);
+      let clearVal = inputs.filter(input => {
+        input.value = '';
+        return input;
+      });
+      setInputs(clearVal)
+    }
+    
   };
 
   const closeEditModal = () => {
