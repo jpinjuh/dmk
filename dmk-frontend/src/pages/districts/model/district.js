@@ -4,6 +4,7 @@ export const DistrictForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Grad',
@@ -20,6 +21,7 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Grad',

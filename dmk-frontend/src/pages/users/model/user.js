@@ -4,31 +4,36 @@ export const UserForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'first_name',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Prezime',
     type: 'text',
     disabled: false,
     name_in_db: 'last_name',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Korisničko ime',
     type: 'text',
     disabled: false,
     name_in_db: 'username',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Email',
     type: 'text',
     disabled: false,
     name_in_db: 'email',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Lozinka',
     type: 'text',
     disabled: false,
     name_in_db: 'password_hash',
-    value: ''
+    value: '',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Uloga',
@@ -52,31 +57,36 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'first_name',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Prezime',
     type: 'text',
     disabled: false,
     name_in_db: 'last_name',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Korisničko ime',
     type: 'text',
     disabled: false,
     name_in_db: 'username',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Email',
     type: 'text',
     disabled: false,
     name_in_db: 'email',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Lozinka',
     type: 'text',
     disabled: false,
     name_in_db: 'password_hash',
-    value: ''
+    value: '',
+    validation: {error: null, text: ''}
   },
   {
     label: 'Uloga',
