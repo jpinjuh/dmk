@@ -43,7 +43,7 @@ const theme = createMuiTheme({
           opacity: 0
         },
       }
-    } 
+    },
   },
   props: {
     MuiButtonBase: {
