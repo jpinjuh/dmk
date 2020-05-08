@@ -20,6 +20,7 @@ const Input = props => {
     value,
     label,
     validation,
+    error,
     onChange,
     required,
     disabled,
@@ -37,8 +38,8 @@ const Input = props => {
       value={value}
       color={color}
       required={required}
-      error={validation.error}
-      helperText={validation.text}
+      error={error}
+      helperText={validation}
       onChange={e => onChange(e.currentTarget.value)}
       className={classes.root}
       InputProps={{

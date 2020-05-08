@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,18 +47,27 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState(EditForm);
+  const errorMsg = useSelector(state => state.roles.editErrorMsg);
+
+  useEffect(() => {
+    if(errorMsg){
+      if(errorMsg.errorCode === 200){
+        console.log(errorMsg.errorCode)
+        closeModal();
+      }
+    }
+  }, [errorMsg])
 
   const editItem = (e) => {
     e.preventDefault();
 
     const body = {};
+
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    
+
     dispatch(putData(`role/${itemId}`, body));
- 
-    closeModal();
   }
 
   useEffect(() => {

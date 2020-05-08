@@ -21,81 +21,44 @@ const InputForm = props => {
   };
 
   return (
-  
-      <Grid container alignItems="center" spacing={2}>
-      {inputs.map((input, index) =>
 
-       {
+    <Grid container alignItems="center" spacing={2}>
+      {inputs.map((input, index) => {
         switch (input.type) {
           case 'dropdown':
-          return <Grid item xs={12} md={6} key={input.name_in_db}>
-                  <Dropdown
-                    service={input.service}
-                    label={input.label}
-                    value={input.value}
-                    setParentState={handleInputChange(index)}
-                  />
-                  </Grid>;
-        case 'autocomplete':
-          return <Grid item xs={12} md={6} key={input.name_in_db}>
-                  <Autocomplete
-                    service={input.service}
-                    label={input.label}
-                    value={input.value}
-                    setParentState={handleInputChange(index)}
-                  />
-                  </Grid>;
-        case 'text':
-          if(input.value){
-            if(input.value.length > 1){
-              input.validation = {error: false, text: ''}
-            } else {
-              input.validation = {error: true, text: 'Polje treba sadržavati min 2 znaka'}
-            }
-          }
-          return <Grid item xs={12} md={6} key={input.name_in_db}>
-                  <Input
-                    type={input.type}
-                    value={input.value}
-                    disabled={input.disabled}
-                    onChange={handleInputChange(index)}
-                    label={input.label}
-                    validation={input.validation}
-                  />
-                  </Grid>;
-        default:
-          return null;
+            return <Grid item xs={12} md={6} key={input.name_in_db}>
+              <Dropdown
+                service={input.service}
+                label={input.label}
+                value={input.value}
+                setParentState={handleInputChange(index)}
+              />
+            </Grid>;
+          case 'autocomplete':
+            return <Grid item xs={12} md={6} key={input.name_in_db}>
+              <Autocomplete
+                service={input.service}
+                label={input.label}
+                value={input.value}
+                setParentState={handleInputChange(index)}
+              />
+            </Grid>;
+          default:
+            return <Grid item xs={12} md={6} key={input.name_in_db}>
+              <Input
+                type={input.type}
+                value={input.value}
+                disabled={input.disabled}
+                onChange={handleInputChange(index)}
+                label={input.label}
+                validation={input.validation}
+                error={input.error}
+              />
+            </Grid>;
         }
       }
-        
-        )}
-    </Grid>
-    
-    /*
-    <Grid container spacing={2}>
-      {inputs.map((input, index) =>
-        input.type === "autocomplete" ? (
-          <Grid item xs={12} md={6} key={input.name_in_db}>
-            <Dropdown
-              service={input.service}
-              label={input.label}
-              value={input.value}
-              setParentState={handleInputChange(index)}
-            />
-          </Grid>
-        ) : (
-          <Grid item xs={12} md={6} key={input.name_in_db}>
-            <Input
-              type={input.type}
-              value={input.value}
-              disabled={input.disabled}
-              onChange={handleInputChange(index)}
-              label={input.label}
-            />
-          </Grid>
-        )
       )}
-    </Grid>*/
+    </Grid>
   );
 };
 

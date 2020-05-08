@@ -83,7 +83,7 @@ export const postData = (url, body) => async dispatch => {
     NotificationManager.success(response.status.description);
   } else {
     dispatch({ type: POST_DATA_FLR });
-    NotificationManager.error(response.status.description);
+    console.log(response)
   }
 };
 

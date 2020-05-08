@@ -41,7 +41,13 @@ const requiredInputs = [
     label: 'Lozinka',
     type: 'text',
     disabled: false,
-    name_in_db: 'password_hash'
+    name_in_db: 'password_hash',
+  },
+  {
+    label: 'Potvrdi lozinku',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'confirm_password',
   }
 ]
 

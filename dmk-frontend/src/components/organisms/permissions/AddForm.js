@@ -29,11 +29,10 @@ const AddForm = () => {
   const [open, setOpen] = useState(false);
 
   const newItem = useSelector(state => state.permissions.oneItem);
-  const items = useSelector(state => state.permissions);
 
   useEffect(() => {
-    if(newItem)
-    setItemId(newItem.id)
+    if (newItem)
+      setItemId(newItem.id)
   }, [newItem])
 
   const addItem = e => {
@@ -47,16 +46,14 @@ const AddForm = () => {
       arr.push(input.value)
     })
     setItem(arr)
-    
+
     dispatch(postData(`permission`, body));
 
     let clearVal = inputs.filter(input => {
       input.value = '';
       return input;
     });
-
-    if (!items.data.some(item => body.route === item.route && body.method === item.method))
-      setOpen(true)
+    setOpen(true)
     setInputs(clearVal)
   };
 

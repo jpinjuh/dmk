@@ -62,7 +62,6 @@ const LoginLayout = () => {
             label="Korisničko ime"
             value={username}
             onChange={setUsername}
-            validation={{error: null, text: ''}}
             required
           />
           <Input
@@ -70,7 +69,6 @@ const LoginLayout = () => {
             label="Lozinka"
             value={password}
             onChange={setPassword}
-            validation={{error: null, text: ''}}
             required
           />
           <Box mt={3}>

@@ -4,21 +4,19 @@ export const PermissionForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: {error: null, text: ''}
   },
   {
     label: 'Ruta',
     type: 'text',
     disabled: false,
     name_in_db: 'route',
-    validation: {error: null, text: ''}
   },
   {
     label: 'Metoda',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'method',
-    service: 'methods'
+    service: 'methods',
   },
 ]  
 
@@ -28,20 +26,18 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: {error: null, text: ''}
   },
   {
     label: 'Ruta',
     type: 'text',
     disabled: false,
     name_in_db: 'route',
-    validation: {error: null, text: ''}
   },
   {
     label: 'Metoda',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'method',
-    service: 'methods'
+    service: 'methods',
   },
 ]
