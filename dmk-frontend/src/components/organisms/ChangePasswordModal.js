@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,6 +17,9 @@ import InputForm from "Components/molecules/InputForm"
 // Atoms
 import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
+
+// Services
+import { putFunc } from "Services/mainApiServices"
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -42,13 +46,13 @@ const requiredInputs = [
     label: 'Lozinka',
     type: 'text',
     disabled: false,
-    name_in_db: 'password_hash',
+    name_in_db: 'password_change',
   },
   {
     label: 'Potvrdi lozinku',
     type: 'text',
     disabled: false,
-    name_in_db: 'confirm_password',
+    name_in_db: 'password_confirm',
   }
 ]
 
@@ -58,10 +62,40 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
 
   const [inputs, setInputs] = useState(requiredInputs);
 
-  const changePassword = (e) => {
+  const changePassword = e => {
     e.preventDefault();
+    const body = {};
+    
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value;
+    })
 
-    closeModal();
+    console.log(body)
+   
+    putFunc('user/change_pass', body).then(
+      response => 
+      {
+        if(response.status.errorCode === 200)
+        {
+          NotificationManager.success(response.status.description)
+          closeModal();
+        }
+        else
+        {
+          NotificationManager.error(response.status.description)
+        }
+        
+      },
+    )
+
+    let clearVal = inputs.filter(input => {
+      input.value = '';
+      return input;
+    }) 
+    console.log(clearVal)
+    setInputs(clearVal)
+
+    
   }
 
   return (
