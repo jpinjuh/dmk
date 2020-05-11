@@ -4,14 +4,18 @@ export const PrivilegeForm = [
     type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
-    service: 'role'
+    service: 'role',
+    validation: null,
+    error: false
   },
   {
     label: 'Pravo',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'permission',
-    service: 'permission/autocomplete'
+    service: 'permission/autocomplete',
+    validation: null,
+    error: false
   },
 ]
 
@@ -21,13 +25,17 @@ export const EditForm = [
     type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
-    service: 'role'
+    service: 'role',
+    validation: null,
+    error: false
   },
   {
     label: 'Pravo',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'permission',
-    service: 'permission/autocomplete'
+    service: 'permission/autocomplete',
+    validation: null,
+    error: false
   },
 ]

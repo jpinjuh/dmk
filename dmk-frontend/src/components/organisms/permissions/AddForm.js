@@ -1,6 +1,7 @@
 // React
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 // MUI
 import { Box } from "@material-ui/core";
@@ -27,13 +28,48 @@ const AddForm = () => {
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.permissions.oneItem);
+  const errorMsg = useSelector(state => state.permissions.postErrorMsg);
 
   useEffect(() => {
     if (newItem)
       setItemId(newItem.id)
   }, [newItem])
+
+  useEffect(() => {
+    if (submitted) {
+      if (errorMsg.errorCode === 200) {
+        setOpen(true)
+        let clearVal = inputs.filter(input => {
+          input.value = '';
+          input.validation = '';
+          input.error = false;
+          return input;
+        })
+        
+        setInputs(clearVal)
+        setSubmitted(false)
+      } else if(errorMsg.errorCode === 400){
+        if(typeof errorMsg.description === 'object'){
+          inputs.forEach(input => {
+            Object.keys(errorMsg.description).forEach(desc => {
+              if(input.name_in_db === desc){
+                input.validation = errorMsg.description[desc][0];
+                input.error = true;
+              }
+            })
+          })
+        }
+        setSubmitted(false)
+      }
+      else {
+        NotificationManager.error(errorMsg.description);
+        setSubmitted(false)
+      }
+    }
+  }, [errorMsg])
 
   const addItem = e => {
     e.preventDefault();
@@ -46,15 +82,8 @@ const AddForm = () => {
       arr.push(input.value)
     })
     setItem(arr)
-
+    setSubmitted(true)
     dispatch(postData(`permission`, body));
-
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      return input;
-    });
-    setOpen(true)
-    setInputs(clearVal)
   };
 
   const closeModal = () => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +9,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import MUIButton from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 
 // Molecules
 import InputForm from "Components/molecules/InputForm"
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     border: 'none',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 5, 3),
+    padding: theme.spacing(4, 5, 4),
   },
   button: {
     height: '56px',
@@ -46,20 +48,55 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddModal = ({ onOpen, closeModal }) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
   const [inputs, setInputs] = useState(UserForm);
+  const dispatch = useDispatch();
+  const classes = useStyles();
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.users.oneItem);
-  const items = useSelector(state => state.users);
+  const errorMsg = useSelector(state => state.users.postErrorMsg);
 
   useEffect(() => {
     if (newItem)
       setItemId(newItem.id)
   }, [newItem])
+
+  useEffect(() => {
+    if (submitted) {
+      if (errorMsg.errorCode === 200) {
+        setOpen(true)
+        let clearVal = inputs.filter(input => {
+          input.value = '';
+          input.validation = '';
+          input.error = false;
+          return input;
+        })
+
+        closeModal();
+        setInputs(clearVal)
+        setSubmitted(false)
+      } else if(errorMsg.errorCode === 400){
+        if(typeof errorMsg.description === 'object'){
+          inputs.forEach(input => {
+            Object.keys(errorMsg.description).forEach(desc => {
+              if(input.name_in_db === desc){
+                input.validation = errorMsg.description[desc][0];
+                input.error = true;
+              }
+            })
+          })
+        }
+        setSubmitted(false)
+      }
+      else {
+        NotificationManager.error(errorMsg.description);
+        setSubmitted(false)
+      }
+    }
+  }, [errorMsg])
 
   const addItem = e => {
     e.preventDefault();
@@ -68,26 +105,12 @@ const AddModal = ({ onOpen, closeModal }) => {
     const arr = []
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;;
-      arr.push(body[input.name_in_db])
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      arr.push(input.value)
     })
     setItem(arr)
+    setSubmitted(true)
     dispatch(postData(`user`, body));
-
-    
-
-    if (!items.data.some(item => body.username === item.username || body.email === item.email)) {
-      closeModal();
-      setTimeout(() => {
-        setOpen(true)
-      }, 500);
-      let clearVal = inputs.filter(input => {
-        input.value = '';
-        return input;
-      });
-      setInputs(clearVal)
-    }
-    
   };
 
   const closeEditModal = () => {
@@ -109,7 +132,7 @@ const AddModal = ({ onOpen, closeModal }) => {
         }}
       >
         <Fade in={onOpen}>
-          <div className={classes.paper}>
+          <Container className={classes.paper} maxWidth="xs">
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
                 <Title
@@ -138,7 +161,7 @@ const AddModal = ({ onOpen, closeModal }) => {
                 </Box>
               </form>
             </Box>
-          </div>
+          </Container>
         </Fade>
       </Modal>
       <EditModal

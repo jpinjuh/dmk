@@ -2,15 +2,24 @@
 import React from "react";
 
 // MUI
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 // Atoms
 import Input from "Components/atoms/inputs/Input";
 import Autocomplete from "Components/atoms/inputs/Autocomplete";
 import Dropdown from "../atoms/inputs/Dropdown";
 
+const useStyles = makeStyles(theme => ({
+  container: {
+    padding: 0
+  },
+}));
+
 const InputForm = props => {
   const { inputs, setInputs } = props;
+  const classes = useStyles();
 
   const handleInputChange = index => value => {
     const tempInputs = [...inputs];
@@ -26,34 +35,40 @@ const InputForm = props => {
       {inputs.map((input, index) => {
         switch (input.type) {
           case 'dropdown':
-            return <Grid item xs={12} md={6} key={input.name_in_db}>
-              <Dropdown
-                service={input.service}
-                label={input.label}
-                value={input.value}
-                setParentState={handleInputChange(index)}
-              />
+            return <Grid item xs={12} key={input.name_in_db}>
+              <Container maxWidth="xs" className={classes.container}>
+                <Dropdown
+                  service={input.service}
+                  label={input.label}
+                  value={input.value}
+                  setParentState={handleInputChange(index)}
+                />
+              </Container>
             </Grid>;
           case 'autocomplete':
-            return <Grid item xs={12} md={6} key={input.name_in_db}>
-              <Autocomplete
-                service={input.service}
-                label={input.label}
-                value={input.value}
-                setParentState={handleInputChange(index)}
-              />
+            return <Grid item xs={12} key={input.name_in_db}>
+              <Container maxWidth="xs" className={classes.container}>
+                <Autocomplete
+                  service={input.service}
+                  label={input.label}
+                  value={input.value}
+                  setParentState={handleInputChange(index)}
+                />
+              </Container>
             </Grid>;
           default:
-            return <Grid item xs={12} md={6} key={input.name_in_db}>
-              <Input
-                type={input.type}
-                value={input.value}
-                disabled={input.disabled}
-                onChange={handleInputChange(index)}
-                label={input.label}
-                validation={input.validation}
-                error={input.error}
-              />
+            return <Grid item xs={12} key={input.name_in_db}>
+              <Container maxWidth="xs" className={classes.container}>
+                <Input
+                  type={input.type}
+                  value={input.value}
+                  disabled={input.disabled}
+                  onChange={handleInputChange(index)}
+                  label={input.label}
+                  validation={input.validation}
+                  error={input.error}
+                />
+              </Container>
             </Grid>;
         }
       }

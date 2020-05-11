@@ -8,10 +8,12 @@ import { Container, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Atoms
-import Input from "Components/atoms/inputs/Input";
 import Button from "Components/atoms/buttons/Button";
 import Title from 'Components/atoms/UI/Title'
 import Link from 'Components/atoms/hyperlinks/Link'
+
+// Molecules 
+import InputForm from "Components/molecules/InputForm"
 
 // Layout Components
 import Header from "Layouts/sections/Header";
@@ -27,23 +29,44 @@ const style = makeStyles(theme => ({
   }
 }));
 
+const requiredInputs = [
+  {
+    label: 'Korisničko ime',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'username',
+  },
+  {
+    label: 'Lozinka',
+    type: 'password',
+    disabled: false,
+    name_in_db: 'password',
+  }
+]
+
 const LoginLayout = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [inputs, setInputs] = useState(requiredInputs);
 
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = style();
 
-  const handleSubmit = e => {
+  const addItem = e => {
     e.preventDefault();
 
-    const body = {
-      username,
-      password
-    };
+    const body = {};
 
-    dispatch(login("login", body, history));
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value;
+    })
+
+    dispatch(login(`login`, body, history));
+    let clearVal = inputs.filter(input => {
+      input.value = '';
+      input.validation = '';
+      input.error = false;
+      return input;
+    })
   };
 
   return (
@@ -58,24 +81,12 @@ const LoginLayout = () => {
           />
         </Box>
         <form>
-          <Input
-            label="Korisničko ime"
-            value={username}
-            onChange={setUsername}
-            required
-          />
-          <Input
-            type="password"
-            label="Lozinka"
-            value={password}
-            onChange={setPassword}
-            required
-          />
+          <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
           <Box mt={3}>
             <Button
               label="Prijavi se"
               type="submit"
-              onClick={handleSubmit}
+              onClick={addItem}
               fullWidth
             />
           </Box>

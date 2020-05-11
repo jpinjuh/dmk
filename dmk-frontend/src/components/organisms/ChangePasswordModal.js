@@ -8,6 +8,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import MUIButton from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 
 // Molecules
 import InputForm from "Components/molecules/InputForm"
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     border: 'none',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 5, 3),
+    padding: theme.spacing(4, 5, 4),
   },
   button: {
     height: '56px',
@@ -77,7 +78,7 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
         }}
       >
         <Fade in={onOpen}>
-          <div className={classes.paper}>
+        <Container className={classes.paper} maxWidth="xs">
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
                 <Title
@@ -106,7 +107,7 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
                 </Box>
               </form>
             </Box>
-          </div>
+          </Container>
         </Fade>
       </Modal>
     </div>

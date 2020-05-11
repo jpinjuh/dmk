@@ -4,28 +4,32 @@ export const UserForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'first_name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Prezime',
     type: 'text',
     disabled: false,
     name_in_db: 'last_name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Korisničko ime',
     type: 'text',
     disabled: false,
     name_in_db: 'username',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Email',
     type: 'text',
     disabled: false,
     name_in_db: 'email',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Lozinka',
@@ -33,21 +37,26 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'password_hash',
     value: '',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Uloga',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
-    service: 'role'
+    service: 'role',
+    validation: null,
+    error: false
   },
   {
     label: 'Župa',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'district',
-    service: 'district/autocomplete'
+    service: 'district/autocomplete',
+    validation: null,
+    error: false
   },
 ]
 
@@ -57,28 +66,32 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'first_name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Prezime',
     type: 'text',
     disabled: false,
     name_in_db: 'last_name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Korisničko ime',
     type: 'text',
     disabled: false,
     name_in_db: 'username',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Email',
     type: 'text',
     disabled: false,
     name_in_db: 'email',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Lozinka',
@@ -86,20 +99,25 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'password_hash',
     value: '',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Uloga',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
-    service: 'role'
+    service: 'role',
+    validation: null,
+    error: false
   },
   {
     label: 'Župa',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'district',
-    service: 'district/autocomplete'
+    service: 'district/autocomplete',
+    validation: null,
+    error: false
   },
 ]
