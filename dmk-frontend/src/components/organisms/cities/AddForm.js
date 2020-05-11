@@ -1,6 +1,7 @@
 // React
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 // MUI
 import { Box } from "@material-ui/core";
@@ -27,14 +28,48 @@ const AddForm = () => {
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.cities.oneItem);
-  const items = useSelector(state => state.cities);
+  const errorMsg = useSelector(state => state.cities.postErrorMsg);
 
   useEffect(() => {
-    if(newItem)
-    setItemId(newItem.id)
+    if (newItem)
+      setItemId(newItem.id)
   }, [newItem])
+
+  useEffect(() => {
+    if (submitted) {
+      if (errorMsg.errorCode === 200) {
+        setOpen(true)
+        let clearVal = inputs.filter(input => {
+          input.value = '';
+          input.validation = '';
+          input.error = false;
+          return input;
+        })
+        
+        setInputs(clearVal)
+        setSubmitted(false)
+      } else if(errorMsg.errorCode === 400){
+        if(typeof errorMsg.description === 'object'){
+          inputs.forEach(input => {
+            Object.keys(errorMsg.description).forEach(desc => {
+              if(input.name_in_db === desc){
+                input.validation = errorMsg.description[desc][0];
+                input.error = true;
+              }
+            })
+          })
+        }
+        setSubmitted(false)
+      }
+      else {
+        NotificationManager.error(errorMsg.description);
+        setSubmitted(false)
+      }
+    }
+  }, [errorMsg])
 
   const addItem = e => {
     e.preventDefault();
@@ -43,30 +78,19 @@ const AddForm = () => {
     const arr = []
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;;
-      arr.push(body[input.name_in_db])
+      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      arr.push(input.value)
     })
     setItem(arr)
-    console.log(item)
+    setSubmitted(true)
     dispatch(postData(`city`, body));
-
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      return input;
-    });
-
-    if (!items.data.some(item => body.name === item.name)) {
-      setTimeout(() => {
-        setOpen(true)
-      }, 500);
-    }
-    setInputs(clearVal)
   };
 
   const closeModal = () => {
     setOpen(false);
     setItem([]);
   }
+
 
   return (
     <>

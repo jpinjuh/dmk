@@ -15,6 +15,7 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: null
+    validation: null,
+    error: false
   },
 ]

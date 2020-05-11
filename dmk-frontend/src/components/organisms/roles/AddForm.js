@@ -1,6 +1,7 @@
 // React
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 // MUI
 import { Box } from "@material-ui/core";
@@ -27,6 +28,7 @@ const AddForm = () => {
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.roles.oneItem);
   const errorMsg = useSelector(state => state.roles.postErrorMsg);
@@ -37,7 +39,7 @@ const AddForm = () => {
   }, [newItem])
 
   useEffect(() => {
-    if (errorMsg) {
+    if (submitted) {
       if (errorMsg.errorCode === 200) {
         setOpen(true)
         let clearVal = inputs.filter(input => {
@@ -46,8 +48,10 @@ const AddForm = () => {
           input.error = false;
           return input;
         })
+        
         setInputs(clearVal)
-      } else {
+        setSubmitted(false)
+      } else if(errorMsg.errorCode === 400){
         if(typeof errorMsg.description === 'object'){
           inputs.forEach(input => {
             Object.keys(errorMsg.description).forEach(desc => {
@@ -58,6 +62,11 @@ const AddForm = () => {
             })
           })
         }
+        setSubmitted(false)
+      }
+      else {
+        NotificationManager.error(errorMsg.description);
+        setSubmitted(false)
       }
     }
   }, [errorMsg])
@@ -73,7 +82,7 @@ const AddForm = () => {
       arr.push(input.value)
     })
     setItem(arr)
-
+    setSubmitted(true)
     dispatch(postData(`role`, body));
   };
 

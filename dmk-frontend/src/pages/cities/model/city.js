@@ -4,14 +4,17 @@ export const CityForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Država',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'state',
-    service: 'state'
+    service: 'state',
+    validation: null,
+    error: false
   },
 ]
 
@@ -21,13 +24,14 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: {error: null, text: ''}
+    validation: null
   },
   {
     label: 'Država',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'state',
-    service: 'state'
+    service: 'state',
+    validation: null
   },
 ]

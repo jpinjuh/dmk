@@ -4,14 +4,17 @@ export const DistrictForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Grad',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'city',
-    service: 'city/autocomplete'
+    service: 'city/autocomplete',
+    validation: null,
+    error: false
   },
 ]
 
@@ -21,13 +24,16 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: {error: null, text: ''}
+    validation: null,
+    error: false
   },
   {
     label: 'Grad',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'city',
-    service: 'city/autocomplete'
+    service: 'city/autocomplete',
+    validation: null,
+    error: false
   },
 ]
