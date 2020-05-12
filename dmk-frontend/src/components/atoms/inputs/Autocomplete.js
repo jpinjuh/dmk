@@ -29,6 +29,7 @@ const Autocomplete = props => {
     value,
     label,
     validation,
+    error,
     required,
     service,
     setParentState,
@@ -76,7 +77,7 @@ const Autocomplete = props => {
           variant="outlined"
           fullWidth
           margin="normal"
-          error={validation}
+          error={error}
           helperText={validation}
         />
       )}

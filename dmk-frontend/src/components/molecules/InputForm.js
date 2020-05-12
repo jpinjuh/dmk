@@ -41,6 +41,8 @@ const InputForm = props => {
                   service={input.service}
                   label={input.label}
                   value={input.value}
+                  validation={input.validation}
+                  error={input.error}
                   setParentState={handleInputChange(index)}
                 />
               </Container>
@@ -52,6 +54,8 @@ const InputForm = props => {
                   service={input.service}
                   label={input.label}
                   value={input.value}
+                  validation={input.validation}
+                  error={input.error}
                   setParentState={handleInputChange(index)}
                 />
               </Container>

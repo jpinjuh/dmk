@@ -62,6 +62,16 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
 
   const [inputs, setInputs] = useState(requiredInputs);
 
+  useEffect(() => {
+    return () => {
+      let clearVal = inputs.filter(input => {
+        input.value = '';
+        return input;
+      })
+      setInputs(clearVal)
+    }
+  }, [onOpen])
+
   const changePassword = e => {
     e.preventDefault();
     const body = {};
@@ -78,6 +88,11 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
         if(response.status.errorCode === 200)
         {
           NotificationManager.success(response.status.description)
+          let clearVal = inputs.filter(input => {
+            input.value = '';
+            return input;
+          }) 
+          setInputs(clearVal)
           closeModal();
         }
         else
@@ -87,12 +102,6 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
         
       },
     )
-
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      return input;
-    }) 
-    setInputs(clearVal)
   }
 
   return (

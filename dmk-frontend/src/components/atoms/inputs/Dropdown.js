@@ -55,9 +55,12 @@ const Dropdown = props => {
     required,
     service,
     setParentState,
+    error,
     charsToTrigger,
     disabled
   } = props;
+
+  console.log(props)
 
   const [item, setItem] = useState(value ? value : '');
   const [options, setOptions] = useState([]);
@@ -92,16 +95,17 @@ const Dropdown = props => {
   return (
     <>
       {options.data &&
+      <FormControl fullWidth error={error}>
         <Select
           displayEmpty
           variant="outlined"
-          fullWidth
+          
           value={item}
           onChange={handleChange}
           className={classes.input}
           input={<OutlinedInput
             required={required}
-            error={validation}
+            error={error}
           />}
         >
           <MenuItem disabled value="">
@@ -116,6 +120,9 @@ const Dropdown = props => {
             </MenuItem>
           ))}
         </Select>
+        {error &&
+        <FormHelperText>{validation}</FormHelperText>}
+        </FormControl>
       }
     </>
   )

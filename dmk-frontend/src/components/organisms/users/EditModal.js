@@ -96,7 +96,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
     setSubmitted(true)
     dispatch(putData(`user/${itemId}`, body));

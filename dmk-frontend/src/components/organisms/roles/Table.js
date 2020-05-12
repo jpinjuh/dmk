@@ -132,6 +132,7 @@ const Table = () => {
     elevation: 0,
     print: false,
     download: false,
+    filter: false,
     viewColumns: false,
     customToolbar: null,
     searchOpen: true,

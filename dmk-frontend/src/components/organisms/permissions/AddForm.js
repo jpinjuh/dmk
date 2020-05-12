@@ -39,6 +39,18 @@ const AddForm = () => {
   }, [newItem])
 
   useEffect(() => {
+    return () => {
+      let clearVal = inputs.filter(input => {
+        input.value = '';
+        input.validation = '';
+        input.error = false;
+        return input;
+      })
+      setInputs(clearVal)
+    }
+  }, [])
+
+  useEffect(() => {
     if (submitted) {
       if (errorMsg.errorCode === 200) {
         setOpen(true)

@@ -39,6 +39,18 @@ const AddForm = () => {
   }, [newItem])
 
   useEffect(() => {
+    return () => {
+      let clearVal = inputs.filter(input => {
+        input.value = '';
+        input.validation = '';
+        input.error = false;
+        return input;
+      })
+      setInputs(clearVal)
+    }
+  }, [])
+
+  useEffect(() => {
     if (submitted) {
       if (errorMsg.errorCode === 200) {
         setOpen(true)
@@ -78,7 +90,7 @@ const AddForm = () => {
     const arr = []
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
       arr.push(input.value)
     })
     setItem(arr)

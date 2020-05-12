@@ -10,7 +10,7 @@ export const authHeader = () => {
   if (user && token) {
     return {
       Authorization: `Bearer ${token}`,
-      //Token: token
+      Token: token
     };
   }
   return {};
@@ -24,7 +24,7 @@ export function checkToken() {
     const iat = new Date(user.iat * 1000);
     const exp = new Date(user.exp * 1000);
     const time = new Date();
-    iat.setMinutes(iat.getMinutes() + 60);
+    iat.setMinutes(iat.getMinutes() + 25);
     if (time > iat && time < exp) {
       renewToken("renew", history);
     } else if (new Date() > exp) {

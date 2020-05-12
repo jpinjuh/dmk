@@ -65,6 +65,18 @@ const AddModal = ({ onOpen, closeModal }) => {
   }, [newItem])
 
   useEffect(() => {
+    return () => {
+      let clearVal = inputs.filter(input => {
+        input.value = '';
+        input.validation = '';
+        input.error = false;
+        return input;
+      })
+      setInputs(clearVal)
+    }
+  }, [])
+
+  useEffect(() => {
     if (submitted) {
       if (errorMsg.errorCode === 200) {
         setOpen(true)
@@ -83,8 +95,16 @@ const AddModal = ({ onOpen, closeModal }) => {
           inputs.forEach(input => {
             Object.keys(errorMsg.description).forEach(desc => {
               if(input.name_in_db === desc){
-                input.validation = errorMsg.description[desc][0];
-                input.error = true;
+                if(Array.isArray(errorMsg.description[desc]))
+                {
+                  input.validation = errorMsg.description[desc][0];
+                  input.error = true;
+                }
+                else
+                {
+                  input.validation = errorMsg.description[desc].id[0];
+                  input.error = true;
+                }            
               }
             })
           })
@@ -105,7 +125,7 @@ const AddModal = ({ onOpen, closeModal }) => {
     const arr = []
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
       arr.push(input.value)
     })
     setItem(arr)
