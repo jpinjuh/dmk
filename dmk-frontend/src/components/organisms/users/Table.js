@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 // Molecules
@@ -28,6 +28,7 @@ const Table = () => {
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
+  const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.users);
@@ -42,56 +43,56 @@ const Table = () => {
       label: 'Ime',
       name: 'first_name',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Prezime',
       name: 'last_name',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Korisničko ime',
       name: 'username',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Email',
       name: 'email',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Rola',
       name: 'role.name',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Župa',
       name: 'district.name',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Aktivnost',
       name: 'status',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <div>
@@ -148,7 +149,11 @@ const Table = () => {
   ]
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+   } else {
     getSearchData(searchVal)
+   }
   }, [searchVal])
 
   useEffect(() => {

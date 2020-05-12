@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 // Molecules
@@ -28,6 +28,7 @@ const Table = () => {
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
+  const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.cities);
@@ -42,24 +43,24 @@ const Table = () => {
       label: 'Naziv grada',
       name: 'name',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Država',
       name: 'state.name',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       }
     },
     {
       label: 'Aktivnost',
       name: 'status',
       options: {
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <div>
@@ -116,7 +117,11 @@ const Table = () => {
   ]
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+   } else {
     getSearchData(searchVal)
+   }
   }, [searchVal])
 
   useEffect(() => {

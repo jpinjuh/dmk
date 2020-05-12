@@ -92,10 +92,7 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
       input.value = '';
       return input;
     }) 
-    console.log(clearVal)
     setInputs(clearVal)
-
-    
   }
 
   return (
