@@ -32,16 +32,7 @@ export const UserForm = [
     error: false
   },
   {
-    label: 'Lozinka',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'password_hash',
-    value: '',
-    validation: null,
-    error: false
-  },
-  {
-    label: 'Uloga',
+    label: 'Rola',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'role',
@@ -94,16 +85,7 @@ export const EditForm = [
     error: false
   },
   {
-    label: 'Lozinka',
-    type: 'text',
-    disabled: false,
-    name_in_db: 'password_hash',
-    value: '',
-    validation: null,
-    error: false
-  },
-  {
-    label: 'Uloga',
+    label: 'Rola',
     type: 'dropdown',
     disabled: false,
     name_in_db: 'role',

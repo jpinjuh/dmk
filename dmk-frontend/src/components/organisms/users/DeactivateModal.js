@@ -67,7 +67,7 @@ const DeactivateModal = ({ onDeactivate, closeDeactivate, itemId }) => {
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Jeste li sigurni da želite deaktivirati odabrani grad?'}
+                  title={'Jeste li sigurni da želite deaktivirati odabranog korisnika?'}
                 />
               </Box>
 

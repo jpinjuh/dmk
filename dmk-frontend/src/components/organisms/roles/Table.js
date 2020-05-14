@@ -138,7 +138,7 @@ const Table = () => {
     searchOpen: true,
     serverSide: true,
     count: tableData.total,
-    selectableRows: 'multiple',
+    selectableRows: 'none',
     rowsPerPage: rows,
     page: page,
     searchText: searchVal,
@@ -182,7 +182,7 @@ const Table = () => {
     <>
       {tableData.data &&
         <MUIDataTable
-          title={''}
+          title={'dadsdas'}
           data={tableData.data}
           columns={columns}
           options={options}

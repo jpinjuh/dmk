@@ -8,7 +8,7 @@ import {Grid, Box} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
+  }
 }));
 
 const AdminTemplate = (props) => {
@@ -18,12 +18,16 @@ const AdminTemplate = (props) => {
   return (
       <div className={classes.root}>
         <Grid container>
-          <Grid item xs={8}>
-            <Box>{ dataTable }</Box>
+        <Box clone order={{ xs: 2, md: 1 }}>
+          <Grid item xs={12} md={8}>
+            <Box>{dataTable}</Box>
           </Grid>
-          <Grid item xs={4}>
-            <Box pt={14} pl={12}>{ addForm }</Box>
+        </Box>
+        <Box clone order={{ xs: 1, md: 2 }}>
+          <Grid item xs={12} md={4}>
+            <Box pt={14} pl={12}>{addForm}</Box>
           </Grid>
+        </Box>
         </Grid>
     </div>
   );

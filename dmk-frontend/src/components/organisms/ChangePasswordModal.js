@@ -43,7 +43,13 @@ const useStyles = makeStyles(theme => ({
 
 const requiredInputs = [
   {
-    label: 'Lozinka',
+    label: 'Trenutna lozinka',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'password',
+  },
+  {
+    label: 'Nova lozinka',
     type: 'text',
     disabled: false,
     name_in_db: 'password_change',

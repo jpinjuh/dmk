@@ -8,6 +8,10 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import clsx from 'clsx';
+
 
 const drawerWidth = 240;
 
@@ -26,12 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: 'auto',
+    position: 'fixed',
     marginTop: theme.spacing(16),
     '& .MuiListItem-button': {
         paddingLeft: '24px',
         borderRadius: '7px'
     },
   },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  hidden: {
+    display: 'none'
+  }
 }));
 
 const sidebarListItems = [
@@ -44,19 +60,27 @@ const sidebarListItems = [
   {name:'Države', path: '/države'},
 ]
 
-const Sidebar = () => {
+const Sidebar = ({open, setClosed}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
 
   return (
       <Drawer
-        className={classes.drawer}
-        variant="permanent"
+        className={clsx(classes.drawer, open===false && classes.hidden)}
+        variant="persistent"
+        anchor="left"
+        open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={setClosed}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
