@@ -9,12 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    height: '56px',
-    fontSize: '18px',
-    borderRadius: '7px',
-    textTransform: 'none'
-  },
+ 
 }));
 
 const Button = props => {
@@ -30,7 +25,6 @@ const Button = props => {
       fullWidth={fullWidth}
       color={color}
       type={type}
-      className={classes.root}
       disableElevation
     >
       {label}

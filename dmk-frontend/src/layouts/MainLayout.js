@@ -42,6 +42,7 @@ const style = makeStyles(theme => ({
   drawerHeader: {
     display: 'flex !important',
     alignItems: 'center !important',
+    width: '100%',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,

@@ -7,7 +7,7 @@ import {Grid, Box} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
 }));
 
@@ -18,7 +18,7 @@ const ModeratorTemplate = ({ moderatorDataTable }) => {
       <div className={classes.root}>
         <Grid container>
           <Grid item xs={12}>
-            <Box>{ moderatorDataTable }</Box>
+            { moderatorDataTable }
           </Grid>
         </Grid>
     </div>

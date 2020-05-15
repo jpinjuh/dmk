@@ -5,6 +5,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 
 // Atoms
 import Input from "Components/atoms/inputs/Input";
@@ -13,7 +14,9 @@ import Dropdown from "../atoms/inputs/Dropdown";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    padding: 0
+    padding: 0,
+    display: 'flex',
+    justifyContent: 'flex-center'
   },
 }));
 
@@ -31,7 +34,7 @@ const InputForm = props => {
 
   return (
 
-    <Grid container alignItems="center" spacing={2}>
+    <Grid container alignItems="center">
       {inputs.map((input, index) => {
         switch (input.type) {
           case 'dropdown':

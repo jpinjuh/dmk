@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     textTransform: 'none',
     padding: 0,
-    fontSize: '14px',
+    fontSize: '12px',
     '&:hover': {
       backgroundColor: 'transparent'
     }
@@ -38,7 +38,7 @@ const Button = props => {
       className={classes.root}
       disableElevation
     >
-      <Icon icon={icon} size="14px"></Icon>
+      <Icon icon={icon} size="12px"></Icon>
       <Box ml={1}>
         {label}
       </Box>

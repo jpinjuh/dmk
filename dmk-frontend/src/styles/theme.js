@@ -3,7 +3,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Montserrat, sans-serif'
   },
   palette: {
     background: {
@@ -18,36 +18,43 @@ const theme = createMuiTheme({
     spacing: 8
   },
   overrides: {
-    MUIDataTableToolbar: {
-      actions: {
-        '& span > button': {
-          width: '200px',
-          border: '1px solid #c4c4c4',
-          borderRadius: '7px',
-          padding: '14px',
-          height: '56px',
-          color: '#757575',
-          '& .MuiIconButton-label': {
-            justifyContent: 'space-between',
-          },
-          '& .MuiIconButton-label::before': {
-            content: '"Filter"',
-            fontSize: '16px'
-          },
-        },
-        '& span > button:hover': {
-          backgroundColor: 'transparent',
-          color: '#757575'
-        },
-        rippleVisible: {
-          opacity: 0
-        },
+    MUIDataTableBodyCell: {
+      root: {
+        padding: 0,
+        fontSize: '13px'
       }
     },
+    MUIDataTableHeadCell: {
+      root: {
+        padding: '8px 0',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        align: 'left'
+      }
+    },
+    MuiButton: {
+      root: {
+        borderRadius: 5,
+        border: 0,
+        height: 48,
+        textTransform: 'none',
+        padding: '0 40px'
+      }
+    },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: 5,
+        height: 48,
+        fontSize: '14px'
+      }
+    }
   },
   props: {
     MuiButtonBase: {
       disableRipple: true, 
+    },
+    MuiChip: {
+      size: 'small', 
     },
   },
 });

@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: 'auto',
+    width: drawerWidth,
     position: 'fixed',
     marginTop: theme.spacing(16),
     '& .MuiListItem-button': {
