@@ -108,9 +108,11 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     inputs.forEach((input, index) => {
       if(oneItem){
         if(input.name_in_db === 'permission'){
-          input.value = {
-            label: oneItem.permission.name,
-            id: oneItem.permissions_id, 
+          if(oneItem.permission){
+            input.value = {
+              label: oneItem.permission.name,
+              id: oneItem.permissions_id, 
+            }
           }
         } else if(input.name_in_db === 'role') {
           input.value = oneItem.roles_id

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,10 +19,10 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Actions
-import { putData } from "Modules/units/Users";
+import { putData, postData } from "Modules/units/Archdioceses";
 
 // Models
-import { EditForm } from 'Pages/users/model/user'
+import { EditForm } from 'Pages/archdioceses/model/archdiocese'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -43,14 +44,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, itemId }) => {
+const EditModal = ({ onOpen, closeModal, item, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const [inputs, setInputs] = useState(EditForm);
   const [submitted, setSubmitted] = useState(false)
-  const errorMsg = useSelector(state => state.users.editErrorMsg);
-
-  const oneItem = useSelector(state => state.users.oneItem);
+  const errorMsg = useSelector(state => state.archdioceses.editErrorMsg);
 
   const func = () => {
     let clearVal = inputs.filter(input => {
@@ -59,7 +59,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
       input.error = false;
       return input;
     })
-     
+    
     setInputs(clearVal)
   }
 
@@ -67,8 +67,9 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
     if(submitted){
       if(errorMsg.errorCode === 200){
         console.log(errorMsg.errorCode)
-        setSubmitted(false)
         closeModal();
+      
+      setSubmitted(false)
     }
     else if(errorMsg.errorCode === 400){
       if(typeof errorMsg.description === 'object'){
@@ -96,34 +97,17 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = input.value;
     })
     setSubmitted(true)
-    dispatch(putData(`user/${itemId}`, body));
+    dispatch(putData(`archdiocese/${itemId}`, body));
   }
-
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      if (oneItem) {
-        if (input.name_in_db === 'district') {
-          if(oneItem.district){
-            input.value = {
-              label: oneItem.district.name,
-              id: oneItem.districts_id,
-            }
-          }
-        } else if (input.name_in_db === 'role') {
-          input.value = oneItem.roles_id
-        } else if (input.name_in_db === 'password_hash') {
-          input.value = ''
-        }
-        else {
-          input.value = oneItem[input.name_in_db]
-        }
-      }
+      input.value = item[index]
     })
-  }, [oneItem]);
+  }, [item]);
 
   return (
     <div>
@@ -145,7 +129,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Uredi korisnika'}
+                  title={'Uredi biskupiju'}
                 />
               </Box>
               <form>
@@ -161,7 +145,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
                     <MUIButton
                       variant="contained"
                       disableElevation
-                      onClick={closeModal}
+                      onClick={() => {closeModal(), func()}}
                       className={classes.button}
                     >Otkaži</MUIButton>
                   </Box>

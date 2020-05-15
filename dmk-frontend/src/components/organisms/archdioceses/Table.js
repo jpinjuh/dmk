@@ -12,12 +12,12 @@ import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
 // Organisms
-import EditModal from 'Components/organisms/districts/EditModal'
-import DeactivateModal from 'Components/organisms/districts/DeactivateModal'
-import ActivateModal from 'Components/organisms/districts/ActivateModal'
+import EditModal from 'Components/organisms/archdioceses/EditModal'
+import DeactivateModal from 'Components/organisms/archdioceses/DeactivateModal'
+import ActivateModal from 'Components/organisms/archdioceses/ActivateModal'
 
 // Actions
-import { getData, getOneItem, searchData } from "Modules/units/Districts";
+import { getData, searchData } from "Modules/units/Archdioceses";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -31,41 +31,12 @@ const Table = () => {
   const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.districts);
-
-  const getItem = async id => {
-    dispatch(getOneItem(`district/${id}`))
-    setTimeout(() => setOpen(true), 500)
-  };
+  const tableData = useSelector(state => state.states);
 
   const columns = [
     {
-      label: 'Naziv župe',
+      label: 'Naziv biskupije',
       name: 'name',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Adresa',
-      name: 'address',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Grad',
-      name: 'city.name',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Biskupija',
-      name: 'archdiocese.name',
       options: {
         filter: false,
         sort: false,
@@ -103,7 +74,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setItemId(value); getItem(value); }}
+                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
                   />
                 </Box>
                 <div>
@@ -145,7 +116,7 @@ const Table = () => {
   }, [page, rows])
 
   const changePage = (page, rows) => {
-    dispatch(getData(`district?start=${page + 1}&limit=${rows}`))
+    dispatch(getData(`archdiocese?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {
@@ -153,7 +124,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('district/search', body))
+    dispatch(searchData('archdiocese/search', body))
   };
 
   const options = {

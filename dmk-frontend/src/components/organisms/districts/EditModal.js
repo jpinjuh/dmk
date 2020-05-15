@@ -106,10 +106,19 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
   useEffect(() => {
     inputs.forEach((input, index) => {
       if (oneItem) {
-        if (typeof oneItem[input.name_in_db] === 'object') {
-          input.value = {
-            label: oneItem.city.name,
-            id: oneItem.city_id,
+        if (input.name_in_db === 'city') {
+          if(oneItem.city){
+            input.value = {
+              label: oneItem.city.name,
+              id: oneItem.city_id,
+            }
+          }
+        } else if(input.name_in_db === 'archdiocese') {
+          if(oneItem.archdiocese){
+            input.value = {
+              label: oneItem.archdiocese.name,
+              id: oneItem.archdiocese_id,
+            }
           }
         } else {
           input.value = oneItem[input.name_in_db]

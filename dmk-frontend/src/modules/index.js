@@ -10,6 +10,7 @@ import states from "Modules/units/States";
 import permissions from "Modules/units/Permissions";
 import privileges from "Modules/units/Privileges";
 import roles from "Modules/units/Roles";
+import archdioceses from "Modules/units/Archdioceses";
 
 export default combineReducers({
   auth,
@@ -19,5 +20,6 @@ export default combineReducers({
   states,
   permissions,
   privileges,
-  roles
+  roles,
+  archdioceses
 });
