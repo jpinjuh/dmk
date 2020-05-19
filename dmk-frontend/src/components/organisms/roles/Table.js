@@ -15,6 +15,7 @@ import Chip from '@material-ui/core/Chip';
 import EditModal from 'Components/organisms/roles/EditModal'
 import DeactivateModal from 'Components/organisms/roles/DeactivateModal'
 import ActivateModal from 'Components/organisms/roles/ActivateModal'
+import SearchForm from 'Components/organisms/roles/SearchForm'
 
 // Actions
 import { getData, searchData } from "Modules/units/Roles";
@@ -132,17 +133,18 @@ const Table = () => {
     elevation: 0,
     print: false,
     download: false,
+    search:false,
     filter: false,
     viewColumns: false,
     customToolbar: null,
-    searchOpen: true,
+    //searchOpen: true,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
     rowsPerPage: rows,
     page: page,
-    searchText: searchVal,
-    customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+    //searchText: searchVal,
+    /*customSearchRender: (searchText, handleSearch, hideSearch, options) => {
       return (
         <CustomSearch
           searchText={searchText}
@@ -151,7 +153,7 @@ const Table = () => {
           options={options}
         />
       );
-    },
+    },*/
     customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
       return (
         <CustomFooter
@@ -181,12 +183,16 @@ const Table = () => {
   return (
     <>
       {tableData.data &&
-        <MUIDataTable
-          title={'dadsdas'}
-          data={tableData.data}
-          columns={columns}
-          options={options}
-        />}
+        <>
+          <SearchForm />
+          <MUIDataTable
+            title={'Popis rola'}
+            data={tableData.data}
+            columns={columns}
+            options={options}
+          />
+        </>
+        }
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}

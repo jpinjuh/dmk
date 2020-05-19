@@ -4,7 +4,7 @@
 |--------------------------------------------------
 */
 
-import { postFunc, getFunc } from "Services/mainApiServices";
+import { postFunc, getFunc, putFunc } from "Services/mainApiServices";
 import Base64 from "Util/base64";
 import { NotificationManager } from "react-notifications";
 
@@ -17,6 +17,10 @@ import { NotificationManager } from "react-notifications";
 const LOGIN_REQ = "auth/LOGIN_REQ";
 const LOGIN_SCS = "auth/LOGIN_SCS";
 const LOGIN_FLR = "auth/LOGIN_FLR";
+
+const CHANGE_PASS_DATA_REQ = "auth/CHANGE_PASS_DATA_REQ";
+const CHANGE_PASS_DATA_SCS = "auth/CHANGE_PASS_DATA_SCS";
+const CHANGE_PASS_DATA_FLR = "auth/CHANGE_PASS_DATA_FLR";
 
 const LOGOUT_USER = "auth/LOGOUT_USER";
 
@@ -76,6 +80,19 @@ export const renewToken = async (url, history) => {
   }
 };
 
+export const editPassword = (url, body) => async dispatch => {
+  dispatch({ type: CHANGE_PASS_DATA_REQ });
+
+  const response = await putFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    dispatch({ type: CHANGE_PASS_DATA_SCS, status: response.status});
+    NotificationManager.success(response.status.description,);
+  } else {
+    dispatch({ type: CHANGE_PASS_DATA_FLR, status: response.status });
+  }
+};
+
 export const logOut = history => dispatch => {
   dispatch({ type: LOGOUT_USER });
   localStorage.clear();
@@ -92,7 +109,8 @@ const INIT_STATE = {
   user: JSON.parse(localStorage.getItem("user")),
   data: JSON.parse(localStorage.getItem("data")),
   meni: JSON.parse(localStorage.getItem("meni")),
-  loading: false
+  loading: false,
+  editErrorMsg: ''
 };
 
 export default function reducer(state = INIT_STATE, action = {}) {
@@ -114,6 +132,23 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case LOGIN_FLR:
       return {
         ...state,
+        loading: false
+      };
+    case CHANGE_PASS_DATA_REQ:
+      return {
+        ...state,
+        loading: true
+      };
+    case CHANGE_PASS_DATA_SCS:
+      return {
+        ...state,
+        editErrorMsg: action.status,
+        loading: false
+      };
+    case CHANGE_PASS_DATA_FLR:
+      return {
+        ...state,
+        editErrorMsg: action.status,
         loading: false
       };
     default:

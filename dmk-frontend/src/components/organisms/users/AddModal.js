@@ -40,9 +40,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(4, 5, 4),
   },
   button: {
-    height: '56px',
-    fontSize: '18px',
-    borderRadius: '7px',
+    fontSize: '14px',
+    borderRadius: '5',
     textTransform: 'none'
   },
 }));
@@ -176,7 +175,7 @@ const AddModal = ({ onOpen, closeModal }) => {
                       disableElevation
                       onClick={closeModal}
                       className={classes.button}
-                    >Cancel</MUIButton>
+                    >Otkaži</MUIButton>
                   </Box>
                 </Box>
               </form>

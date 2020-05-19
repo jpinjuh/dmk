@@ -32,6 +32,14 @@ export const UserForm = [
     error: false
   },
   {
+    label: 'Lozinka',
+    type: 'password',
+    disabled: false,
+    name_in_db: 'password_hash',
+    validation: null,
+    error: false
+  },
+  {
     label: 'Rola',
     type: 'dropdown',
     disabled: false,

@@ -29,9 +29,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 5, 3),
   },
   button: {
-    height: '56px',
-    fontSize: '18px',
-    borderRadius: '7px',
+    fontSize: '14px',
+    borderRadius: '5',
     textTransform: 'none'
   },
 }));
@@ -67,7 +66,7 @@ const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
                 <Title 
                   variant="h6" 
                   align={'left'} 
-                  title={'Jeste li sigurni da želite deaktivirati odabranu rolu?'}
+                  title={'Jeste li sigurni da želite aktivirati odabranu rolu?'}
                 />
               </Box>
               

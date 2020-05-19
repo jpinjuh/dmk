@@ -36,7 +36,7 @@ const theme = createMuiTheme({
       root: {
         borderRadius: 5,
         border: 0,
-        height: 48,
+        height: 40,
         textTransform: 'none',
         padding: '0 40px'
       }
@@ -45,7 +45,9 @@ const theme = createMuiTheme({
       root: {
         borderRadius: 5,
         height: 48,
-        fontSize: '14px'
+       /* marginTop: '5px',
+        alignItems: 'center',*/
+        //fontSize: '14px'
       }
     }
   },

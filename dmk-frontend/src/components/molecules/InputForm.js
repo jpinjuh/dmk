@@ -15,8 +15,6 @@ import Dropdown from "../atoms/inputs/Dropdown";
 const useStyles = makeStyles(theme => ({
   container: {
     padding: 0,
-    display: 'flex',
-    justifyContent: 'flex-center'
   },
 }));
 
