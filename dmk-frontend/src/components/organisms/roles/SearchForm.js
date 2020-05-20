@@ -20,7 +20,7 @@ import { searchData } from "Modules/units/Roles";
 const style = makeStyles(theme => ({
     input: {
         height: '36px !important',
-        fontSize: '13px !important'
+        //fontSize: '13px !important'
     }
   }));
 
@@ -50,7 +50,13 @@ const SearchForm = () => {
                           root: classes.input,
                         },
                       }}
-                    helperText="Naziv"
+                    InputLabelProps={{style:
+                        {
+                          fontSize: 14,
+                          lineHeight: 0.05
+                        }
+                      }}
+                    label="Naziv"
                     variant="outlined"
                     value={data}
                     onChange={e => setData(e.currentTarget.value)}

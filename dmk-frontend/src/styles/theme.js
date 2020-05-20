@@ -36,7 +36,7 @@ const theme = createMuiTheme({
       root: {
         borderRadius: 5,
         border: 0,
-        height: 40,
+        height: 36,
         textTransform: 'none',
         padding: '0 40px'
       }
@@ -44,10 +44,10 @@ const theme = createMuiTheme({
     MuiOutlinedInput: {
       root: {
         borderRadius: 5,
-        height: 48,
+        height: 36,
        /* marginTop: '5px',
         alignItems: 'center',*/
-        //fontSize: '14px'
+        fontSize: '14px'
       }
     }
   },

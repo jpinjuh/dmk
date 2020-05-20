@@ -1,9 +1,10 @@
 // React
-import React from "react";
+import React, { useState } from "react";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import TogglePassword from "../buttons/TogglePassword";
 
 const useStyles = makeStyles(theme => ({
   input:{
@@ -14,6 +15,8 @@ const useStyles = makeStyles(theme => ({
 const Input = props => {
 
   const classes = useStyles();
+
+  const [showPassword, setShowPassword] = useState(type==='password' ? true : false)
 
   const {
     type,
@@ -27,13 +30,14 @@ const Input = props => {
     color
   } = props;
 
+
   return (
     <TextField
       variant="outlined"
       fullWidth
       margin="normal"
       disabled={disabled}
-      type={type}
+      type={type === 'text' ? 'text' : (showPassword ? 'text' : 'password')}
       label={label}
       value={value}
       color={color}
@@ -46,6 +50,18 @@ const Input = props => {
         classes: {
           root: classes.input,
         },
+       endAdornment: type==='password' ? (
+            <TogglePassword setShowPassword={setShowPassword} />
+          )
+          :
+          null
+        
+      }}
+      InputLabelProps={{style:
+        {
+          fontSize: 14,
+          lineHeight: 0
+        }
       }}
     />
   );

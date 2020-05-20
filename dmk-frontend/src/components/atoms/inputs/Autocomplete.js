@@ -79,6 +79,12 @@ const Autocomplete = props => {
           margin="normal"
           error={error}
           helperText={validation}
+          InputLabelProps={{style:
+            {
+              fontSize: 14,
+              lineHeight: 0.5
+            }
+          }}
         />
       )}
     />
