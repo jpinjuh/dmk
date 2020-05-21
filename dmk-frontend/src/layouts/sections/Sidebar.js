@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: theme.palette.primary.main,
-    borderBottomRightRadius: '25px',
+    '-webkit-box-shadow': 'inset -5px 0px 20px 0px rgba(0,0,0,0.2)',
+    '-moz-box-shadow': 'inset -5px 0px 20px 0px rgba(0,0,0,0.2)',
+    'box-shadow': 'inset -5px 0px 20px 0px rgba(0,0,0,0.2)',
     color: 'white',
     border: 'none'
   },
@@ -60,6 +62,7 @@ const sidebarListItems = [
   {name:'Biskupije', path: '/biskupije'},
   {name:'Gradovi', path: '/gradovi'},
   {name:'Države', path: '/države'},
+  {name:'Test', path: '/test'},
 ]
 
 const Sidebar = ({open, setClosed}) => {

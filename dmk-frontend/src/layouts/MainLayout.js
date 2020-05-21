@@ -18,9 +18,12 @@ const drawerWidth = 240;
 const style = makeStyles(theme => ({
   container: {
     maxWidth: '100vw',
+    height: '100vh',
     paddingTop: theme.spacing(12),
     paddingBottom: theme.spacing(4),
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'flex-start',
+    backgroundColor: '#f3f3f3'
   },
   content: {
     width: '100%',

@@ -7,7 +7,7 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: "#fff"
+      default: "#f9f9f9"
     },
     primary: {
       main: "#0073b6"
@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     MUIDataTableBodyCell: {
       root: {
         padding: 0,
-        fontSize: '13px'
+        fontSize: '13px',
       }
     },
     MUIDataTableHeadCell: {
@@ -29,7 +29,12 @@ const theme = createMuiTheme({
         padding: '8px 0',
         fontSize: '14px',
         fontWeight: 'bold',
-        align: 'left'
+        align: 'left',
+      }
+    },
+    MuiPaper: {
+      root: {
+        backgroundColor: '#f9f9f9'
       }
     },
     MuiButton: {

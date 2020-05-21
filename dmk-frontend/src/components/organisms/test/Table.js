@@ -12,13 +12,12 @@ import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
 // Organisms
-import EditModal from 'Components/organisms/roles/EditModal'
-import DeactivateModal from 'Components/organisms/roles/DeactivateModal'
-import ActivateModal from 'Components/organisms/roles/ActivateModal'
+import EditModal from 'Components/organisms/users/EditModal'
+import DeactivateModal from 'Components/organisms/users/DeactivateModal'
+import ActivateModal from 'Components/organisms/users/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Roles";
-
+import { getData, getOneItem, searchData } from "Modules/units/Users";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -32,12 +31,57 @@ const Table = () => {
   const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.roles);
+  const tableData = useSelector(state => state.users);
+
+  const getItem = async id => {
+    dispatch(getOneItem(`user/${id}`))
+    setTimeout(() => setOpen(true), 500)
+  };
 
   const columns = [
     {
-      label: 'Naziv role',
-      name: 'name',
+      label: 'Ime',
+      name: 'first_name',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Prezime',
+      name: 'last_name',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Korisničko ime',
+      name: 'username',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Email',
+      name: 'email',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Rola',
+      name: 'role.name',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Župa',
+      name: 'district.name',
       options: {
         filter: false,
         sort: false,
@@ -75,7 +119,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setItemId(value); getItem(value); }}
                   />
                 </Box>
                 <div>
@@ -117,7 +161,7 @@ const Table = () => {
   }, [page, rows])
 
   const changePage = (page, rows) => {
-    dispatch(getData(`role?start=${page + 1}&limit=${rows}`))
+    dispatch(getData(`user?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {
@@ -125,25 +169,23 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('role/search', body))
+    dispatch(searchData('user/search', body))
   };
 
   const options = {
     elevation: 0,
     print: false,
     download: false,
-    search:false,
     filter: false,
     viewColumns: false,
     customToolbar: null,
-    //searchOpen: true,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
     rowsPerPage: rows,
     page: page,
-    //searchText: searchVal,
-    /*customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+    searchText: searchVal,
+    customSearchRender: (searchText, handleSearch, hideSearch, options) => {
       return (
         <CustomSearch
           searchText={searchText}
@@ -152,7 +194,7 @@ const Table = () => {
           options={options}
         />
       );
-    },*/
+    },
     customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
       return (
         <CustomFooter
@@ -182,15 +224,12 @@ const Table = () => {
   return (
     <>
       {tableData.data &&
-        <>
-          <MUIDataTable
-            title={'Popis rola'}
-            data={tableData.data}
-            columns={columns}
-            options={options}
-          />
-        </>
-        }
+        <MUIDataTable
+          title={'Popis korisnika'}
+          data={tableData.data}
+          columns={columns}
+          options={options}
+        />}
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}

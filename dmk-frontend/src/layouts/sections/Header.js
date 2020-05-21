@@ -22,10 +22,11 @@ const style = makeStyles(theme => ({
   },
   appBar: {
     backgroundColor: 'white',
-    '-webkit-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
-    '-moz-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
-    'box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.10)',
+    '-webkit-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.07)',
+    '-moz-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.07)',
+    'box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.07)',
     zIndex: '1300',
+    backgroundColor: '#f9f9f9',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

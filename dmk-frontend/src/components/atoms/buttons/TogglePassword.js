@@ -5,8 +5,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { InputAdornment } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+// Atoms
+import Icon from "Components/atoms/UI/Icon"
 
 const useStyles = makeStyles(theme => ({
    eye: {
@@ -40,7 +41,7 @@ const TogglePassword = ({setShowPassword}) => {
               aria-label="toggle password visibility"
               onClick={togglePasswordMask}
           >
-              {masked ? <Visibility /> : <VisibilityOff />}
+              {masked ? <Icon icon="visibility" size={12} /> : <Icon icon="visibility_off" size={12}/>}
           </IconButton>
       </InputAdornment>
   );
