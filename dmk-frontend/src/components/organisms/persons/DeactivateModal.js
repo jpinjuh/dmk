@@ -14,7 +14,7 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title"
 
 // Actions
-import { deactivateData } from "Modules/units/Users";
+import { deactivateData } from "Modules/units/Persons";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -42,7 +42,7 @@ const DeactivateModal = ({ onDeactivate, closeDeactivate, itemId }) => {
   const deleteItem = (e) => {
     e.preventDefault();
 
-    dispatch(deactivateData(`user/${itemId}`))
+    dispatch(deactivateData(`person/${itemId}`))
     closeDeactivate();
   }
 
@@ -66,7 +66,7 @@ const DeactivateModal = ({ onDeactivate, closeDeactivate, itemId }) => {
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Jeste li sigurni da želite deaktivirati odabranog korisnika?'}
+                  title={'Jeste li sigurni da želite deaktivirati odabranu osobu?'}
                 />
               </Box>
 

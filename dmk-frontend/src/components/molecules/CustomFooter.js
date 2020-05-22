@@ -31,7 +31,7 @@ const CustomFooter = (props) => {
   const handlePageChange = (_, page) => {
     props.changePage(page);
   };
-
+  
   return (
     <TableFooter>
       <TableRow>
@@ -42,13 +42,13 @@ const CustomFooter = (props) => {
             count={count}
             rowsPerPage={rowsPerPage}
             page={page}
-            labelRowsPerPage={textLabels.rowsPerPage}
-            labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${textLabels.displayRows} ${count}`}
+            labelRowsPerPage={'Redaka po stranici'}
+            labelDisplayedRows={({ from, to, count }) => `${from}-${to} od ${count}`}
             backIconButtonProps={{
-              'aria-label': textLabels.previous,
+              'title': 'Prethodna',
             }}
             nextIconButtonProps={{
-              'aria-label': textLabels.next,
+              'title': 'Slijedeća',
             }}
             rowsPerPageOptions={[10,20,50]}
             onChangePage={handlePageChange}

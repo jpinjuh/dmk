@@ -132,18 +132,18 @@ const Table = () => {
     elevation: 0,
     print: false,
     download: false,
-    search:false,
+    search:true,
     filter: false,
     viewColumns: false,
     customToolbar: null,
-    //searchOpen: true,
+    searchOpen: true,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
     rowsPerPage: rows,
     page: page,
-    //searchText: searchVal,
-    /*customSearchRender: (searchText, handleSearch, hideSearch, options) => {
+    searchText: searchVal,
+    customSearchRender: (searchText, handleSearch, hideSearch, options) => {
       return (
         <CustomSearch
           searchText={searchText}
@@ -152,7 +152,7 @@ const Table = () => {
           options={options}
         />
       );
-    },*/
+    },
     customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
       return (
         <CustomFooter
@@ -184,7 +184,7 @@ const Table = () => {
       {tableData.data &&
         <>
           <MUIDataTable
-            title={'Popis rola'}
+            title={''}
             data={tableData.data}
             columns={columns}
             options={options}

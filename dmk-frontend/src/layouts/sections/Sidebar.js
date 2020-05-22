@@ -62,7 +62,7 @@ const sidebarListItems = [
   {name:'Biskupije', path: '/biskupije'},
   {name:'Gradovi', path: '/gradovi'},
   {name:'Države', path: '/države'},
-  {name:'Test', path: '/test'},
+  {name:'Osobe', path: '/osobe'},
 ]
 
 const Sidebar = ({open, setClosed}) => {

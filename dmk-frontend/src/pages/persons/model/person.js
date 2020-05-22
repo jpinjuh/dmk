@@ -1,4 +1,4 @@
-export const UserForm = [
+export const PersonForm = [
   {
     label: 'Ime',
     type: 'text',
@@ -16,35 +16,44 @@ export const UserForm = [
     error: false
   },
   {
-    label: 'Korisničko ime',
+    label: 'Djevojačko prezime',
     type: 'text',
     disabled: false,
-    name_in_db: 'username',
+    name_in_db: 'maiden_name',
     validation: null,
     error: false
   },
   {
-    label: 'Email',
+    label: 'Datum rođenja',
+    type: 'date',
+    disabled: false,
+    name_in_db: 'birth_date',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'JMBG',
     type: 'text',
     disabled: false,
-    name_in_db: 'email',
+    name_in_db: 'identity_number',
     validation: null,
     error: false
   },
   {
-    label: 'Lozinka',
-    type: 'password',
+    label: 'Otac',
+    type: 'autocomplete',
     disabled: false,
-    name_in_db: 'password_hash',
+    name_in_db: 'father',
+    service: 'person/autocomplete',
     validation: null,
     error: false
   },
   {
-    label: 'Rola',
-    type: 'dropdown',
+    label: 'Majka',
+    type: 'autocomplete',
     disabled: false,
-    name_in_db: 'role',
-    service: 'role',
+    name_in_db: 'mother',
+    service: 'person/autocomplete',
     validation: null,
     error: false
   },
@@ -54,6 +63,15 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'district',
     service: 'district/autocomplete',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'Religija',
+    type: 'dropdown',
+    disabled: false,
+    name_in_db: 'religion',
+    service: 'listItem?list_id=1be5fd61-0cab-4c25-a78a-e81fa9ffc36a',
     validation: null,
     error: false
   },
@@ -77,27 +95,44 @@ export const EditForm = [
     error: false
   },
   {
-    label: 'Korisničko ime',
+    label: 'Djevojačko prezime',
     type: 'text',
     disabled: false,
-    name_in_db: 'username',
+    name_in_db: 'maiden_name',
     validation: null,
     error: false
   },
   {
-    label: 'Email',
+    label: 'Datum rođenja',
     type: 'text',
     disabled: false,
-    name_in_db: 'email',
+    name_in_db: 'birth_date',
     validation: null,
     error: false
   },
   {
-    label: 'Rola',
-    type: 'dropdown',
+    label: 'JMBG',
+    type: 'text',
     disabled: false,
-    name_in_db: 'role',
-    service: 'role',
+    name_in_db: 'identity_number',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'Otac',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'father',
+    service: 'person/autocomplete',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'Majka',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'mother',
+    service: 'person/autocomplete',
     validation: null,
     error: false
   },
@@ -107,6 +142,15 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'district',
     service: 'district/autocomplete',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'Religija',
+    type: 'dropdown',
+    disabled: false,
+    name_in_db: 'religion',
+    service: 'listItem?list_id=1be5fd61-0cab-4c25-a78a-e81fa9ffc36a',
     validation: null,
     error: false
   },

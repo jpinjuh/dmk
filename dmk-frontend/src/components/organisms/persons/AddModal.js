@@ -19,13 +19,13 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Models
-import { UserForm } from 'Pages/users/model/user'
+import { PersonForm } from 'Pages/persons/model/person'
 
 // Organisms
-import EditModal from 'Components/organisms/users/EditModal'
+import EditModal from 'Components/organisms/persons/EditModal'
 
 // Actions
-import { postData } from "Modules/units/Users";
+import { postData } from "Modules/units/Persons";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddModal = ({ onOpen, closeModal }) => {
-  const [inputs, setInputs] = useState(UserForm);
+  const [inputs, setInputs] = useState(PersonForm);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [item, setItem] = useState([]);
@@ -129,7 +129,7 @@ const AddModal = ({ onOpen, closeModal }) => {
     })
     setItem(arr)
     setSubmitted(true)
-    dispatch(postData(`user`, body));
+    dispatch(postData(`person`, body));
   };
 
   const closeEditModal = () => {
@@ -157,7 +157,7 @@ const AddModal = ({ onOpen, closeModal }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Dodaj korisnika'}
+                  title={'Dodaj osobu'}
                 />
               </Box>
               <form>

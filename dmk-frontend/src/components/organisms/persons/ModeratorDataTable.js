@@ -9,10 +9,10 @@ import Title from 'Components/atoms/UI/Title'
 import Button from 'Components/atoms/buttons/Button'
 
 // Molecules
-import Table from "Components/organisms/test/Table"
+import Table from "Components/organisms/persons/Table"
 
 // Organisms 
-import AddModal from 'Components/organisms/test/AddModal'
+import AddModal from 'Components/organisms/persons/AddModal'
 
 const ModeratorDataTable = () => {
 
@@ -22,7 +22,7 @@ const ModeratorDataTable = () => {
     <>
       <Box mb={3} display="flex" justifyContent="space-between">
         <Button
-          label="+ Dodaj korisnika"
+          label="+ Dodaj osobu"
           onClick={() => setOpen(true)}
         />
       </Box>

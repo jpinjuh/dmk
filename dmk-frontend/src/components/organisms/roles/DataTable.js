@@ -17,7 +17,7 @@ const DataTable = () => {
         <Title 
           variant="h4" 
           align={'left'} 
-          title={'Role'}
+          title={'Popis Rola'}
         />
       </Box>
       <Table></Table>

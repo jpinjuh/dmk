@@ -100,6 +100,7 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
         
         setInputs(clearVal)
         setSubmitted(false)
+        closeModal()
       } else if(errorMsg.errorCode === 400){
         if(typeof errorMsg.description === 'object'){
           inputs.forEach(input => {

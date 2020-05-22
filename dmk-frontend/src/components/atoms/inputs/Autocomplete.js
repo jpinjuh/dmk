@@ -82,7 +82,7 @@ const Autocomplete = props => {
           InputLabelProps={{style:
             {
               fontSize: 14,
-              lineHeight: 0.5
+              lineHeight: 0
             }
           }}
         />

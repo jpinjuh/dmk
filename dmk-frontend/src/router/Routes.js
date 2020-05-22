@@ -18,7 +18,7 @@ const Districts = lazy(() => import("Pages/districts/index.js"));
 const Cities = lazy(() => import("Pages/cities/index.js"));
 const States = lazy(() => import("Pages/states/index.js"));
 const Archdioceses = lazy(() => import("Pages/archdioceses/index.js"));
-const Test = lazy(() => import("Pages/test/index.js"));
+const Persons = lazy(() => import("Pages/persons/index.js"));
 
 /**
 |--------------------------------------------------
@@ -122,10 +122,10 @@ export const privateRoutes = [
     component: Archdioceses
   },
   {
-    id: "test",
-    title: "test",
-    description: "test section",
-    path: "test",
-    component: Test
+    id: "persons",
+    title: "Osobe",
+    description: "persons section",
+    path: "osobe",
+    component: Persons
   }
 ];

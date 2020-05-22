@@ -116,7 +116,7 @@ const Dropdown = props => {
               key={name.id}
               value={name.id}
             >
-              {name.name}
+              {name.name || name.value} 
             </MenuItem>
           ))}
         </Select>

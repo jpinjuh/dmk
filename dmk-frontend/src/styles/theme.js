@@ -50,11 +50,41 @@ const theme = createMuiTheme({
       root: {
         borderRadius: 5,
         height: 36,
-       /* marginTop: '5px',
-        alignItems: 'center',*/
+        //marginTop: '5px',
+        //alignItems: 'center',*/
         fontSize: '14px'
       }
-    }
+    },
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: '#0073b6',
+      },
+    },
+    MuiPickersCalendarHeader: {
+      switchHeader: {
+        // backgroundColor: lightBlue.A200,
+        // color: "white",
+      },
+    },
+    MuiPickersDay: {
+      day: {
+        color: '#0073b6',
+      },
+      daySelected: {
+        backgroundColor: '#0073b6',
+      },
+      dayDisabled: {
+        color: '#0073b6',
+      },
+      current: {
+        color: '#0073b6',
+      },
+    },
+    MuiPickersModal: {
+      dialogAction: {
+        color: '#0073b6',
+      },
+    },
   },
   props: {
     MuiButtonBase: {

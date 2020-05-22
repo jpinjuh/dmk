@@ -6,6 +6,7 @@ import { NotificationManager } from "react-notifications";
 // MUI
 import { Box, TextField } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
@@ -32,12 +33,14 @@ const SearchForm = () => {
 
     const dispatch = useDispatch();
 
+    const tableData = useSelector(state => state.users);
+
     const searchFunc = () => {
         const body = {
           search: data
         };
     
-        dispatch(searchData('role/search', body))
+        dispatch(searchData('user/search', body))
       };
 
     return (
@@ -74,6 +77,10 @@ const SearchForm = () => {
                 onClick={searchFunc}
               />
             </Box>
+            {
+              tableData.loading &&
+              <LinearProgress />
+            }
         </div>
     )
 }

@@ -18,10 +18,10 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Actions
-import { putData } from "Modules/units/Users";
+import { putData } from "Modules/units/Persons";
 
 // Models
-import { EditForm } from 'Pages/users/model/user'
+import { EditForm } from 'Pages/persons/model/person'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -47,9 +47,9 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(EditForm);
   const [submitted, setSubmitted] = useState(false)
-  const errorMsg = useSelector(state => state.users.editErrorMsg);
+  const errorMsg = useSelector(state => state.persons.editErrorMsg);
 
-  const oneItem = useSelector(state => state.users.oneItem);
+  const oneItem = useSelector(state => state.persons.oneItem);
 
   const func = () => {
     let clearVal = inputs.filter(input => {
@@ -98,7 +98,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
     setSubmitted(true)
-    dispatch(putData(`user/${itemId}`, body));
+    dispatch(putData(`person/${itemId}`, body));
   }
 
 
@@ -144,7 +144,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Uredi korisnika'}
+                  title={'Uredi osobu'}
                 />
               </Box>
               <form>

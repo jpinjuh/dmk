@@ -12,12 +12,12 @@ import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
 // Organisms
-import EditModal from 'Components/organisms/users/EditModal'
-import DeactivateModal from 'Components/organisms/users/DeactivateModal'
-import ActivateModal from 'Components/organisms/users/ActivateModal'
+import EditModal from 'Components/organisms/persons/EditModal'
+import DeactivateModal from 'Components/organisms/persons/DeactivateModal'
+import ActivateModal from 'Components/organisms/persons/ActivateModal'
 
 // Actions
-import { getData, getOneItem, searchData } from "Modules/units/Users";
+import { getData, getOneItem, searchData } from "Modules/units/Persons";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -31,10 +31,10 @@ const Table = () => {
   const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.users);
+  const tableData = useSelector(state => state.persons);
 
   const getItem = async id => {
-    dispatch(getOneItem(`user/${id}`))
+    dispatch(getOneItem(`person/${id}`))
     setTimeout(() => setOpen(true), 500)
   };
 
@@ -56,24 +56,40 @@ const Table = () => {
       }
     },
     {
-      label: 'Korisničko ime',
-      name: 'username',
+      label: 'Djevojačko prezime',
+      name: 'maiden_name',
       options: {
         filter: false,
         sort: false,
       }
     },
     {
-      label: 'Email',
-      name: 'email',
+      label: 'Rođen/a',
+      name: 'birth_date',
       options: {
         filter: false,
         sort: false,
       }
     },
     {
-      label: 'Rola',
-      name: 'role.name',
+      label: 'JMBG',
+      name: 'identity_number',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Otac',
+      name: 'father.first_name',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Majka',
+      name: 'mother.first_name',
       options: {
         filter: false,
         sort: false,
@@ -82,6 +98,14 @@ const Table = () => {
     {
       label: 'Župa',
       name: 'district.name',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
+      label: 'Religija',
+      name: 'religion.value',
       options: {
         filter: false,
         sort: false,
@@ -161,7 +185,7 @@ const Table = () => {
   }, [page, rows])
 
   const changePage = (page, rows) => {
-    dispatch(getData(`user?start=${page + 1}&limit=${rows}`))
+    dispatch(getData(`person?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {
@@ -169,7 +193,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('user/search', body))
+    dispatch(searchData('person/search', body))
   };
 
   const options = {
@@ -177,6 +201,7 @@ const Table = () => {
     print: false,
     download: false,
     filter: false,
+    search:false,
     viewColumns: false,
     customToolbar: null,
     serverSide: true,
@@ -225,7 +250,7 @@ const Table = () => {
     <>
       {tableData.data &&
         <MUIDataTable
-          title={'Popis korisnika'}
+          title={'Popis osoba'}
           data={tableData.data}
           columns={columns}
           options={options}
