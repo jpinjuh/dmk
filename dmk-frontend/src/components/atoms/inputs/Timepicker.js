@@ -31,19 +31,38 @@ const Timepicker = props => {
     color
   } = props;
 
+  const formatDate = date => {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={hrLocale}>
         <DatePicker 
             //autoOk
+            disableFuture
             inputVariant="outlined"
             fullWidth
             margin="normal"
+            okLabel="U redu"
+            cancelLabel="Nazad"
             value={value}
             label={label}
             error={error}
             helperText={validation}
-            format="dd/MM/yyyy"
-            onChange={date => onChange(date)}
+            format="dd-MM-yyyy"
+            onChange={date => {
+              Date.parse(date) ? onChange(formatDate(date)) : onChange(null);
+            }}
             InputProps={{
                 classes: {
                   root: classes.input,

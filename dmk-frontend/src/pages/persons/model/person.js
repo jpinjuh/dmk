@@ -71,7 +71,7 @@ export const PersonForm = [
     type: 'dropdown',
     disabled: false,
     name_in_db: 'religion',
-    service: 'listItem?list_id=1be5fd61-0cab-4c25-a78a-e81fa9ffc36a',
+    service: 'listItem?list_id=47a17b46-b37e-4639-98eb-fb3c3d347721',
     validation: null,
     error: false
   },
@@ -154,4 +154,39 @@ export const EditForm = [
     validation: null,
     error: false
   },
+]
+
+export const SearchForm = [
+  {
+    label: 'Ime',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'first_name',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'Prezime',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'last_name',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'Datum rođenja',
+    type: 'date',
+    disabled: false,
+    name_in_db: 'birth_date',
+    validation: null,
+    error: false
+  },
+  {
+    label: 'JMBG',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'identity_number',
+    validation: null,
+    error: false
+  }
 ]

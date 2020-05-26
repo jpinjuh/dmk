@@ -18,6 +18,9 @@ import InputForm from "Components/molecules/InputForm"
 // Action
 import { searchData } from "Modules/units/Roles";
 
+// Models
+import { SearchForm as searchForm } from 'Pages/persons/model/person'
+
 const style = makeStyles(theme => ({
   input: {
     height: '36px !important',
@@ -31,16 +34,20 @@ const style = makeStyles(theme => ({
 
 const SearchForm = () => {
   const classes = style();
-  const [data, setData] = useState('')
+  const [inputs, setInputs] = useState(searchForm);
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.users);
 
-  const searchFunc = () => {
-    const body = {
-      search: data
-    };
+  const searchFunc = e => {
+    e.preventDefault();
 
-    dispatch(searchData('user/search', body))
+    const body = {};
+
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value;
+    })
+   
+    dispatch(searchData(`person/search`, body));
   };
 
   return (
@@ -55,25 +62,8 @@ const SearchForm = () => {
           </Box>
           <Box mx={3} mt={4}>
             <form>
-                  <TextField
-                  InputProps={{
-                    classes: {
-                      root: classes.input,
-                    },
-                  }}
-                  InputLabelProps={{
-                    style:
-                    {
-                      fontSize: 14,
-                      lineHeight: 0.05
-                    }
-                  }}
-                  label="Naziv"
-                  variant="outlined"
-                  value={data}
-                  onChange={e => setData(e.currentTarget.value)}
-                />
-                <Box mt={3}>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={3} spacing={2}></InputForm>
+                <Box mt={3} mb={2}>
                   <Button
                     InputProps={{
                       classes: {
@@ -85,12 +75,14 @@ const SearchForm = () => {
                   />
                 </Box>
             </form>
+          {
+            tableData.loading &&
+            <LinearProgress />
+          }
           </Box>
+        
         </Box>
-      {
-        tableData.loading &&
-        <LinearProgress />
-      }
+      
     </>
   )
 }

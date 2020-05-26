@@ -14,7 +14,7 @@ const optionText = (option) => {
   const values = Object.values(option);
   if (typeof option === "object") {
     for (let property in option) {
-      label = option['name']
+      label = option['name'] || `${option['first_name']} ${option['last_name']}, JMBG: ${option['identity_number']}`
     }
     return label;
   }
@@ -67,7 +67,7 @@ const Autocomplete = props => {
         option ? optionText(option) : ""
       }
       options={options}
-      value={value.label ? value.label : ''}
+      value={(value && value.label) ? value.label : ''}
       disabled={disabled}
       renderInput={params => (
         <TextField

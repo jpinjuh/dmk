@@ -127,6 +127,7 @@ const AddModal = ({ onOpen, closeModal }) => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
       arr.push(input.value)
     })
+    console.log(body)
     setItem(arr)
     setSubmitted(true)
     dispatch(postData(`person`, body));
