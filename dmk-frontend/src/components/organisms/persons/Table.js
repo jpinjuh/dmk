@@ -11,8 +11,12 @@ import MUIDataTable from "mui-datatables";
 import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
+// Atoms 
+import Button from 'Components/atoms/buttons/Button'
+
 // Organisms
 import EditModal from 'Components/organisms/persons/EditModal'
+import AddModal from 'Components/organisms/persons/AddModal'
 import DeactivateModal from 'Components/organisms/persons/DeactivateModal'
 import ActivateModal from 'Components/organisms/persons/ActivateModal'
 
@@ -21,6 +25,7 @@ import { getData, getOneItem, searchData } from "Modules/units/Persons";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false)
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
@@ -231,6 +236,14 @@ const Table = () => {
           textLabels={textLabels} />
       );
     },
+    customToolbar: () => {
+      return (
+        <Button
+          label="+ Dodaj osobu"
+          onClick={() => setOpenAdd(true)}
+        />
+      );
+    },
     onTableChange: (action, tableState) => {
       switch (action) {
         case 'search':
@@ -255,6 +268,12 @@ const Table = () => {
           columns={columns}
           options={options}
         />}
+
+      <AddModal
+        onOpen={openAdd} 
+        closeModal={() => setOpenAdd(false)} 
+      ></AddModal>
+
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}

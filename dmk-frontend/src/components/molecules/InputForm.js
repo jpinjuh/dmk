@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const InputForm = props => {
-  const { inputs, setInputs } = props;
+  const { inputs, setInputs, cols, spacing } = props;
   const classes = useStyles();
 
   const handleInputChange = index => value => {
@@ -33,12 +33,12 @@ const InputForm = props => {
 
   return (
 
-    <Grid container alignItems="center">
+    <Grid container alignItems="center" spacing={spacing}>
       {inputs.map((input, index) => {
         switch (input.type) {
           case 'dropdown':
-            return <Grid item xs={12} key={input.name_in_db}>
-              <Container maxWidth="xs" className={classes.container}>
+            return <Grid item xs={cols || 12} key={input.name_in_db}>
+              <Container className={classes.container}>
                 <Dropdown
                   service={input.service}
                   label={input.label}
@@ -50,8 +50,8 @@ const InputForm = props => {
               </Container>
             </Grid>;
           case 'autocomplete':
-            return <Grid item xs={12} key={input.name_in_db}>
-              <Container maxWidth="xs" className={classes.container}>
+            return <Grid item xs={cols || 12} key={input.name_in_db}>
+              <Container className={classes.container}>
                 <Autocomplete
                   service={input.service}
                   label={input.label}
@@ -63,8 +63,8 @@ const InputForm = props => {
               </Container>
             </Grid>;
           case 'date':
-            return <Grid item xs={12} key={input.name_in_db}>
-              <Container maxWidth="xs" className={classes.container}>
+            return <Grid item xs={cols || 12} key={input.name_in_db}>
+              <Container className={classes.container}>
                 <Timepicker
                   type={input.type}
                   value={input.value}
@@ -77,8 +77,8 @@ const InputForm = props => {
               </Container>
             </Grid>;
           default:
-            return <Grid item xs={12} key={input.name_in_db}>
-              <Container maxWidth="xs" className={classes.container}>
+            return <Grid item xs={cols || 12} key={input.name_in_db}>
+              <Container className={classes.container}>
                 <Input
                   type={input.type}
                   value={input.value}

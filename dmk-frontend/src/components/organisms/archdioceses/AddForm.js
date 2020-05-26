@@ -5,6 +5,7 @@ import { NotificationManager } from "react-notifications";
 
 // MUI
 import { Box } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
@@ -22,9 +23,17 @@ import EditModal from 'Components/organisms/archdioceses/EditModal'
 // Action
 import { postData } from "Modules/units/Archdioceses";
 
+const useStyles = makeStyles((theme) => ({
+  title: {
+    backgroundColor: '#dcdeef',
+    padding: '8px 8px 8px 24px'
+  }
+}));
+
 const AddForm = () => {
   const [inputs, setInputs] = useState(AddFormInputs);
   const dispatch = useDispatch();
+  const classes = useStyles();
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
@@ -106,22 +115,26 @@ const AddForm = () => {
 
   return (
     <>
-      <Box mb={3}>
-        <Title
-          variant="h5"
-          align={'left'}
-          title={'Dodaj biskupiju'}
-        />
-      </Box>
-      <form>
-        <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
-        <Box mt={2}>
-          <Button
-            label="+ Dodaj biskupiju"
-            onClick={addItem}
+      <Box>
+        <Box className={classes.title}>
+          <Title
+            variant="h6"
+            align={'left'}
+            title={'Dodavanje biskupije'}
           />
         </Box>
-      </form>
+        <Box mx={3} mt={2}>
+          <form>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4}></InputForm>
+            <Box mt={2} xs={4}>
+              <Button
+                label="+ Dodaj biskupiju"
+                onClick={addItem}
+              />
+            </Box>
+          </form>
+        </Box>
+      </Box>
 
       <EditModal
         onOpen={open}

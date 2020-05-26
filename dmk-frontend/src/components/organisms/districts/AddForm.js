@@ -5,6 +5,7 @@ import { NotificationManager } from "react-notifications";
 
 // MUI
 import { Box } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
@@ -22,9 +23,17 @@ import EditModal from 'Components/organisms/districts/EditModal'
 // Action
 import { postData } from "Modules/units/Districts";
 
+const useStyles = makeStyles((theme) => ({
+  title: {
+    backgroundColor: '#dcdeef',
+    padding: '8px 8px 8px 24px'
+  }
+}));
+
 const AddForm = () => {
   const [inputs, setInputs] = useState(DistrictForm);
   const dispatch = useDispatch();
+  const classes = useStyles();
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
@@ -106,22 +115,26 @@ const AddForm = () => {
 
   return (
     <>
-      <Box mb={3}>
-        <Title
-          variant="h5"
-          align={'left'}
-          title={'Dodaj župu'}
-        />
-      </Box>
-      <form>
-        <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
-        <Box mt={2}>
-          <Button
-            label="+ Dodaj župu"
-            onClick={addItem}
+      <Box>
+        <Box className={classes.title}>
+          <Title
+            variant="h6"
+            align={'left'}
+            title={'Dodavanje župa'}
           />
         </Box>
-      </form>
+        <Box mx={3} mt={2}>
+          <form>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2}></InputForm>
+            <Box mt={2}>
+              <Button
+                label="+ Dodaj župu"
+                onClick={addItem}
+              />
+            </Box>
+          </form>
+        </Box>
+      </Box>
 
       <EditModal
         onOpen={open}

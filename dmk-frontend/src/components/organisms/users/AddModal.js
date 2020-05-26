@@ -161,7 +161,7 @@ const AddModal = ({ onOpen, closeModal }) => {
                 />
               </Box>
               <form>
-                <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
+                <InputForm inputs={inputs} setInputs={setInputs} spacing={0}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
                     <Button

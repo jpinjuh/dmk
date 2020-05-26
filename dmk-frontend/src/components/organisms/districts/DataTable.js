@@ -13,14 +13,9 @@ import Table from "Components/organisms/districts/Table"
 const DataTable = () => {
   return (
     <>
-      <Box mb={7}>
-        <Title 
-          variant="h4" 
-          align={'left'} 
-          title={'Popis župa'}
-        />
+      <Box>
+        <Table></Table>
       </Box>
-      <Table></Table>
     </>
   );
 };

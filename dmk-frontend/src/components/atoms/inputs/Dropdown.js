@@ -20,7 +20,7 @@ import { getFunc } from "../../../services/mainApiServices";
 const useStyles = makeStyles(theme => ({
   input: {
     color: `${theme.palette.secondary.main} !important`,
-    marginTop: '16px'
+    marginTop: '8px'
   }
 }));
 

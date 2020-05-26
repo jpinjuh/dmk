@@ -55,6 +55,7 @@ const Header = ({open, setOpen}) => {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
+        elevation={0}
       >
       <Toolbar>
         <Box>

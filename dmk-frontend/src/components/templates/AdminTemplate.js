@@ -9,11 +9,19 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: '56px',
+  paper1: {
     '-webkit-box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
     '-moz-box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
-    'box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)'
+    'box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
+    paddingBottom: '24px',
+    border: '1px solid #e0e0e0'
+  },
+  paper2: {
+    '-webkit-box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
+    '-moz-box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
+    'box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
+    padding: '24px',
+    border: '1px solid #e0e0e0'
   }
 }));
 
@@ -24,16 +32,12 @@ const AdminTemplate = (props) => {
   return (
       <div className={classes.root}>
         <Grid container spacing={4}>
-        <Box clone order={{ xs: 2, md: 1 }}>
-          <Grid item xs={12} md={8}>
-            <Paper elevation={0} className={classes.paper}>{dataTable}</Paper>
+          <Grid item xs={12}>
+            <Paper elevation={0} className={classes.paper1}>{addForm}</Paper>
           </Grid>
-        </Box>
-        <Box clone order={{ xs: 1, md: 2 }}>
-          <Grid item xs={12} md={4}>
-            <Paper elevation={0} className={classes.paper}>{addForm}</Paper>
+          <Grid item xs={12}>
+            <Paper elevation={0} className={classes.paper2}>{dataTable}</Paper>
           </Grid>
-        </Box>
         </Grid>
     </div>
   );

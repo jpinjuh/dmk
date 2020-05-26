@@ -148,7 +148,7 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('privilege/autocomplete', body))
+    dispatch(searchData('privilege/search', body))
   };
 
   const options = {
@@ -157,7 +157,7 @@ const Table = () => {
     download: false,
     viewColumns: false,
     customToolbar: null,
-    searchOpen: true,
+    filter: false,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
@@ -204,7 +204,7 @@ const Table = () => {
     <>
       {tableData.data &&
         <MUIDataTable
-          title={''}
+          title={'Popis privilegija'}
           data={tableData.data}
           columns={columns}
           options={options}

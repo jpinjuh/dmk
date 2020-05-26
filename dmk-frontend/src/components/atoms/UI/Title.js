@@ -13,7 +13,7 @@ const Title = props => {
     <>
       <Box display="flex" justifyContent={align}>
         <Box>
-          <Text title={title} variant={variant} color="secondary" />
+          <Text title={title} variant={variant} />
         </Box>
       </Box>
     </>

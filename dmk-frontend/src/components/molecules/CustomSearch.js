@@ -48,10 +48,7 @@ const CustomSearch = (props) => {
           placeholder={'Pretraži'}
           className={classes.searchText}
           InputProps={{
-            'aria-label': options.textLabels.toolbar.search,
-            endAdornment: (
-                <ClearIcon className={classes.icon} />
-            ),
+            'aria-label': options.textLabels.toolbar.search
           }}
           value={searchText || ''}
           onChange={handleTextChange}

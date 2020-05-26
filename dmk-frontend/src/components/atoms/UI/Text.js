@@ -16,7 +16,7 @@ const Text = props => {
 
 Text.defaultProps = {
   title: "tripleS",
-  color: "primary"
+  color: "secondary"
 };
 
 export default Text;

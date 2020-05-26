@@ -10,10 +10,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
   paper: {
-    padding: '56px',
+    padding: '24px',
     '-webkit-box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
     '-moz-box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
     'box-shadow': '0px 0px 25px 0px rgba(0,0,0,0.07)',
+    border: '1px solid #e0e0e0'
   }
 }));
 

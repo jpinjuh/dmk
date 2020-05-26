@@ -136,7 +136,6 @@ const Table = () => {
     filter: false,
     viewColumns: false,
     customToolbar: null,
-    searchOpen: true,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
@@ -184,7 +183,7 @@ const Table = () => {
       {tableData.data &&
         <>
           <MUIDataTable
-            title={''}
+            title={'Popis rola'}
             data={tableData.data}
             columns={columns}
             options={options}

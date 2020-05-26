@@ -133,7 +133,7 @@ const Table = () => {
     download: false,
     viewColumns: false,
     customToolbar: null,
-    searchOpen: true,
+    filter: false,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
@@ -180,7 +180,7 @@ const Table = () => {
     <>
       {tableData.data &&
         <MUIDataTable
-          title={''}
+          title={'Popis država'}
           data={tableData.data}
           columns={columns}
           options={options}

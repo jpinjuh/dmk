@@ -11,8 +11,12 @@ import MUIDataTable from "mui-datatables";
 import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 
+// Atoms 
+import Button from 'Components/atoms/buttons/Button'
+
 // Organisms
 import EditModal from 'Components/organisms/users/EditModal'
+import AddModal from 'Components/organisms/users/AddModal'
 import DeactivateModal from 'Components/organisms/users/DeactivateModal'
 import ActivateModal from 'Components/organisms/users/ActivateModal'
 
@@ -21,6 +25,7 @@ import { getData, getOneItem, searchData } from "Modules/units/Users";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false)
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
@@ -178,7 +183,7 @@ const Table = () => {
     download: false,
     viewColumns: false,
     customToolbar: null,
-    searchOpen: true,
+    filter: false,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
@@ -206,6 +211,14 @@ const Table = () => {
           textLabels={textLabels} />
       );
     },
+    customToolbar: () => {
+      return (
+        <Button
+          label="+ Dodaj korisnika"
+          onClick={() => setOpenAdd(true)}
+        />
+      );
+    },
     onTableChange: (action, tableState) => {
       switch (action) {
         case 'search':
@@ -225,11 +238,17 @@ const Table = () => {
     <>
       {tableData.data &&
         <MUIDataTable
-          title={''}
+          title={'Popis korisnika'}
           data={tableData.data}
           columns={columns}
           options={options}
         />}
+
+      <AddModal
+        onOpen={openAdd} 
+        closeModal={() => setOpenAdd(false)} 
+      ></AddModal>
+
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}

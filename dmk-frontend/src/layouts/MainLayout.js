@@ -23,7 +23,7 @@ const style = makeStyles(theme => ({
     paddingBottom: theme.spacing(4),
     display: 'flex',
     alignItems: 'flex-start',
-    backgroundColor: '#f3f3f3'
+    backgroundColor: '#f1f1f1'
   },
   content: {
     width: '100%',
