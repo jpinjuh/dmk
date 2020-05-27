@@ -150,7 +150,7 @@ export const EditForm = [
     type: 'dropdown',
     disabled: false,
     name_in_db: 'religion',
-    service: 'listItem?list_id=1be5fd61-0cab-4c25-a78a-e81fa9ffc36a',
+    service: 'listItem?list_id=47a17b46-b37e-4639-98eb-fb3c3d347721',
     validation: null,
     error: false
   },

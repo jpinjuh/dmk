@@ -9,7 +9,6 @@ import MainLayout from "Layouts/MainLayout";
 
 // Routes (Code splitting)
 const Home = lazy(() => import("Pages/home/index.js"));
-const Admin = lazy(() => import("Pages/admin/index.js"));
 const Users = lazy(() => import("Pages/users/index.js"));
 const Roles = lazy(() => import("Pages/roles/index.js"));
 const Permissions = lazy(() => import("Pages/permissions/index.js"));
@@ -59,13 +58,6 @@ export const publicRoutes = [
 */
 
 export const privateRoutes = [
-  {
-    id: "admin",
-    title: "Dashboard",
-    description: "Dashboard section",
-    path: "admin",
-    component: Admin
-  },
   {
     id: "users",
     title: "Users",

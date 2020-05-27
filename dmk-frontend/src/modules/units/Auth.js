@@ -55,7 +55,7 @@ export const login = (url, body, history) => async dispatch => {
       localStorage.setItem("jwt-token", JSON.stringify(response.access_token));
       //localStorage.setItem("meni", JSON.stringify(response.meni));
       dispatch({ type: LOGIN_SCS, payload: { user: decode, data: response } });
-      history.push("admin");
+      history.push("role");
     }
   } else {
     NotificationManager.error(response.status.description);
@@ -75,7 +75,7 @@ export const renewToken = async (url, history) => {
       // localStorage.setItem("data", JSON.stringify(response.data));
       localStorage.setItem("jwt-token", JSON.stringify(response.access_token));
       // localStorage.setItem("meni", JSON.stringify(response.meni));
-      history.push("admin");
+      history.push("role");
     }
   }
 };

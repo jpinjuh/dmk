@@ -23,7 +23,7 @@ const theme = createMuiTheme({
         padding: 0,
         fontSize: '13px',
         '& .MuiButtonBase-root': {
-          height: '30px'
+          height: '30px !important'
         }
       }
     },
@@ -37,19 +37,19 @@ const theme = createMuiTheme({
     },
     MuiTableCell: {
       footer: {
-        height: '30x',
+        height: '30x !important',
         padding: 0
       }
     },
     MUITableCell: {
       root: {
-        height: '30px',
+        height: '30px !important',
         padding: 0
       }
     },
     MUIDataTableBodyCell: {
       root: {
-        height: '30px',
+        height: '30px !important',
         padding: 0
       }
     },
@@ -72,8 +72,18 @@ const theme = createMuiTheme({
         borderRadius: 5,
         height: 36,
         //marginTop: '5px',
-        //alignItems: 'center',*/
-        fontSize: '14px'
+        //alignItems: 'center',
+        fontSize: '14px',
+      },
+      adornedEnd: {
+        paddingRight: 0
+      }
+    },
+    MuiAutocomplete: {
+      root: {
+        '& .MuiAutocomplete-input': {
+          padding: '0px 0px 0px 5px !important'
+        }
       }
     },
     MuiPickersToolbar: {
