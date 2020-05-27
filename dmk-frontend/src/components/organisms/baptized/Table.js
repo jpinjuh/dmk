@@ -15,13 +15,13 @@ import Chip from '@material-ui/core/Chip';
 import Button from 'Components/atoms/buttons/Button'
 
 // Organisms
-import EditModal from 'Components/organisms/persons/EditModal'
-import AddModal from 'Components/organisms/persons/AddModal'
-import DeactivateModal from 'Components/organisms/persons/DeactivateModal'
-import ActivateModal from 'Components/organisms/persons/ActivateModal'
+import EditModal from 'Components/organisms/baptized/EditModal'
+import AddModal from 'Components/organisms/baptized/AddModal'
+import DeactivateModal from 'Components/organisms/baptized/DeactivateModal'
+import ActivateModal from 'Components/organisms/baptized/ActivateModal'
 
 // Actions
-import { getData, getOneItem, searchData } from "Modules/units/Persons";
+import { getData, getOneItem, searchData } from "Modules/units/Users";
 
 const Table = () => {
   const [open, setOpen] = useState(false);
@@ -36,10 +36,10 @@ const Table = () => {
   const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.persons);
+  const tableData = useSelector(state => state.users);
 
   const getItem = async id => {
-    dispatch(getOneItem(`person/${id}`))
+    dispatch(getOneItem(`user/${id}`))
     setTimeout(() => setOpen(true), 500)
   };
 
@@ -47,73 +47,92 @@ const Table = () => {
     {
       label: 'Ime',
       name: 'first_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
     },
     {
       label: 'Prezime',
       name: 'last_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
     },
     {
-      label: 'Djevojačko prezime',
+      label: 'Djevojačko ime',
       name: 'maiden_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
     },
     {
-      label: 'Rođen/a',
+      label: 'Datum rođenja',
       name: 'birth_date',
-      options: {
-        filter: false,
-        sort: false,
-      }
     },
     {
       label: 'JMBG',
       name: 'identity_number',
-      options: {
-        filter: false,
-        sort: false,
-      }
     },
     {
       label: 'Otac',
-      name: 'father.first_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
+      name: 'father',
     },
     {
       label: 'Majka',
-      name: 'mother.first_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
+      name: 'mother',
     },
     {
       label: 'Župa',
-      name: 'district.name',
-      options: {
-        filter: false,
-        sort: false,
-      }
+      name: 'district',
     },
     {
       label: 'Religija',
-      name: 'religion.value',
+      name: 'religion',
+    },
+    {
+      label: 'Aktivnost',
+      name: 'status',
       options: {
-        filter: false,
-        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <div>
+              {(value === 1)
+                ? <Chip label="Aktivan" color="primary" />
+                : <Chip label="Neaktivan" disabled />
+              }
+            </div>
+          );
+        }
+      }
+    },
+    {
+      name: "id",
+      label: "Akcije",
+      options: {
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <div>
+              <Box display="flex">
+                <Box mr={3}>
+                  <ButtonWithIcon
+                    label={'Uredi'}
+                    icon={"edit"}
+                    onClick={() => { setItemId(value); getItem(value); }}
+                  />
+                </Box>
+                <div>
+                  {(tableMeta.rowData[tableMeta.rowData.length - 2] === 0)
+                    ? <Box mr={3}>
+                      <ButtonWithIcon
+                        label={'Aktiviraj'}
+                        icon={"visibility"}
+                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                      />
+                    </Box>
+                    : <Box>
+                      <ButtonWithIcon
+                        label={'Deaktiviraj'}
+                        icon={"visibility_off"}
+                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                      />
+                    </Box>
+                  }
+                </div>
+              </Box>
+            </div>
+          );
+        }
       }
     }
   ]
@@ -131,7 +150,7 @@ const Table = () => {
   }, [page, rows])
 
   const changePage = (page, rows) => {
-    dispatch(getData(`person?start=${page + 1}&limit=${rows}`))
+    // dispatch(getData(`user?start=${page + 1}&limit=${rows}`))
   };
 
   const getSearchData = async value => {
@@ -139,17 +158,16 @@ const Table = () => {
       search: value
     };
 
-    dispatch(searchData('person/search', body))
+    // dispatch(searchData('user/search', body))
   };
 
   const options = {
     elevation: 0,
     print: false,
     download: false,
-    filter: false,
-    search:false,
     viewColumns: false,
     customToolbar: null,
+    filter: false,
     serverSide: true,
     count: tableData.total,
     selectableRows: 'none',
@@ -180,7 +198,7 @@ const Table = () => {
     customToolbar: () => {
       return (
         <Button
-          label="+ Dodaj osobu"
+          label="+ Dodaj krštenog"
           onClick={() => setOpenAdd(true)}
         />
       );
@@ -202,9 +220,13 @@ const Table = () => {
 
   return (
     <>
+    <Button
+          label="+ Dodaj krštenog"
+          onClick={() => setOpenAdd(true)}
+        />
       {tableData.data &&
         <MUIDataTable
-          title={'Popis osoba'}
+          title={'Popis krštenih'}
           data={tableData.data}
           columns={columns}
           options={options}
@@ -214,6 +236,25 @@ const Table = () => {
         onOpen={openAdd} 
         closeModal={() => setOpenAdd(false)} 
       ></AddModal>
+
+      <EditModal
+        onOpen={open}
+        closeModal={() => setOpen(false)}
+        item={item}
+        itemId={itemId}
+      ></EditModal>
+
+      <DeactivateModal
+        onDeactivate={deactivateOpen}
+        closeDeactivate={() => setDeactivateOpen(false)}
+        itemId={itemId}
+      ></DeactivateModal>
+
+      <ActivateModal
+        onActivate={activateOpen}
+        closeActivate={() => setActivateOpen(false)}
+        itemId={itemId}
+      ></ActivateModal>
     </>
   );
 }

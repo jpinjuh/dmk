@@ -37,7 +37,20 @@ const theme = createMuiTheme({
     },
     MuiTableCell: {
       footer: {
-        height: '40x'
+        height: '30x',
+        padding: 0
+      }
+    },
+    MUITableCell: {
+      root: {
+        height: '30px',
+        padding: 0
+      }
+    },
+    MUIDataTableBodyCell: {
+      root: {
+        height: '30px',
+        padding: 0
       }
     },
     MuiPaper: {
