@@ -19,6 +19,7 @@ import EditModal from 'Components/organisms/users/EditModal'
 import AddModal from 'Components/organisms/users/AddModal'
 import DeactivateModal from 'Components/organisms/users/DeactivateModal'
 import ActivateModal from 'Components/organisms/users/ActivateModal'
+import UserPasswordModal from 'Components/organisms/users/UserPasswordModal'
 
 // Actions
 import { getData, getOneItem, searchData } from "Modules/units/Users";
@@ -28,6 +29,7 @@ const Table = () => {
   const [openAdd, setOpenAdd] = useState(false)
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
+  const [changePwdOpen, setChangePwdOpen] = useState(false);
   const [itemId, setItemId] = useState('');
   const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
@@ -125,6 +127,13 @@ const Table = () => {
                     label={'Uredi'}
                     icon={"edit"}
                     onClick={() => { setItemId(value); getItem(value); }}
+                  />
+                </Box>
+                <Box mr={3}>
+                  <ButtonWithIcon
+                    label={'Promjeni lozinku'}
+                    icon={"vpn_key"}
+                    onClick={() => {setChangePwdOpen(true), setItemId(value)}}
                   />
                 </Box>
                 <div>
@@ -255,6 +264,12 @@ const Table = () => {
         item={item}
         itemId={itemId}
       ></EditModal>
+
+      <UserPasswordModal
+        onOpen={changePwdOpen}
+        closeModal={() => setChangePwdOpen(false)}
+        itemId={itemId}
+      ></UserPasswordModal>
 
       <DeactivateModal
         onDeactivate={deactivateOpen}

@@ -28,18 +28,11 @@ const Baptized = lazy(() => import("Pages/baptized/index.js"));
 
 export const publicRoutes = [
   {
-    id: "home",
-    title: "Homepage",
-    description: "Homepage section",
-    path: "",
-    exact: true,
-    component: Home
-  },
-  {
     id: "login",
     title: "Prijava",
     description: "Log in section",
-    path: "login",
+    path: "",
+    exact: true,
     component: LoginLayout
   },
   {

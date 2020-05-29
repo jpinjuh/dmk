@@ -60,7 +60,6 @@ const MainLayout = (state) => {
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    console.log(open)
   };
 
   const handleDrawerClose = () => {

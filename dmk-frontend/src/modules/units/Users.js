@@ -40,6 +40,10 @@ const ACTIVATE_DATA_FLR = "ACTIVATE_DATA_FLR";
 const SEARCH_DATA_REQ = "SEARCH_DATA_REQ";
 const SEARCH_DATA_SCS = "SEARCH_DATA_SCS";
 const SEARCH_DATA_FLR = "SEARCH_DATA_FLR";
+//  CHANGE USER PASSWORD
+const CHANGE_PASS_DATA_REQ = "CHANGE_PASS_DATA_REQ";
+const CHANGE_PASS_DATA_SCS = "CHANGE_PASS_DATA_SCS";
+const CHANGE_PASS_DATA_FLR = "CHANGE_PASS_DATA_FLR";
 
 /**
 |--------------------------------------------------
@@ -138,6 +142,19 @@ export const searchData = (url, body) => async dispatch => {
   } else {
     dispatch({ type: SEARCH_DATA_FLR });
     NotificationManager.error(response.status.description);
+  }
+};
+
+export const editPassword = (url, body) => async dispatch => {
+  dispatch({ type: CHANGE_PASS_DATA_REQ });
+
+  const response = await putFunc(url, body);
+
+  if (response.status.errorCode === 200) {
+    dispatch({ type: CHANGE_PASS_DATA_SCS, status: response.status});
+    NotificationManager.success(response.status.description,);
+  } else {
+    dispatch({ type: CHANGE_PASS_DATA_FLR, status: response.status });
   }
 };
 /**
@@ -291,6 +308,23 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case SEARCH_DATA_FLR:
       return {
         ...state,
+        loading: false
+      };
+    case CHANGE_PASS_DATA_REQ:
+      return {
+        ...state,
+        loading: true
+      };
+    case CHANGE_PASS_DATA_SCS:
+      return {
+        ...state,
+        editErrorMsg: action.status,
+        loading: false
+      };
+    case CHANGE_PASS_DATA_FLR:
+      return {
+        ...state,
+        editErrorMsg: action.status,
         loading: false
       };
     default:

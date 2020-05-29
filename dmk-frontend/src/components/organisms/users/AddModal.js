@@ -73,7 +73,7 @@ const AddModal = ({ onOpen, closeModal }) => {
       })
       setInputs(clearVal)
     }
-  }, [])
+  }, [onOpen])
 
   useEffect(() => {
     if (submitted) {

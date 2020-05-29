@@ -2,6 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from "react-router-dom";
+import clsx from 'clsx';
+
+// Mui
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -10,8 +13,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import clsx from 'clsx';
-
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
 
 const drawerWidth = 240;
 
@@ -50,8 +54,12 @@ const useStyles = makeStyles((theme) => ({
   },
   hidden: {
     display: 'none'
-  }
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
+
 
 const sidebarListItems = [
   {name:'Role', path: '/role'},
@@ -70,6 +78,13 @@ const Sidebar = ({open, setClosed}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+  const [nestedOpen, setNestedOpen] = React.useState(true);
+  const administrationArray = ['Role', 'Prava', 'Privilegije', 'Korisnici']
+
+  const handleClick = () => {
+    setNestedOpen(!nestedOpen);
+    console.log(nestedOpen)
+  };
 
   return (
       <Drawer
@@ -83,18 +98,39 @@ const Sidebar = ({open, setClosed}) => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={setClosed}>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon style={{ color: 'white' }} />
           </IconButton>
         </div>
         <Divider />
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
+            <ListItem button onClick={handleClick}>
+              <ListItemText primary="Administracija" />
+              {nestedOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={nestedOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {sidebarListItems.map(route => (
+                  administrationArray.includes(route.name) &&
+                  <ListItem
+                    button key={route.name}
+                    component={Link}
+                    to={route.path}
+                    selected={route.path === location.pathname}
+                  >
+                    <ListItemText className={classes.nested} primary={route.name} />
+                  </ListItem>
+
+                ))}
+              </List>
+            </Collapse>
             {sidebarListItems.map(route => (
-              <ListItem 
-                button key={route.name} 
-                component={Link} 
-                to={route.path} 
+              !administrationArray.includes(route.name) &&
+              <ListItem
+                button key={route.name}
+                component={Link}
+                to={route.path}
                 selected={route.path === location.pathname}
               >
                 <ListItemText primary={route.name} />

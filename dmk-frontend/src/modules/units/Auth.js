@@ -96,7 +96,7 @@ export const editPassword = (url, body) => async dispatch => {
 export const logOut = history => dispatch => {
   dispatch({ type: LOGOUT_USER });
   localStorage.clear();
-  history.push("/login");
+  history.push("");
 };
 
 /**

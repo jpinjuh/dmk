@@ -30,7 +30,7 @@ export function checkToken() {
     } else if (new Date() > exp) {
       // remove user from local storage to logout user
       localStorage.clear();
-      history.push("/login");
+      history.push("");
       window.location.reload();
     }
   }
