@@ -6,15 +6,15 @@ import AddForm from 'Components/organisms/privileges/AddForm';
 import DataTable from 'Components/organisms/privileges/DataTable';
 
 // Templates
-import AdminTemplate from 'Components/templates/AdminTemplate'
+import MainTemplate from 'Components/templates/MainTemplate'
 
 const Privileges = () => {
   return (
     <>
-      <AdminTemplate
-        addForm={<AddForm />}
+      <MainTemplate
+        Form={<AddForm />}
         dataTable={<DataTable />}
-      ></AdminTemplate>
+      ></MainTemplate>
     </>
   );
 };

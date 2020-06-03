@@ -6,15 +6,15 @@ import AddForm from 'Components/organisms/archdioceses/AddForm';
 import DataTable from 'Components/organisms/archdioceses/DataTable';
 
 // Templates
-import AdminTemplate from 'Components/templates/AdminTemplate'
+import MainTemplate from 'Components/templates/MainTemplate'
 
 const Archdioceses = () => {
   return (
     <>
-      <AdminTemplate
-        addForm={<AddForm />}
+      <MainTemplate
+        Form={<AddForm />}
         dataTable={<DataTable />}
-      ></AdminTemplate>
+      ></MainTemplate>
     </>
   );
 };

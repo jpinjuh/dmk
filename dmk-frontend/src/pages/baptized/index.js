@@ -2,8 +2,7 @@
 import React from 'react';
 
 // Organisms
-import Table from 'Components/organisms/baptized/Table';
-import SearchForm from 'Components/organisms/persons/SearchForm';
+import AddForm from 'Components/organisms/baptized/AddForm';
 
 // Templates
 import MainTemplate from 'Components/templates/MainTemplate'
@@ -12,8 +11,7 @@ const Baptized = () => {
   return (
     <>
       <MainTemplate
-        searchForm={<SearchForm />}
-        dataTable={<Table />}
+        Form={<AddForm />}
       >
       </MainTemplate>
     </>

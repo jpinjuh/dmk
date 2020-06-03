@@ -6,15 +6,15 @@ import AddForm from 'Components/organisms/roles/AddForm';
 import DataTable from 'Components/organisms/roles/DataTable';
 
 // Templates
-import AdminTemplate from 'Components/templates/AdminTemplate'
+import MainTemplate from 'Components/templates/MainTemplate'
 
 const Roles = () => {
   return (
     <>
-      <AdminTemplate
-        addForm={<AddForm />}
+      <MainTemplate
+        Form={<AddForm />}
         dataTable={<DataTable />}
-      ></AdminTemplate>
+      ></MainTemplate>
     </>
   );
 };

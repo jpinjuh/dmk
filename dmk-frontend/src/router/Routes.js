@@ -8,7 +8,6 @@ import PasswordResetLayout from "Layouts/PasswordResetLayout";
 import MainLayout from "Layouts/MainLayout";
 
 // Routes (Code splitting)
-const Home = lazy(() => import("Pages/home/index.js"));
 const Users = lazy(() => import("Pages/users/index.js"));
 const Roles = lazy(() => import("Pages/roles/index.js"));
 const Permissions = lazy(() => import("Pages/permissions/index.js"));

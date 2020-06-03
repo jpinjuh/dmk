@@ -1,4 +1,4 @@
-export const AddForm = [
+export const BaptizedForm = [
   {
     label: 'Ime',
     type: 'text',

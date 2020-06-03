@@ -5,14 +5,14 @@ import React from 'react';
 import ModeratorDataTable from 'Components/organisms/users/ModeratorDataTable';
 
 // Templates
-import ModeratorTemplate from 'Components/templates/ModeratorTemplate'
+import MainTemplate from 'Components/templates/MainTemplate'
 
 const Users = () => {
   return (
     <>
-      <ModeratorTemplate
-        moderatorDataTable={<ModeratorDataTable />}>
-      </ModeratorTemplate>
+      <MainTemplate
+        dataTable={<ModeratorDataTable />}>
+      </MainTemplate>
     </>
   );
 };

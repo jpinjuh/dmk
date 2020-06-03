@@ -36,15 +36,11 @@ const theme = createMuiTheme({
       }
     },
     MuiTableCell: {
-      footer: {
-        height: '30x !important',
-        padding: 0
-      }
-    },
-    MUITableCell: {
       root: {
-        height: '30px !important',
-        padding: 0
+        padding: 0,
+        '& .MuiButtonBase-root': {
+          height: '30px !important'
+        }
       }
     },
     MUIDataTableBodyCell: {

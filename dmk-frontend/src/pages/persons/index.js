@@ -12,7 +12,7 @@ const Test = () => {
   return (
     <>
       <MainTemplate
-        searchForm={<SearchForm />}
+        Form={<SearchForm />}
         dataTable={<ModeratorDataTable />}
       >
       </MainTemplate>
