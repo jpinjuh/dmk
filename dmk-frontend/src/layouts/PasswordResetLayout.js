@@ -70,7 +70,7 @@ const PasswordResetLayout = () => {
               fullWidth
             />
           </Box>
-          <Link goTo="login" label="Povratak na prijavu"/>
+          <Link goTo="" label="Povratak na prijavu"/>
         </form>
       </Container>
     </>

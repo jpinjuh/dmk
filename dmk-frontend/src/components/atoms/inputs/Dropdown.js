@@ -24,25 +24,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const methods = {
-  data: [
-    {
-      id: "GET",
-      name: "GET"
-    },
-    {
-      id: "POST",
-      name: "POST"
-    },
-    {
-      id: "PUT",
-      name: "PUT"
-    },
-    {
-      id: "DELETE",
-      name: "DELETE"
-    }]
-}
 
 const Dropdown = props => {
 
@@ -67,25 +48,14 @@ const Dropdown = props => {
   
 
   useEffect(() => {
-    if (service !== 'methods') {
-      getFunc(service).then(data => {
-        setOptions(data)
-      })
-    }
-    else {
-      setOptions(methods)
-    }
+    getFunc(service).then(data => {
+      setOptions(data)
+    })
   }, [])
 
   
   useEffect(() => {
-    if (service !== 'methods')
-      setParentState({
-        id: item
-      })
-    else
-      setParentState(item)
-
+    setParentState(item)
   }, [item])
 
   const handleChange = event => {
@@ -109,12 +79,12 @@ const Dropdown = props => {
           />}
         >
           <MenuItem disabled value="">
-            {label}
+            {label || 'Odaberi'}
           </MenuItem>
           {options.data.map(name => (
             <MenuItem
-              key={name.id}
-              value={name.id}
+              key={name.id || name.list_id}
+              value={label === 'Metoda' ? name.value : name.id}
             >
               {name.name || name.value} 
             </MenuItem>

@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 
 // Atoms 
 import Button from 'Components/atoms/buttons/Button'
+import { formatDate } from 'Components/atoms/inputs/Timepicker'
 
 // Organisms
 import EditModal from 'Components/organisms/persons/EditModal'
@@ -60,7 +61,7 @@ const Table = () => {
         sort: false,
       }
     },
-    {
+    /*{
       label: 'Djevojačko prezime',
       name: 'maiden_name',
       options: {
@@ -75,7 +76,7 @@ const Table = () => {
         filter: false,
         sort: false,
       }
-    },
+    },*/
     {
       label: 'JMBG',
       name: 'identity_number',
@@ -85,6 +86,21 @@ const Table = () => {
       }
     },
     {
+      label: 'Datum rođenja',
+      name: 'birth_date',
+      options: {
+        customBodyRender: value => <span>{formatDate(value)}</span>
+      }
+    },
+    {
+      label: 'Mjesto rođenja',
+      name: 'city.name',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    /*{
       label: 'Otac',
       name: 'father.first_name',
       options: {
@@ -114,6 +130,28 @@ const Table = () => {
       options: {
         filter: false,
         sort: false,
+      }
+    }*/
+    {
+      name: "id",
+      label: "Akcije",
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <div>
+              <Box display="flex">
+                <Box mr={3}>
+                  <ButtonWithIcon
+                    label={'Detalji'}
+                    icon={"list"}
+                  />
+                </Box>
+              </Box>
+            </div>
+          );
+        }
       }
     }
   ]

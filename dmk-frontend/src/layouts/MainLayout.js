@@ -56,7 +56,7 @@ const style = makeStyles(theme => ({
 const MainLayout = (state) => {
   const history = useHistory();
   const classes = style();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
