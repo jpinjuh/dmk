@@ -70,7 +70,7 @@ const MainLayout = (state) => {
     <>
       <Container className={classes.container}>
         <Header open={open} setOpen={handleDrawerOpen}></Header>
-        <Sidebar open={open} setClosed={handleDrawerClose}></Sidebar>
+        <Sidebar open={open} setClosed={handleDrawerClose} setOpen={handleDrawerOpen}></Sidebar>
         <Box className={clsx(classes.content, {
           [classes.contentShift]: open,
         }), classes.drawerHeader}>{state.children}</Box>

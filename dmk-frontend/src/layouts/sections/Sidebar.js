@@ -5,7 +5,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import clsx from 'clsx';
 
 // Mui
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -75,7 +75,7 @@ const sidebarListItems = [
   {name:'Osobe', path: '/osobe'},
 ]
 
-const Sidebar = ({open, setClosed}) => {
+const Sidebar = ({open, setClosed, setOpen}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -88,11 +88,13 @@ const Sidebar = ({open, setClosed}) => {
   };
 
   return (
-      <Drawer
+      <SwipeableDrawer
         className={clsx(classes.drawer, open===false && classes.hidden)}
         variant="temporary"
         anchor="left"
         open={open}
+        onClose={setClosed}
+        onOpen={setOpen}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -138,7 +140,7 @@ const Sidebar = ({open, setClosed}) => {
             ))}
           </List>
         </div>
-      </Drawer>
+      </SwipeableDrawer>
   );
 }
 

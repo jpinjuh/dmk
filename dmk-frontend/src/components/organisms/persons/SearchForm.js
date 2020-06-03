@@ -62,7 +62,7 @@ const SearchForm = () => {
           </Box>
           <Box mx={3} mt={4}>
             <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={3} spacing={2}></InputForm>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2}></InputForm>
                 <Box mt={3} mb={2}>
                   <Button
                     InputProps={{

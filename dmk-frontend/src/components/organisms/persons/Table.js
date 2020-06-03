@@ -13,7 +13,7 @@ import Chip from '@material-ui/core/Chip';
 
 // Atoms 
 import Button from 'Components/atoms/buttons/Button'
-import { formatDate } from 'Components/atoms/inputs/Timepicker'
+import { formatLocalDate } from 'Components/atoms/inputs/Timepicker'
 
 // Organisms
 import EditModal from 'Components/organisms/persons/EditModal'
@@ -89,7 +89,7 @@ const Table = () => {
       label: 'Datum rođenja',
       name: 'birth_date',
       options: {
-        customBodyRender: value => <span>{formatDate(value)}</span>
+        customBodyRender: value => <span>{formatLocalDate(value)}</span>
       }
     },
     {
