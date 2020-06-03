@@ -58,7 +58,7 @@ const PrivateRoutes = ({
       ) : (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: "",
             state: { from: props.location }
           }}
         />
@@ -76,8 +76,8 @@ const AppRouter = () => {
   }, []);
 
   useEffect(() => {
-    if (user !== null && history.location.pathname === "/login") {
-      history.push("/");
+    if (user !== null && history.location.pathname === "") {
+      history.push("");
     }
   }, [user]);
 

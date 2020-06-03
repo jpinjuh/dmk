@@ -188,5 +188,13 @@ export const SearchForm = [
     name_in_db: 'identity_number',
     validation: null,
     error: false
+  },
+  {
+    label: 'Mjesto rođenja',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'birth_place',
+    validation: null,
+    error: false
   }
 ]

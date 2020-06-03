@@ -16,6 +16,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+export const formatDate = date => {
+  let d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2)
+    month = '0' + month;
+  if (day.length < 2)
+    day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
 
 const Timepicker = props => {
   const classes = useStyles();
@@ -31,19 +45,7 @@ const Timepicker = props => {
     color
   } = props;
 
-  const formatDate = date => {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
+  
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={hrLocale}>

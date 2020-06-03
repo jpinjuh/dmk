@@ -21,10 +21,6 @@ const style = makeStyles(theme => ({
     flexGrow: 1
   },
   appBar: {
-    backgroundColor: 'white',
-    '-webkit-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.07)',
-    '-moz-box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.07)',
-    'box-shadow': '0px 5px 10px 0px rgba(0,0,0,0.07)',
     zIndex: '1300',
     backgroundColor: '#f9f9f9',
     transition: theme.transitions.create(['margin', 'width'], {
@@ -36,12 +32,16 @@ const style = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
+    //width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    /*[theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },*/
   },
 }));
 
@@ -69,7 +69,7 @@ const Header = ({open, setOpen}) => {
           </IconButton>
         </Box>
         <Box className={classes.title}>
-          <Logo width="115px" goTo={user ? "admin" : ""} />
+          <Logo width="115px" goTo={user ? "role" : ""} />
         </Box>
         <Box ml={1}>
           {user ? (

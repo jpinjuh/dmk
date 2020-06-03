@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
@@ -23,22 +23,23 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    border: 'none'
+    border: 'none',
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
   },
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: theme.palette.primary.main,
-    '-webkit-box-shadow': 'inset -5px 0px 20px 0px rgba(0,0,0,0.2)',
-    '-moz-box-shadow': 'inset -5px 0px 20px 0px rgba(0,0,0,0.2)',
-    'box-shadow': 'inset -5px 0px 20px 0px rgba(0,0,0,0.2)',
     color: 'white',
     border: 'none'
   },
   drawerContainer: {
     overflow: 'auto',
     width: drawerWidth,
-    position: 'fixed',
-    marginTop: theme.spacing(16),
+    //position: 'fixed',
+    marginTop: theme.spacing(2),
     '& .MuiListItem-button': {
         paddingLeft: '24px',
         borderRadius: '7px'
@@ -78,8 +79,8 @@ const Sidebar = ({open, setClosed}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const [nestedOpen, setNestedOpen] = React.useState(true);
-  const administrationArray = ['Role', 'Prava', 'Privilegije', 'Korisnici']
+  const [nestedOpen, setNestedOpen] = React.useState(false);
+  const administrationArray = ['Role', 'Prava', 'Privilegije', 'Korisnici', 'Župe', 'Biskupije', 'Gradovi', 'Države']
 
   const handleClick = () => {
     setNestedOpen(!nestedOpen);
@@ -89,7 +90,7 @@ const Sidebar = ({open, setClosed}) => {
   return (
       <Drawer
         className={clsx(classes.drawer, open===false && classes.hidden)}
-        variant="persistent"
+        variant="temporary"
         anchor="left"
         open={open}
         classes={{
@@ -98,11 +99,10 @@ const Sidebar = ({open, setClosed}) => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={setClosed}>
-            <ChevronLeftIcon style={{ color: 'white' }} />
+            <ClearIcon style={{ color: 'white' }} />
           </IconButton>
         </div>
         <Divider />
-        <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
             <ListItem button onClick={handleClick}>

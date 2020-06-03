@@ -20,7 +20,7 @@ export const PermissionForm = [
     type: 'dropdown',
     disabled: false,
     name_in_db: 'method',
-    service: 'methods',
+    service: 'listItem?list_id=177eda0f-dd0c-4531-a7dc-c7c9ceb1756a',
     validation: null,
     error: false
   },
