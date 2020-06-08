@@ -41,8 +41,6 @@ const Dropdown = props => {
     disabled
   } = props;
 
-  console.log(props)
-
   const [item, setItem] = useState(value ? value : '');
   const [options, setOptions] = useState([]);
   
@@ -67,17 +65,16 @@ const Dropdown = props => {
   return (
     <>
       {options.data &&
-      <FormControl fullWidth error={error}>
+      <FormControl fullWidth error={!!error}>
         <Select
           displayEmpty
           variant="outlined"
-          
           value={item}
           onChange={handleChange}
           className={classes.input}
           input={<OutlinedInput
             required={required}
-            error={error}
+            error={!!error}
           />}
         >
           <MenuItem disabled value="">
@@ -92,7 +89,7 @@ const Dropdown = props => {
             </MenuItem>
           ))}
         </Select>
-        {error &&
+        {!!error &&
         <FormHelperText>{validation}</FormHelperText>}
         </FormControl>
       }

@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     textTransform: 'none',
     padding: 0,
-    fontSize: '12px',
+    fontSize: '13px',
     '&:hover': {
       backgroundColor: 'transparent'
     }
@@ -27,7 +27,7 @@ const Button = props => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { label, onClick, color, goTo, fullWidth, type, icon } = props;
+  const { label, onClick, color, goTo, fullWidth, type, icon, size } = props;
 
   return (
     <ButtonMUI
@@ -36,10 +36,11 @@ const Button = props => {
       color={color}
       type={type}
       className={classes.root}
+      style={{ fontSize: size }}
       disableElevation
     >
-      <Icon icon={icon} size="12px"></Icon>
-      <Box ml={1}>
+      {icon && <Box mr={1} display="flex" alignItems="center"><Icon icon={icon} size={size || '14px'}></Icon></Box>}
+      <Box>
         {label}
       </Box>
     </ButtonMUI>

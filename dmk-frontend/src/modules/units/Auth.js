@@ -7,6 +7,7 @@
 import { postFunc, getFunc, putFunc } from "Services/mainApiServices";
 import Base64 from "Util/base64";
 import { NotificationManager } from "react-notifications";
+import { VALIDATION_MESSAGE, VALIDATION_CLEAR } from "./Validation";
 
 /**
 |--------------------------------------------------
@@ -40,7 +41,7 @@ export const getData = async (setData, url) => {
   }
 };
 
-export const login = (url, body, history) => async dispatch => {
+export const login = (url, body, history, clearInputs) => async dispatch => {
   dispatch({ type: LOGIN_REQ });
 
   const response = await postFunc(url, body);
@@ -55,9 +56,14 @@ export const login = (url, body, history) => async dispatch => {
       localStorage.setItem("jwt-token", JSON.stringify(response.access_token));
       //localStorage.setItem("meni", JSON.stringify(response.meni));
       dispatch({ type: LOGIN_SCS, payload: { user: decode, data: response } });
+      dispatch({ type: VALIDATION_CLEAR });
+      clearInputs();
       history.push("role");
     }
   } else {
+    if (typeof response.status.description === "object") {
+      dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
     NotificationManager.error(response.status.description);
     dispatch({ type: LOGIN_FLR });
   }

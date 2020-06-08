@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
-import {Grid, Paper} from '@material-ui/core';
+import {Grid, Paper, Box} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainTemplate = (props) => {
-  const { dataTable, Form } = props;
+  const { dataTable, Form, backBtn } = props;
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
+      {backBtn && <Box mt={-2} mb={3}>{backBtn}</Box>}
       <Grid container spacing={4}>
         {Form && <Grid item className={classes.paperGrid} xs={12}>
           <Paper elevation={0} className={classes.paper1}>{Form}</Paper>

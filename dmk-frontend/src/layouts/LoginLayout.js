@@ -1,6 +1,6 @@
 // React, Redux, Router
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 // Material-UI
@@ -35,12 +35,16 @@ const requiredInputs = [
     type: 'text',
     disabled: false,
     name_in_db: 'username',
+    validation: null,
+    error: false
   },
   {
     label: 'Lozinka',
     type: 'password',
     disabled: false,
     name_in_db: 'password',
+    validation: null,
+    error: false
   }
 ]
 
@@ -50,6 +54,20 @@ const LoginLayout = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = style();
+  const validation = useSelector(state => state.validation);
+
+
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
 
   const addItem = e => {
     e.preventDefault();
@@ -60,13 +78,7 @@ const LoginLayout = () => {
       body[input.name_in_db] = input.value;
     })
 
-    dispatch(login(`login`, body, history));
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      input.validation = '';
-      input.error = false;
-      return input;
-    })
+    dispatch(login(`login`, body, history, clearInputs));
   };
 
   return (
@@ -81,7 +93,7 @@ const LoginLayout = () => {
           />
         </Box>
         <form>
-          <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
+          <InputForm inputs={inputs} setInputs={setInputs} validation={validation}></InputForm>
           <Box mt={3}>
             <Button
               label="Prijavi se"
