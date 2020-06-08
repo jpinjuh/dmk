@@ -5,7 +5,8 @@ export const PermissionForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ""
   },
   {
     label: 'Ruta',
@@ -13,7 +14,8 @@ export const PermissionForm = [
     disabled: false,
     name_in_db: 'route',
     validation: null,
-    error: false
+    error: false,
+    value: ""
   },
   {
     label: 'Metoda',
@@ -22,7 +24,8 @@ export const PermissionForm = [
     name_in_db: 'method',
     service: 'listItem?list_id=177eda0f-dd0c-4531-a7dc-c7c9ceb1756a',
     validation: null,
-    error: false
+    error: false,
+    value: ""
   },
 ]  
 

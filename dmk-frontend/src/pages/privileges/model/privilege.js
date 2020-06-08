@@ -6,7 +6,7 @@ export const PrivilegeForm = [
     name_in_db: 'role',
     service: 'role',
     validation: null,
-    error: false
+    error: false,
   },
   {
     label: 'Pravo',
@@ -15,8 +15,8 @@ export const PrivilegeForm = [
     name_in_db: 'permission',
     service: 'permission/autocomplete',
     validation: null,
-    error: false
-  },
+    error: false,
+  },  
 ]
 
 export const EditForm = [

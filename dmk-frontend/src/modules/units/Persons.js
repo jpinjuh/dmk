@@ -6,6 +6,7 @@
 
 import { NotificationManager } from "react-notifications";
 import { getFunc, postFunc, deleteFunc, putFunc } from "../../services/mainApiServices";
+import { VALIDATION_MESSAGE, VALIDATION_CLEAR } from "./Validation";
 
 /**
 |--------------------------------------------------
@@ -18,7 +19,7 @@ const GET_DATA_SCS = "GET_DATA_SCS";
 const GET_DATA_FLR = "GET_DATA_FLR";
 // GET ONE ITEM
 const GET_ONE_ITEM_REQ = "GET_ONE_ITEM_REQ";
-const GET_ONE_ITEM_SCS = "GET_ONE_ITEM_SCS";
+const GET_ONE_ITEM_PERSON_SCS = "GET_ONE_ITEM_PERSON_SCS";
 const GET_ONE_ITEM_FLR = "GET_ONE_ITEM_FLR";
 // POST
 const POST_DATA_REQ = "POST_DATA_REQ";
@@ -60,30 +61,34 @@ export const getData = (url) => async dispatch => {
   }
 };
 
-export const getOneItem = (url) => async dispatch => {
+export const getOneItemPerson = (url) => async dispatch => {
   dispatch({ type: GET_ONE_ITEM_REQ });
 
   const response = await getFunc(url);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: GET_ONE_ITEM_SCS, payload: response.data });
+    dispatch({ type: GET_ONE_ITEM_PERSON_SCS, payload: response.data });
   } else {
     dispatch({ type: GET_ONE_ITEM_FLR });
     NotificationManager.error(response.status.description);
   }
 };
 
-export const postData = (url, body) => async dispatch => {
+export const postData = (url, body, clearInputs) => async dispatch => {
   dispatch({ type: POST_DATA_REQ });
 
   const response = await postFunc(url, body);
 
   if (response.status.errorCode === 200) {
     dispatch({ type: POST_DATA_SCS, payload: response.data, status: response.status });
+    dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
+    clearInputs();
   } else {
+    if (typeof response.status.description === "object") {
+      dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
     dispatch({ type: POST_DATA_FLR, status: response.status });
-    console.log(response)
   }
 };
 
@@ -178,10 +183,10 @@ export default function reducer(state = INIT_STATE, action = {}) {
         ...state,
         loading: true
       };
-    case GET_ONE_ITEM_SCS:
+    case GET_ONE_ITEM_PERSON_SCS:
       return {
         ...state,
-        oneItem: state.data.find(element => element.id === action.payload.id),
+        oneItem: action.payload,
         loading: false
       };
     case GET_ONE_ITEM_FLR:

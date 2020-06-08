@@ -17,6 +17,7 @@ const Cities = lazy(() => import("Pages/cities/index.js"));
 const States = lazy(() => import("Pages/states/index.js"));
 const Archdioceses = lazy(() => import("Pages/archdioceses/index.js"));
 const Persons = lazy(() => import("Pages/persons/index.js"));
+const PersonDetails = lazy(() => import("Pages/persons/personDetails.js"));
 const Baptized = lazy(() => import("Pages/baptized/index.js"));
 
 /**
@@ -111,7 +112,15 @@ export const privateRoutes = [
     title: "Osobe",
     description: "persons section",
     path: "osobe",
+    exact: true,
     component: Persons
+  },
+  {
+    id: "personsDetails",
+    title: "Detalji osobe",
+    description: "person details section",
+    path: "osobe/:personId",
+    component: PersonDetails
   },
   {
     id: "baptized",

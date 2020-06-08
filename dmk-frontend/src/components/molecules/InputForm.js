@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const InputForm = props => {
-  const { inputs, setInputs, cols, spacing } = props;
+  const { inputs, setInputs, cols, spacing, validation } = props;
   const classes = useStyles();
 
   const handleInputChange = index => value => {
@@ -43,8 +43,8 @@ const InputForm = props => {
                   service={input.service}
                   label={input.label}
                   value={input.value}
-                  validation={input.validation}
-                  error={input.error}
+                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema}
+                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema}
                   setParentState={handleInputChange(index)}
                 />
               </Container>
@@ -56,8 +56,8 @@ const InputForm = props => {
                   service={input.service}
                   label={input.label}
                   value={input.value}
-                  validation={input.validation}
-                  error={input.error}
+                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema}
+                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema}
                   setParentState={handleInputChange(index)}
                 />
               </Container>
@@ -71,8 +71,8 @@ const InputForm = props => {
                   disabled={input.disabled}
                   onChange={handleInputChange(index)}
                   label={input.label}
-                  validation={input.validation}
-                  error={input.error}
+                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
+                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
                 />
               </Container>
             </Grid>;
@@ -85,8 +85,8 @@ const InputForm = props => {
                   disabled={input.disabled}
                   onChange={handleInputChange(index)}
                   label={input.label}
-                  validation={input.validation}
-                  error={input.error}
+                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
+                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
                 />
               </Container>
             </Grid>;

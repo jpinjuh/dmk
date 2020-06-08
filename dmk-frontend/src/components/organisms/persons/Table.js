@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
@@ -24,7 +25,7 @@ import ActivateModal from 'Components/organisms/persons/ActivateModal'
 // Actions
 import { getData, getOneItem, searchData } from "Modules/units/Persons";
 
-const Table = () => {
+const Table = (props) => {
   const [open, setOpen] = useState(false);
   const [openAdd, setOpenAdd] = useState(false)
   const [deactivateOpen, setDeactivateOpen] = useState(false);
@@ -37,13 +38,10 @@ const Table = () => {
   const isInitialMount = useRef(true);
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const tableData = useSelector(state => state.persons);
 
-  const getItem = async id => {
-    dispatch(getOneItem(`person/${id}`))
-    setTimeout(() => setOpen(true), 500)
-  };
-
+  console.log(history)
   const columns = [
     {
       label: 'Ime',
@@ -145,7 +143,11 @@ const Table = () => {
                 <Box mr={3}>
                   <ButtonWithIcon
                     label={'Detalji'}
-                    icon={"list"}
+                    icon={"description"}
+                    onClick={() => history.push({
+                      pathname: `osobe/${value}`,
+                      state: value
+                    })}
                   />
                 </Box>
               </Box>

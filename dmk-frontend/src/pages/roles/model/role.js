@@ -5,7 +5,8 @@ export const RoleForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
 ]
 

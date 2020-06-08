@@ -8,7 +8,7 @@ import SearchForm from 'Components/organisms/persons/SearchForm';
 // Templates
 import MainTemplate from 'Components/templates/MainTemplate'
 
-const Test = () => {
+const Persons = () => {
   return (
     <>
       <MainTemplate
@@ -20,4 +20,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Persons;

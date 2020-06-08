@@ -40,57 +40,24 @@ const AddForm = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.states.oneItem);
-  const errorMsg = useSelector(state => state.states.postErrorMsg);
+  const validation = useSelector(state => state.validation);
 
   useEffect(() => {
     if (newItem)
       setItemId(newItem.id)
   }, [newItem])
 
-  useEffect(() => {
-    return () => {
-      let clearVal = inputs.filter(input => {
-        input.value = '';
-        input.validation = '';
-        input.error = false;
-        return input;
-      })
-      setInputs(clearVal)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (submitted) {
-      if (errorMsg.errorCode === 200) {
-        setOpen(true)
-        let clearVal = inputs.filter(input => {
-          input.value = '';
-          input.validation = '';
-          input.error = false;
-          return input;
-        })
-        
-        setInputs(clearVal)
-        setSubmitted(false)
-      } else if(errorMsg.errorCode === 400){
-        if(typeof errorMsg.description === 'object'){
-          inputs.forEach(input => {
-            Object.keys(errorMsg.description).forEach(desc => {
-              if(input.name_in_db === desc){
-                input.validation = errorMsg.description[desc][0];
-                input.error = true;
-              }
-            })
-          })
-        }
-        setSubmitted(false)
-      }
-      else {
-        NotificationManager.error(errorMsg.description);
-        setSubmitted(false)
-      }
-    }
-  }, [errorMsg])
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
 
   const addItem = e => {
     e.preventDefault();
@@ -125,7 +92,7 @@ const AddForm = () => {
         </Box>
         <Box mx={3} mt={2}>
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4}></InputForm>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} validation={validation}></InputForm>
             <Box mt={2} xs={4}>
               <Button
                 label="+ Dodaj državu"

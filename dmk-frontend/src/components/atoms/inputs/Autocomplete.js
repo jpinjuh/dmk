@@ -77,7 +77,7 @@ const Autocomplete = props => {
           variant="outlined"
           fullWidth
           margin="normal"
-          error={error}
+          error={!!error}
           helperText={validation}
           InputLabelProps={{style:
             {
