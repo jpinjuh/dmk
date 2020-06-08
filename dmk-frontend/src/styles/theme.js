@@ -27,6 +27,12 @@ const theme = createMuiTheme({
         }
       }
     },
+    MuiGrid: {
+      root: {
+        paddingBottom: '0px !important',
+       //paddingTop: '0px !important'
+      }
+    },
     MUIDataTableHeadCell: {
       root: {
         padding: '8px 0',

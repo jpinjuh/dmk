@@ -14,9 +14,7 @@ import Dropdown from "../atoms/inputs/Dropdown";
 import Timepicker from "../atoms/inputs/Timepicker";
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    padding: 0,
-  },
+  
 }));
 
 const InputForm = props => {
@@ -38,7 +36,6 @@ const InputForm = props => {
         switch (input.type) {
           case 'dropdown':
             return <Grid item xs={cols || 12} key={input.name_in_db}>
-              <Container className={classes.container}>
                 <Dropdown
                   service={input.service}
                   label={input.label}
@@ -47,11 +44,9 @@ const InputForm = props => {
                   error={input.error}
                   setParentState={handleInputChange(index)}
                 />
-              </Container>
             </Grid>;
           case 'autocomplete':
             return <Grid item xs={cols || 12} key={input.name_in_db}>
-              <Container className={classes.container}>
                 <Autocomplete
                   service={input.service}
                   label={input.label}
@@ -60,11 +55,9 @@ const InputForm = props => {
                   error={input.error}
                   setParentState={handleInputChange(index)}
                 />
-              </Container>
             </Grid>;
           case 'date':
             return <Grid item xs={cols || 12} key={input.name_in_db}>
-              <Container className={classes.container}>
                 <Timepicker
                   type={input.type}
                   value={input.value}
@@ -74,11 +67,9 @@ const InputForm = props => {
                   validation={input.validation}
                   error={input.error}
                 />
-              </Container>
             </Grid>;
           default:
             return <Grid item xs={cols || 12} key={input.name_in_db}>
-              <Container className={classes.container}>
                 <Input
                   type={input.type}
                   value={input.value}
@@ -88,7 +79,6 @@ const InputForm = props => {
                   validation={input.validation}
                   error={input.error}
                 />
-              </Container>
             </Grid>;
         }
       }

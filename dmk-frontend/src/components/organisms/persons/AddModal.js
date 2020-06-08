@@ -101,7 +101,7 @@ const AddModal = ({ onOpen, closeModal }) => {
                 }
                 else
                 {
-                  input.validation = errorMsg.description[desc].id[0];
+                  input.validation = errorMsg.description[desc].id || errorMsg.description[desc]._schema
                   input.error = true;
                 }            
               }

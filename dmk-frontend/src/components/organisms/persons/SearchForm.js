@@ -1,12 +1,13 @@
 // React
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { NotificationManager } from "react-notifications";
 
 // MUI
-import { Box, TextField } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
@@ -22,10 +23,6 @@ import { searchData } from "Modules/units/Roles";
 import { SearchForm as searchForm } from 'Pages/persons/model/person'
 
 const style = makeStyles(theme => ({
-  input: {
-    height: '36px !important',
-    //fontSize: '13px !important'
-  },
   title: {
     backgroundColor: '#dcdeef',
     padding: '8px 8px 8px 24px'
@@ -34,6 +31,7 @@ const style = makeStyles(theme => ({
 
 const SearchForm = () => {
   const classes = style();
+  const theme = useTheme();
   const [inputs, setInputs] = useState(searchForm);
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.users);
@@ -62,18 +60,17 @@ const SearchForm = () => {
           </Box>
           <Box mx={3} mt={4}>
             <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2}></InputForm>
-                <Box mt={3} mb={2}>
-                  <Button
-                    InputProps={{
-                      classes: {
-                        root: classes.input,
-                      },
-                    }}
-                    label="Pretraži"
-                    onClick={searchFunc}
-                  />
-                </Box>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={useMediaQuery(theme.breakpoints.up('sm')) ? 4 : 12} spacing={2}></InputForm>
+            <Grid item xs={useMediaQuery(theme.breakpoints.up('sm')) ? 4 : 12}>
+              <Box mt={3} mb={2} pr={1}>
+                <Button
+                  label="Pretraži"
+                  onClick={searchFunc}
+                  fullWidth={true}
+                />
+              </Box>
+            </Grid>
+                
             </form>
           {
             tableData.loading &&

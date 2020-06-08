@@ -96,8 +96,7 @@ const Table = () => {
       label: 'Mjesto rođenja',
       name: 'city.name',
       options: {
-        filter: false,
-        sort: false,
+      customBodyRender: value => value ? <span>{value}</span> : <span>{'-'}</span>
       }
     },
     /*{

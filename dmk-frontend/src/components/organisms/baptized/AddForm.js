@@ -40,7 +40,7 @@ const AddForm = () => {
   const [submitted, setSubmitted] = useState(false);
 
   //const newItem = useSelector(state => state.baptized.oneItem);
-  //const errorMsg = useSelector(state => state.baptized.postErrorMsg);
+  const errorMsg = useSelector(state => state.baptized.postErrorMsg);
 
   /* useEffect(() => {
     if (newItem)
@@ -59,7 +59,7 @@ const AddForm = () => {
     }
   }, [])
 
-  /* useEffect(() => {
+   useEffect(() => {
     if (submitted) {
       if (errorMsg.errorCode === 200) {
         setOpen(true)
@@ -84,7 +84,7 @@ const AddForm = () => {
                 }
                 else
                 {
-                  input.validation = errorMsg.description[desc].id[0];
+                  input.validation = errorMsg.description[desc].id || errorMsg.description[desc]._schema
                   input.error = true;
                 }            
               }
@@ -98,7 +98,7 @@ const AddForm = () => {
         setSubmitted(false)
       }
     }
-  }, [errorMsg]) */
+  }, [errorMsg]) 
 
   const addItem = e => {
     e.preventDefault();
@@ -112,7 +112,7 @@ const AddForm = () => {
     })
     setItem(arr)
     setSubmitted(true)
-    dispatch(postData(`privilege`, body));
+    dispatch(postData(`registry_of_baptism`, body));
   };
 
   const closeModal = () => {
@@ -131,10 +131,10 @@ const AddForm = () => {
             bgColor={'#8e93b9'}
           />
         </Box>
-        <Box mx={3} mt={2}>
+        <Box mx={3} mt={2} >
           <form>
             <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2}></InputForm>
-            <Box mt={2}>
+            <Box mt={4}>
               <Button
                 label="+ Dodaj krštenog"
                 onClick={addItem}

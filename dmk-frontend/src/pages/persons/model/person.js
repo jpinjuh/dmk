@@ -32,6 +32,15 @@ export const PersonForm = [
     error: false
   },
   {
+    label: 'Mjesto rođenja',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'birth_place',
+    service: 'city/autocomplete',
+    validation: null,
+    error: false
+  },
+  {
     label: 'JMBG',
     type: 'text',
     disabled: false,
@@ -104,15 +113,24 @@ export const EditForm = [
   },
   {
     label: 'Datum rođenja',
-    type: 'text',
+    type: 'date',
     disabled: false,
     name_in_db: 'birth_date',
     validation: null,
     error: false
   },
   {
+    label: 'Mjesto rođenja',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'birth_place',
+    service: 'city/autocomplete',
+    validation: null,
+    error: false
+  },
+  {
     label: 'JMBG',
-    type: 'text',
+    type: 'number',
     disabled: false,
     name_in_db: 'identity_number',
     validation: null,

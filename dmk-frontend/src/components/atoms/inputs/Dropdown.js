@@ -55,7 +55,9 @@ const Dropdown = props => {
 
   
   useEffect(() => {
-    setParentState(item)
+    setParentState(
+      label === 'Metoda' ? item : { id: item }
+    )
   }, [item])
 
   const handleChange = event => {
