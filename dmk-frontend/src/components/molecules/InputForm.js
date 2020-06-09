@@ -21,6 +21,8 @@ const InputForm = props => {
   const { inputs, setInputs, cols, spacing, validation } = props;
   const classes = useStyles();
 
+  console.log(inputs)
+
   const handleInputChange = index => value => {
     const tempInputs = [...inputs];
     console.log(tempInputs)
@@ -28,6 +30,7 @@ const InputForm = props => {
 
     setInputs(tempInputs);
   };
+  
 
   return (
 

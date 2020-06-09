@@ -20,8 +20,7 @@ import ActivateModal from 'Components/organisms/roles/ActivateModal'
 import { getData, searchData } from "Modules/units/Roles";
 
 
-const Table = () => {
-  const [open, setOpen] = useState(false);
+const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');

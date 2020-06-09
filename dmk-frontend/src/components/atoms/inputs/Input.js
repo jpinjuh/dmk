@@ -42,7 +42,7 @@ const Input = props => {
       value={value}
       color={color}
       required={required}
-      error={error}
+      error={!!error}
       helperText={validation}
       onChange={e => onChange(e.currentTarget.value)}
       className={classes.root}

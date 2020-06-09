@@ -6,7 +6,7 @@ export const RoleForm = [
     name_in_db: 'name',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
 ]
 
@@ -17,6 +17,7 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
 ]

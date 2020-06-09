@@ -74,7 +74,7 @@ export const getOneItem = (url) => async dispatch => {
   }
 };
 
-export const postData = (url, body, clearInputs) => async dispatch => {
+export const postData = (url, body, clearInputs, setOpen) => async dispatch => {
   dispatch({ type: POST_DATA_REQ });
 
   const response = await postFunc(url, body);
@@ -83,10 +83,14 @@ export const postData = (url, body, clearInputs) => async dispatch => {
     dispatch({ type: POST_DATA_SCS, payload: response.data, status: response.status });
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
+    setOpen(true)
     clearInputs();
   } else {
     if (typeof response.status.description === "object") {
       dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
+    else {
+      NotificationManager.error(response.status.description);
     }
     dispatch({ type: POST_DATA_FLR, status: response.status });
   }
@@ -106,15 +110,24 @@ export const deactivateData = url => async dispatch => {
   }
 };
 
-export const putData = (url, body) => async dispatch => {
+export const putData = (url, body, clearInputs, closeModal) => async dispatch => {
   dispatch({ type: PUT_DATA_REQ });
 
   const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status});
-    NotificationManager.success(response.status.description,);
+    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status });
+    dispatch({ type: VALIDATION_CLEAR });
+    NotificationManager.success(response.status.description);
+    clearInputs();
+    closeModal()
   } else {
+    if (typeof response.status.description === "object") {
+      dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
+    else {
+      NotificationManager.error(response.status.description);
+    }
     dispatch({ type: PUT_DATA_FLR, status: response.status });
   }
 };

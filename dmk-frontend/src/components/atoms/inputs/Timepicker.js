@@ -72,7 +72,7 @@ const Timepicker = props => {
             cancelLabel="Nazad"
             value={value}
             label={label}
-            error={error}
+            error={!!error}
             helperText={validation}
             format="dd-MM-yyyy"
             onChange={date => {
