@@ -19,14 +19,9 @@ import ActivateModal from 'Components/organisms/privileges/ActivateModal'
 // Actions
 import { getData, getOneItem, searchData } from "Modules/units/Privileges";
 
-// Services
-import { getFunc } from "Services/mainApiServices";
-
 const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
-  const [itemId, setItemId] = useState('');
-  const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0);
@@ -34,11 +29,6 @@ const Table = ({open, setOpen}) => {
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.privileges);
-
-  const getItem = async id => {
-    dispatch(getOneItem(`privilege/${id}`))
-    setTimeout(() => setOpen(true), 500)
-  };
 
   const columns = [
     {
@@ -97,7 +87,7 @@ const Table = ({open, setOpen}) => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setItemId(value); getItem(value); setItem(tableMeta.rowData) }}
+                    onClick={() => dispatch(getOneItem(`privilege/${value}`, setOpen))}
                   />
                 </Box>
                 <div>
@@ -106,14 +96,14 @@ const Table = ({open, setOpen}) => {
                       <ButtonWithIcon
                         label={'Aktiviraj'}
                         icon={"visibility"}
-                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`privilege/${value}`, setActivateOpen))}
                       />
                     </Box>
                     : <Box>
                       <ButtonWithIcon
                         label={'Deaktiviraj'}
                         icon={"visibility_off"}
-                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`privilege/${value}`, setDeactivateOpen))}
                       />
                     </Box>
                   }
@@ -211,20 +201,16 @@ const Table = ({open, setOpen}) => {
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}
-        item={item}
-        itemId={itemId}
       ></EditModal>
 
       <DeactivateModal
         onDeactivate={deactivateOpen}
         closeDeactivate={() => setDeactivateOpen(false)}
-        itemId={itemId}
       ></DeactivateModal>
 
       <ActivateModal
         onActivate={activateOpen}
         closeActivate={() => setActivateOpen(false)}
-        itemId={itemId}
       ></ActivateModal>
     </>
   );

@@ -71,13 +71,14 @@ const EditModal = ({ onOpen, closeModal }) => {
     })
     dispatch(putData(`role/${oneItem.id}`, body, closeModal));
   }
-  console.log(oneItem)
 
   useEffect(() => {
-    inputs.forEach((input, index) => {
-      input.value = oneItem[input.name_in_db]
-    })
+    setInputs(inputs.map((input) => ({
+      ...input,
+      value: oneItem[input.name_in_db]
+    })))
   }, [oneItem]);
+
 
   return (
     <div>

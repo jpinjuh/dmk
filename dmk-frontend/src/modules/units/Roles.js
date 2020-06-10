@@ -61,13 +61,14 @@ export const getData = (url) => async dispatch => {
   }
 };
 
-export const getOneItem = (url) => async dispatch => {
+export const getOneItem = (url, setOpen) => async dispatch => {
   dispatch({ type: GET_ONE_ITEM_REQ });
 
   const response = await getFunc(url);
 
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_ONE_ITEM_SCS, payload: response.data });
+    setOpen(true);
   } else {
     dispatch({ type: GET_ONE_ITEM_FLR });
     NotificationManager.error(response.status.description);
@@ -165,7 +166,7 @@ export const searchData = (url, body) => async dispatch => {
 
 const INIT_STATE = {
   data: "",
-  oneItem: "",
+  oneItem: {},
   total: "",
   postErrorMsg: "",
   editErrorMsg: ""
@@ -198,7 +199,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case GET_ONE_ITEM_SCS:
       return {
         ...state,
-        oneItem: state.data.find(element => element.id === action.payload.id),
+        oneItem: action.payload,
         loading: false
       };
     case GET_ONE_ITEM_FLR:
