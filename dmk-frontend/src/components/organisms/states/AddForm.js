@@ -22,6 +22,7 @@ import EditModal from 'Components/organisms/states/EditModal'
 
 // Action
 import { postData } from "Modules/units/States";
+import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -34,17 +35,15 @@ const AddForm = ({open, setOpen}) => {
   const [inputs, setInputs] = useState(StateForm);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [item, setItem] = useState([]);
-  const [itemId, setItemId] = useState('');
 
-  const newItem = useSelector(state => state.states.oneItem);
   const validation = useSelector(state => state.validation);
 
   useEffect(() => {
-    if (newItem)
-      setItemId(newItem.id)
-  }, [newItem])
+    clearInputs()
+    dispatch(clearValidation())
+  }, [])
 
+  
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
       label: input.label,
@@ -61,19 +60,15 @@ const AddForm = ({open, setOpen}) => {
     e.preventDefault();
 
     const body = {};
-    const arr = []
 
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
-      arr.push(input.value)
     })
-    setItem(arr)
     dispatch(postData(`state`, body, clearInputs, setOpen));
   };
 
   const closeModal = () => {
     setOpen(false);
-    setItem([]);
   }
 
 
@@ -102,9 +97,7 @@ const AddForm = ({open, setOpen}) => {
 
       <EditModal
         onOpen={open}
-        closeModal={closeModal}
-        item={item}
-        itemId={itemId}
+        closeModal={() => setOpen(false)}
       ></EditModal>
     </>
   );
