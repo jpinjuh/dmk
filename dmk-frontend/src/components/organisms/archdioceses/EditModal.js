@@ -44,12 +44,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, item, itemId }) => {
+const EditModal = ({ onOpen, closeModal}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(EditForm);
   const isInitialMount = useRef(true);
 
+  const oneItem = useSelector(state => state.archdioceses.oneItem);
   const validation = useSelector(state => state.validation);
 
   useEffect(() => {
@@ -68,14 +69,15 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    dispatch(putData(`archdiocese/${itemId}`, body, closeModal));
+    dispatch(putData(`archdiocese/${oneItem.id}`, body, closeModal));
   }
 
   useEffect(() => {
-    inputs.forEach((input, index) => {
-      input.value = item[index]
-    })
-  }, [item]);
+    setInputs(inputs.map((input) => ({
+      ...input,
+      value: oneItem[input.name_in_db]
+    })))
+  }, [oneItem]);
 
   return (
     <div>

@@ -70,7 +70,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
     })
-    dispatch(putData(`district/${itemId}`, body, closeModal));
+    dispatch(putData(`district/${oneItem.id}`, body, closeModal));
   }
 
   useEffect(() => {
@@ -133,7 +133,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
                     <MUIButton
                       variant="contained"
                       disableElevation
-                      onClick={() =>{ closeModal()}}
+                      onClick={closeModal}
                       className={classes.button}
                     >Otkaži</MUIButton>
                   </Box>
