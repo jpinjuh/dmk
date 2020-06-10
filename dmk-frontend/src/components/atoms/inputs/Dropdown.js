@@ -83,7 +83,7 @@ const Dropdown = props => {
           {options.data.map(name => (
             <MenuItem
               key={name.id || name.list_id}
-              value={label === 'Metoda' ? name.value : name.id}
+              value={(label === 'Metoda' || label === 'Groblje') ? name.value : name.id}
             >
               {name.name || name.value} 
             </MenuItem>

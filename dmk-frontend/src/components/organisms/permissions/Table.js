@@ -89,7 +89,7 @@ const Table = ({open, setOpen}) => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); dispatch(getOneItem(`role/${value}`)); setItem(tableMeta.rowData) }}
+                    onClick={() => { setOpen(true); dispatch(getOneItem(`permission/${value}`)); setItem(tableMeta.rowData) }}
                   />
                 </Box>
                 <div>

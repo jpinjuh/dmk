@@ -14,6 +14,7 @@ import archdioceses from "Modules/units/Archdioceses";
 import persons from "Modules/units/Persons";
 import baptized from "Modules/units/Baptized";
 import validation from "Modules/units/Validation";
+import deceased from "Modules/units/Deceased";
 
 export default combineReducers({
   auth,
@@ -27,5 +28,6 @@ export default combineReducers({
   archdioceses,
   persons,
   baptized,
-  validation
+  validation,
+  deceased
 });

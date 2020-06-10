@@ -41,6 +41,15 @@ export const PersonForm = [
     error: false
   },
   {
+    label: 'Prebivalište',
+    type: 'text',
+    disabled: false,
+    name_in_db: 'domicile',
+    validation: null,
+    error: false,
+    value: ''
+  },
+  {
     label: 'JMBG',
     type: 'text',
     disabled: false,
