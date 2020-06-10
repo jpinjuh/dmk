@@ -110,7 +110,7 @@ export const deactivateData = url => async dispatch => {
   }
 };
 
-export const putData = (url, body, clearInputs, closeModal) => async dispatch => {
+export const putData = (url, body, closeModal) => async dispatch => {
   dispatch({ type: PUT_DATA_REQ });
 
   const response = await putFunc(url, body);
@@ -119,7 +119,6 @@ export const putData = (url, body, clearInputs, closeModal) => async dispatch =>
     dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status });
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
-    clearInputs();
     closeModal()
   } else {
     if (typeof response.status.description === "object") {

@@ -5,7 +5,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'first_name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Prezime',
@@ -13,7 +14,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'last_name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Datum rođenja',
@@ -30,7 +32,8 @@ export const BaptizedForm = [
     name_in_db: 'birth_place',
     service: 'city/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Prebivalište',
@@ -38,7 +41,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'domicile',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'JMBG',
@@ -46,7 +50,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'identity_number',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Otac',
@@ -55,7 +60,8 @@ export const BaptizedForm = [
     name_in_db: 'father',
     service: 'person/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Majka',
@@ -64,7 +70,8 @@ export const BaptizedForm = [
     name_in_db: 'mother',
     service: 'person/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Župa',
@@ -73,7 +80,8 @@ export const BaptizedForm = [
     name_in_db: 'district',
     service: 'district/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Religija',
@@ -82,7 +90,8 @@ export const BaptizedForm = [
     name_in_db: 'religion',
     service: 'listItem?list_id=47a17b46-b37e-4639-98eb-fb3c3d347721',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Datum krštenja',
@@ -99,7 +108,8 @@ export const BaptizedForm = [
     name_in_db: 'act_performed',
     service: 'user/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Svezak',
@@ -107,7 +117,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'volume',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Godina',
@@ -115,7 +126,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'year',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Strana',
@@ -123,7 +135,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'page',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Broj',
@@ -131,7 +144,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'number',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Kum',
@@ -140,7 +154,8 @@ export const BaptizedForm = [
     name_in_db: 'best_man',
     service: 'person/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Sin/Kći',
@@ -149,7 +164,8 @@ export const BaptizedForm = [
     name_in_db: 'child',
     service: 'listItem?list_id=ea83b091-0bd1-465f-a2dd-79499fee4364',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Roditelji kanonski vjenčani',
@@ -158,7 +174,8 @@ export const BaptizedForm = [
     name_in_db: 'parents_canonically_married',
     service: 'listItem?list_id=a5e4d6d8-6f27-4094-b06a-79d00bb98859',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Bilješke',
@@ -166,7 +183,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'other_notes',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
 ]
 

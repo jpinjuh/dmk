@@ -17,10 +17,9 @@ import DeactivateModal from 'Components/organisms/permissions/DeactivateModal'
 import ActivateModal from 'Components/organisms/permissions/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Permissions";
+import { getData, searchData, getOneItem } from "Modules/units/Permissions";
 
-const Table = () => {
-  const [open, setOpen] = useState(false);
+const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
@@ -90,7 +89,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setOpen(true); dispatch(getOneItem(`role/${value}`)); setItem(tableMeta.rowData) }}
                   />
                 </Box>
                 <div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 // MUI
@@ -39,11 +39,12 @@ const useStyles = makeStyles(theme => ({
 const DeactivateModal = ({ onDeactivate, closeDeactivate, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const oneItem = useSelector(state => state.roles.oneItem)
 
   const deleteItem = (e) => {
     e.preventDefault();
 
-    dispatch(deactivateData(`role/${itemId}`))
+    dispatch(deactivateData(`role/${oneItem.id}`))
     closeDeactivate();
   }
 

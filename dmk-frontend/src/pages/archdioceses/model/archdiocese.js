@@ -5,7 +5,8 @@ export const AddFormInputs = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
 ]
 
@@ -16,6 +17,7 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
 ]

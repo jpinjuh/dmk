@@ -17,7 +17,7 @@ import DeactivateModal from 'Components/organisms/roles/DeactivateModal'
 import ActivateModal from 'Components/organisms/roles/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Roles";
+import { getData, searchData, getOneItem } from "Modules/units/Roles";
 
 
 const Table = ({open, setOpen}) => {
@@ -74,7 +74,7 @@ const Table = ({open, setOpen}) => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setOpen(true); dispatch(getOneItem(`role/${value}`)); }}
                   />
                 </Box>
                 <div>
@@ -83,14 +83,14 @@ const Table = ({open, setOpen}) => {
                       <ButtonWithIcon
                         label={'Aktiviraj'}
                         icon={"visibility"}
-                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                        onClick={() => { setActivateOpen(true); dispatch(getOneItem(`role/${value}`)); }}
                       />
                     </Box>
                     : <Box>
                       <ButtonWithIcon
                         label={'Deaktiviraj'}
                         icon={"visibility_off"}
-                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                        onClick={() => { setDeactivateOpen(true); dispatch(getOneItem(`role/${value}`)); }}
                       />
                     </Box>
                   }
@@ -192,20 +192,16 @@ const Table = ({open, setOpen}) => {
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}
-        item={item}
-        itemId={itemId}
       ></EditModal>
 
       <DeactivateModal
         onDeactivate={deactivateOpen}
         closeDeactivate={() => setDeactivateOpen(false)}
-        itemId={itemId}
       ></DeactivateModal>
 
       <ActivateModal
         onActivate={activateOpen}
         closeActivate={() => setActivateOpen(false)}
-        itemId={itemId}
       ></ActivateModal>
     </>
   );

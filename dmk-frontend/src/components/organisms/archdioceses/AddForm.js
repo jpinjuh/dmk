@@ -22,6 +22,7 @@ import EditModal from 'Components/organisms/archdioceses/EditModal'
 
 // Action
 import { postData } from "Modules/units/Archdioceses";
+import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -30,22 +31,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddForm = () => {
+const AddForm = ({open, setOpen}) => {
   const [inputs, setInputs] = useState(AddFormInputs);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
-  const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
-  const newItem = useSelector(state => state.archdioceses.oneItem);
+  const newItem = useSelector(state => state.roles.oneItem);
   const validation = useSelector(state => state.validation);
 
   useEffect(() => {
     if (newItem)
       setItemId(newItem.id)
   }, [newItem])
+
+  useEffect(() => {
+    clearInputs()
+    dispatch(clearValidation())
+  }, [])
 
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
@@ -70,15 +74,13 @@ const AddForm = () => {
       arr.push(input.value)
     })
     setItem(arr)
-    setSubmitted(true)
-    dispatch(postData(`archdiocese`, body));
+    dispatch(postData(`archdiocese`, body, clearInputs, setOpen));
   };
 
   const closeModal = () => {
     setOpen(false);
     setItem([]);
   }
-
 
   return (
     <>
@@ -90,10 +92,10 @@ const AddForm = () => {
             title={'Dodavanje biskupije'}
           />
         </Box>
-        <Box mx={3} mt={2}>
+        <Box mx={3} mt={1}>
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4} validation={validation}></InputForm>
-            <Box mt={2} xs={4}>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2} validation={open ? null : validation}></InputForm>
+            <Box mt={2}>
               <Button
                 label="+ Dodaj biskupiju"
                 onClick={addItem}

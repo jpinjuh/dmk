@@ -17,10 +17,9 @@ import DeactivateModal from 'Components/organisms/archdioceses/DeactivateModal'
 import ActivateModal from 'Components/organisms/archdioceses/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/Archdioceses";
+import { getData, searchData, getOneItem } from "Modules/units/Archdioceses";
 
-const Table = () => {
-  const [open, setOpen] = useState(false);
+const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
@@ -74,7 +73,7 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); setItemId(value); setItem(tableMeta.rowData) }}
+                    onClick={() => { setOpen(true); dispatch(getOneItem(`archdiocese/${value}`)); setItem(tableMeta.rowData) }}
                   />
                 </Box>
                 <div>

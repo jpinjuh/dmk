@@ -44,36 +44,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, item, itemId }) => {
+const EditModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(EditForm);
   const isInitialMount = useRef(true);
 
+  const oneItem = useSelector(state => state.roles.oneItem)
   const validation = useSelector(state => state.validation);
 
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
-      //return () => {
       dispatch(clearValidation())
-      //}
     }
   }, [onOpen])
-
-
-  const clearInputs = () => {
-    setInputs(inputs.map(input => ({
-      label: input.label,
-      type: input.type,
-      disabled: false,
-      name_in_db: input.name_in_db,
-      validation: null,
-      error: false,
-      value: ""
-    })));
-  }
 
   const editItem = (e) => {
     e.preventDefault();
@@ -83,14 +69,15 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    dispatch(putData(`role/${itemId}`, body, clearInputs, closeModal));
+    dispatch(putData(`role/${oneItem.id}`, body, closeModal));
   }
+  console.log(oneItem)
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      input.value = item[index]
+      input.value = oneItem[input.name_in_db]
     })
-  }, [item]);
+  }, [oneItem]);
 
   return (
     <div>
@@ -128,7 +115,7 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
                     <MUIButton
                       variant="contained"
                       disableElevation
-                      onClick={() =>{ closeModal()}}
+                      onClick={closeModal}
                       className={classes.button}
                     >Otkaži</MUIButton>
                   </Box>

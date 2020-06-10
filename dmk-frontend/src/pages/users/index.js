@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Organisms
-import ModeratorDataTable from 'Components/organisms/users/ModeratorDataTable';
+import Table from 'Components/organisms/users/Table';
 
 // Templates
 import MainTemplate from 'Components/templates/MainTemplate'
@@ -11,7 +11,7 @@ const Users = () => {
   return (
     <>
       <MainTemplate
-        dataTable={<ModeratorDataTable />}>
+        dataTable={<Table />}>
       </MainTemplate>
     </>
   );

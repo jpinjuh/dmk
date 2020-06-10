@@ -35,15 +35,8 @@ const AddForm = ({open, setOpen}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [item, setItem] = useState([]);
-  const [itemId, setItemId] = useState('');
 
-  const newItem = useSelector(state => state.roles.oneItem);
   const validation = useSelector(state => state.validation);
-
-  useEffect(() => {
-    if (newItem)
-      setItemId(newItem.id)
-  }, [newItem])
 
   useEffect(() => {
     clearInputs()
@@ -63,8 +56,6 @@ const AddForm = ({open, setOpen}) => {
   }
 
   const addItem = e => {
-    console.log(open)
-    if(open === false){
     e.preventDefault();
 
     dispatch(clearValidation())
@@ -78,7 +69,6 @@ const AddForm = ({open, setOpen}) => {
 
     setItem(arr)
     dispatch(postData(`role`, body, clearInputs, setOpen));
-  }
   };
 
   const closeModal = () => {
@@ -96,10 +86,10 @@ const AddForm = ({open, setOpen}) => {
             title={'Dodavanje role'}
           />
         </Box>
-        <Box mx={3} mt={2}>
+        <Box mx={3} mt={1}>
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4} validation={open ? null : validation}></InputForm>
-            <Box mt={2} xs={4}>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2} validation={open ? null : validation}></InputForm>
+            <Box mt={2}>
               <Button
                 label="+ Dodaj rolu"
                 onClick={addItem}
@@ -113,7 +103,6 @@ const AddForm = ({open, setOpen}) => {
         onOpen={open}
         closeModal={closeModal}
         item={item}
-        itemId={itemId}
       ></EditModal>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
@@ -26,6 +26,7 @@ import EditModal from 'Components/organisms/users/EditModal'
 
 // Actions
 import { postData } from "Modules/units/Users";
+import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -53,7 +54,7 @@ const AddModal = ({ onOpen, closeModal }) => {
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
   const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const isInitialMount = useRef(true);
 
   const newItem = useSelector(state => state.users.oneItem);
   const validation = useSelector(state => state.validation);
@@ -63,12 +64,26 @@ const AddModal = ({ onOpen, closeModal }) => {
       setItemId(newItem.id)
   }, [newItem])
 
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      dispatch(clearValidation())
+    }
+  }, [onOpen])
+
+  useEffect(() => {
+    clearInputs();
+    dispatch(clearValidation())
+  }, [])
+
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
       label: input.label,
       type: input.type,
       disabled: false,
       name_in_db: input.name_in_db,
+      service: input.service,
       validation: null,
       error: false,
       value: ""
@@ -86,8 +101,7 @@ const AddModal = ({ onOpen, closeModal }) => {
       arr.push(input.value)
     })
     setItem(arr)
-    setSubmitted(true)
-    dispatch(postData(`user`, body));
+    dispatch(postData(`user`, body, clearInputs, setOpen));
   };
 
   const closeEditModal = () => {

@@ -5,7 +5,8 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'first_name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Prezime',
@@ -13,7 +14,8 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'last_name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Korisničko ime',
@@ -21,7 +23,8 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'username',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Email',
@@ -29,7 +32,8 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'email',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Lozinka',
@@ -37,7 +41,8 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'password_hash',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Rola',
@@ -46,7 +51,8 @@ export const UserForm = [
     name_in_db: 'role',
     service: 'role',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
   {
     label: 'Župa',
@@ -55,7 +61,8 @@ export const UserForm = [
     name_in_db: 'district',
     service: 'district/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
 ]
 
@@ -66,7 +73,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'first_name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Prezime',
@@ -74,7 +82,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'last_name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Korisničko ime',
@@ -82,7 +91,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'username',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Email',
@@ -90,7 +100,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'email',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Rola',
@@ -99,7 +110,8 @@ export const EditForm = [
     name_in_db: 'role',
     service: 'role',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
   {
     label: 'Župa',
@@ -108,6 +120,7 @@ export const EditForm = [
     name_in_db: 'district',
     service: 'district/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
 ]
