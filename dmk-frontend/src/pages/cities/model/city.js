@@ -16,7 +16,7 @@ export const CityForm = [
     service: 'state',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
 ]
 
@@ -36,6 +36,6 @@ export const EditForm = [
     name_in_db: 'state',
     service: 'state',
     validation: null,
-    value: null
+    value: ''
   },
 ]

@@ -64,12 +64,13 @@ const Timepicker = props => {
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={hrLocale}>
         <DatePicker 
             //autoOk
+            variant="inline"
             disableFuture
             inputVariant="outlined"
             fullWidth
             margin="normal"
-            okLabel="U redu"
-            cancelLabel="Nazad"
+            //okLabel="U redu"
+            //cancelLabel="Nazad"
             value={value}
             label={label}
             error={!!error}

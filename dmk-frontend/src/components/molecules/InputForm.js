@@ -43,8 +43,8 @@ const InputForm = props => {
                   service={input.service}
                   label={input.label}
                   value={input.value}
-                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema && validation.message.description[input.name_in_db].id}
-                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema && validation.message.description[input.name_in_db].id}
+                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema}
+                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db] && validation.message.description[input.name_in_db]._schema}
                   setParentState={handleInputChange(index)}
                 />
             </Grid>;
