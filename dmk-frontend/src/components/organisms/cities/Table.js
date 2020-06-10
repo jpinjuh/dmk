@@ -19,8 +19,7 @@ import ActivateModal from 'Components/organisms/cities/ActivateModal'
 // Actions
 import { getData, searchData, getOneItem } from "Modules/units/Cities";
 
-const Table = () => {
-  const [open, setOpen] = useState(false);
+const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');

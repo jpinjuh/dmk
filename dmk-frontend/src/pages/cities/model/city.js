@@ -5,7 +5,8 @@ export const CityForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Država',
@@ -14,7 +15,8 @@ export const CityForm = [
     name_in_db: 'state',
     service: 'state',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
 ]
 
@@ -24,7 +26,8 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'name',
-    validation: null
+    validation: null,
+    value: ''
   },
   {
     label: 'Država',
@@ -32,6 +35,7 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'state',
     service: 'state',
-    validation: null
+    validation: null,
+    value: null
   },
 ]

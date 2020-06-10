@@ -30,14 +30,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddForm = () => {
+const AddForm = ({open, setOpen}) => {
   const [inputs, setInputs] = useState(StateForm);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
-  const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.states.oneItem);
   const validation = useSelector(state => state.validation);
@@ -70,8 +68,7 @@ const AddForm = () => {
       arr.push(input.value)
     })
     setItem(arr)
-    setSubmitted(true)
-    dispatch(postData(`state`, body));
+    dispatch(postData(`state`, body, clearInputs, setOpen));
   };
 
   const closeModal = () => {
@@ -92,7 +89,7 @@ const AddForm = () => {
         </Box>
         <Box mx={3} mt={2}>
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4} validation={validation}></InputForm>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} validation={open ? null : validation}></InputForm>
             <Box mt={2} xs={4}>
               <Button
                 label="+ Dodaj državu"

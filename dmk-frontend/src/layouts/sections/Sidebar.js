@@ -72,6 +72,7 @@ const sidebarListItems = [
   {name:'Gradovi', path: '/gradovi'},
   {name:'Države', path: '/države'},
   {name:'Kršteni', path: '/kršteni'},
+  {name:'Umrli', path: '/umrli'},
   {name:'Osobe', path: '/osobe'},
 ]
 

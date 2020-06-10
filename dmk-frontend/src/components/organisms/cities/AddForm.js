@@ -22,6 +22,7 @@ import EditModal from 'Components/organisms/cities/EditModal'
 
 // Action
 import { postData } from "Modules/units/Cities";
+import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -30,14 +31,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddForm = () => {
+const AddForm = ({open, setOpen}) => {
   const [inputs, setInputs] = useState(CityForm);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [item, setItem] = useState([]);
   const [itemId, setItemId] = useState('');
-  const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const newItem = useSelector(state => state.cities.oneItem);
   const validation = useSelector(state => state.validation);
@@ -45,7 +44,13 @@ const AddForm = () => {
   useEffect(() => {
     if (newItem)
       setItemId(newItem.id)
+    console.log(newItem)
   }, [newItem])
+
+  useEffect(() => {
+    clearInputs()
+    dispatch(clearValidation())
+  }, [])
 
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
@@ -53,6 +58,7 @@ const AddForm = () => {
       type: input.type,
       disabled: false,
       name_in_db: input.name_in_db,
+      service: input.service,
       validation: null,
       error: false,
       value: ""
@@ -70,8 +76,7 @@ const AddForm = () => {
       arr.push(input.value)
     })
     setItem(arr)
-    setSubmitted(true)
-    dispatch(postData(`city`, body));
+    dispatch(postData(`city`, body, clearInputs, setOpen));
   };
 
   const closeModal = () => {
@@ -91,7 +96,7 @@ const AddForm = () => {
         </Box>
         <Box mx={3} mt={2}>
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2} validation={validation}></InputForm>
+            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2} validation={open ? null : validation}></InputForm>
             <Box mt={2} xs={4}>
               <Button
                 label="+ Dodaj grad"

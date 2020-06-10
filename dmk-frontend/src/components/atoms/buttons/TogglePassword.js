@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const TogglePassword = ({setShowPassword}) => {
   const classes = useStyles();
 
-  const [masked, setMasked] = useState(false)
+  const [masked, setMasked] = useState(true)
   const isInitialMount = useRef(true);
 
 

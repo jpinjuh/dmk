@@ -1,19 +1,20 @@
 // React
-import React from 'react';
+import React, {useState} from 'react';
 
 // Organisms
 import AddForm from 'Components/organisms/cities/AddForm';
-import DataTable from 'Components/organisms/cities/DataTable';
+import Table from 'Components/organisms/cities/Table';
 
 // Templates
 import MainTemplate from 'Components/templates/MainTemplate'
 
 const Cities = () => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <MainTemplate
-        Form={<AddForm />}
-        dataTable={<DataTable />}
+        Form={<AddForm open={open} setOpen={setOpen} />}
+        dataTable={<Table open={open} setOpen={setOpen} />}
       ></MainTemplate>
     </>
   );

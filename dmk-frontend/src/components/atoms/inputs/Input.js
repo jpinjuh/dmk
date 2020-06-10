@@ -37,7 +37,7 @@ const Input = props => {
       fullWidth
       margin="normal"
       disabled={disabled}
-      type={type === 'password' ? (showPassword ? 'password' : 'text') : type }
+      type={type === 'password' ? (showPassword ? 'text' : 'password') : type }
       label={label}
       value={value}
       color={color}
