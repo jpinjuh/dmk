@@ -35,16 +35,8 @@ const AddForm = ({open, setOpen}) => {
   const [inputs, setInputs] = useState(AddFormInputs);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [item, setItem] = useState([]);
-  const [itemId, setItemId] = useState('');
 
-  const newItem = useSelector(state => state.roles.oneItem);
   const validation = useSelector(state => state.validation);
-
-  useEffect(() => {
-    if (newItem)
-      setItemId(newItem.id)
-  }, [newItem])
 
   useEffect(() => {
     clearInputs()
@@ -67,20 +59,13 @@ const AddForm = ({open, setOpen}) => {
     e.preventDefault();
 
     const body = {};
-    const arr = []
 
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
-      arr.push(input.value)
     })
-    setItem(arr)
+
     dispatch(postData(`archdiocese`, body, clearInputs, setOpen));
   };
-
-  const closeModal = () => {
-    setOpen(false);
-    setItem([]);
-  }
 
   return (
     <>
@@ -107,9 +92,7 @@ const AddForm = ({open, setOpen}) => {
 
       <EditModal
         onOpen={open}
-        closeModal={closeModal}
-        item={item}
-        itemId={itemId}
+        closeModal={() => setOpen(false)}
       ></EditModal>
     </>
   );

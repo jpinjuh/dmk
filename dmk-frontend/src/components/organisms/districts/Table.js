@@ -22,8 +22,6 @@ import { getData, getOneItem, searchData } from "Modules/units/Districts";
 const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
-  const [itemId, setItemId] = useState('');
-  const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
@@ -31,11 +29,6 @@ const Table = ({open, setOpen}) => {
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.districts);
-
-  const getItem = async id => {
-    dispatch(getOneItem(`district/${id}`))
-    setTimeout(() => setOpen(true), 500)
-  };
 
   const columns = [
     {
@@ -102,7 +95,7 @@ const Table = ({open, setOpen}) => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setItemId(value); getItem(value); }}
+                    onClick={() => dispatch(getOneItem(`district/${value}`, setOpen))}
                   />
                 </Box>
                 <div>
@@ -111,14 +104,14 @@ const Table = ({open, setOpen}) => {
                       <ButtonWithIcon
                         label={'Aktiviraj'}
                         icon={"visibility"}
-                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`district/${value}`, setActivateOpen))}
                       />
                     </Box>
                     : <Box>
                       <ButtonWithIcon
                         label={'Deaktiviraj'}
                         icon={"visibility_off"}
-                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`district/${value}`, setDeactivateOpen))}
                       />
                     </Box>
                   }
@@ -216,20 +209,16 @@ const Table = ({open, setOpen}) => {
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}
-        item={item}
-        itemId={itemId}
       ></EditModal>
 
       <DeactivateModal
         onDeactivate={deactivateOpen}
         closeDeactivate={() => setDeactivateOpen(false)}
-        itemId={itemId}
       ></DeactivateModal>
 
       <ActivateModal
         onActivate={activateOpen}
         closeActivate={() => setActivateOpen(false)}
-        itemId={itemId}
       ></ActivateModal>
     </>
   );

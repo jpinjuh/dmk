@@ -22,8 +22,6 @@ import { getData, searchData, getOneItem } from "Modules/units/Archdioceses";
 const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
-  const [itemId, setItemId] = useState('');
-  const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
@@ -73,7 +71,7 @@ const Table = ({open, setOpen}) => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setOpen(true); dispatch(getOneItem(`archdiocese/${value}`)); setItem(tableMeta.rowData) }}
+                    onClick={() => dispatch(getOneItem(`archdiocese/${value}`, setOpen))}
                   />
                 </Box>
                 <div>
@@ -82,14 +80,14 @@ const Table = ({open, setOpen}) => {
                       <ButtonWithIcon
                         label={'Aktiviraj'}
                         icon={"visibility"}
-                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`archdiocese/${value}`, setActivateOpen))}
                       />
                     </Box>
                     : <Box>
                       <ButtonWithIcon
                         label={'Deaktiviraj'}
                         icon={"visibility_off"}
-                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`archdiocese/${value}`, setDeactivateOpen))}
                       />
                     </Box>
                   }
@@ -187,20 +185,16 @@ const Table = ({open, setOpen}) => {
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}
-        item={item}
-        itemId={itemId}
       ></EditModal>
 
       <DeactivateModal
         onDeactivate={deactivateOpen}
         closeDeactivate={() => setDeactivateOpen(false)}
-        itemId={itemId}
       ></DeactivateModal>
 
       <ActivateModal
         onActivate={activateOpen}
         closeActivate={() => setActivateOpen(false)}
-        itemId={itemId}
       ></ActivateModal>
     </>
   );
