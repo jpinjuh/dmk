@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,14 +35,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ActivateModal = ({ onActivate, closeActivate, itemId }) => {
+const ActivateModal = ({ onActivate, closeActivate }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const oneItem = useSelector(state => state.privileges.oneItem)
 
   const activateItem = (e) => {
     e.preventDefault();
     
-    dispatch(activateData(`privilege/activate`, {id: itemId}))
+    dispatch(activateData(`privilege/activate`, {id: oneItem.id}))
     closeActivate();
   }
 

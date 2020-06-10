@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, item, itemId }) => {
+const EditModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -68,13 +68,13 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
-    dispatch(putData(`privilege/${itemId}`, body, closeModal));
+    dispatch(putData(`privilege/${oneItem.id}`, body, closeModal));
   }
 
   useEffect(() => {
-    inputs.forEach((input, index) => {
+    inputs.forEach((input) => {
       if(oneItem){
         if(input.name_in_db === 'permission'){
           if(oneItem.permission){
@@ -86,11 +86,11 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
         } else if(input.name_in_db === 'role') {
           input.value = oneItem.roles_id
         } else {
-          input.value = item[index]
+          input.value = oneItem[input.name_in_db]
         }
       }
     }) 
-  }, [item, oneItem]);
+  }, [oneItem]);
 
   return (
     <div>

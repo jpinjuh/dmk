@@ -35,16 +35,8 @@ const AddForm = ({open, setOpen}) => {
   const [inputs, setInputs] = useState(PrivilegeForm);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [item, setItem] = useState([]);
-  const [itemId, setItemId] = useState('');
 
-  const newItem = useSelector(state => state.privileges.oneItem);
   const validation = useSelector(state => state.validation);
-
-  useEffect(() => {
-    if (newItem)
-      setItemId(newItem.id)
-  }, [newItem])
 
   useEffect(() => {
     clearInputs()
@@ -66,21 +58,15 @@ const AddForm = ({open, setOpen}) => {
 
   const addItem = e => {
     e.preventDefault();
-    dispatch(clearValidation())
+
     const body = {};
-    const arr = []
+
     inputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
-      arr.push(input.value)
     })
-    setItem(arr)
     dispatch(postData(`privilege`, body, clearInputs, setOpen));
   };
 
-  const closeModal = () => {
-    setOpen(false);
-    setItem([]);
-  }
 
   return (
     <>
@@ -92,7 +78,7 @@ const AddForm = ({open, setOpen}) => {
             title={'Dodavanje privilegija'}
           />
         </Box>
-        <Box mx={3} mt={2}>
+        <Box mx={3} mt={1}>
           <form>
             <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2} validation={open ? null : validation}></InputForm>
             <Box mt={2}>
@@ -107,9 +93,7 @@ const AddForm = ({open, setOpen}) => {
 
       <EditModal
         onOpen={open}
-        closeModal={closeModal}
-        item={item}
-        itemId={itemId}
+        closeModal={() => setOpen(false)}
       ></EditModal>
     </>
   );
