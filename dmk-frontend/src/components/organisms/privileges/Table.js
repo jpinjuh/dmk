@@ -22,8 +22,7 @@ import { getData, getOneItem, searchData } from "Modules/units/Privileges";
 // Services
 import { getFunc } from "Services/mainApiServices";
 
-const Table = () => {
-  const [open, setOpen] = useState(false);
+const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');

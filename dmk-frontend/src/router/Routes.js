@@ -19,6 +19,7 @@ const Archdioceses = lazy(() => import("Pages/archdioceses/index.js"));
 const Persons = lazy(() => import("Pages/persons/index.js"));
 const PersonDetails = lazy(() => import("Pages/persons/personDetails.js"));
 const Baptized = lazy(() => import("Pages/baptized/index.js"));
+const Deceased = lazy(() => import("Pages/deceased/index.js"));
 
 /**
 |--------------------------------------------------
@@ -128,5 +129,12 @@ export const privateRoutes = [
     description: "Baptized section",
     path: "kršteni",
     component: Baptized
+  },
+  {
+    id: "deceased",
+    title: "Umrli",
+    description: "Deceased section",
+    path: "umrli",
+    component: Deceased
   }
 ];

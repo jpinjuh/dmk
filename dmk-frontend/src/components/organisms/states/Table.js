@@ -17,10 +17,9 @@ import DeactivateModal from 'Components/organisms/states/DeactivateModal'
 import ActivateModal from 'Components/organisms/states/ActivateModal'
 
 // Actions
-import { getData, searchData } from "Modules/units/States";
+import { getData, searchData, getOneItem } from "Modules/units/States";
 
-const Table = () => {
-  const [open, setOpen] = useState(false);
+const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [itemId, setItemId] = useState('');
@@ -32,6 +31,11 @@ const Table = () => {
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.states);
+
+  const getItem = async id => {
+    dispatch(getOneItem(`state/${id}`))
+    setTimeout(() => setOpen(true), 500)
+  };
 
   const columns = [
     {

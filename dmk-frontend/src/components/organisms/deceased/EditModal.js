@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 // MUI
@@ -18,11 +18,10 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Actions
-import { putData } from "Modules/units/Privileges";
-import { clearValidation } from "Modules/units/Validation";
+import { putData } from "Modules/units/Baptized";
 
 // Models
-import { EditForm } from 'Pages/privileges/model/privilege'
+import { EditForm } from 'Pages/baptized/model/baptized'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -43,24 +42,52 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, item, itemId }) => {
+const EditModal = ({ onOpen, closeModal, itemId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const [inputs, setInputs] = useState(EditForm);
-  const isInitialMount = useRef(true);
+  const [submitted, setSubmitted] = useState(false)
+  const errorMsg = useSelector(state => state.users.editErrorMsg);
 
-  const validation = useSelector(state => state.validation);
-  const oneItem = useSelector(state => state.privileges.oneItem)
+  const oneItem = useSelector(state => state.users.oneItem);
+
+  const func = () => {
+    let clearVal = inputs.filter(input => {
+      input.value = '';
+      input.validation = '';
+      input.error = false;
+      return input;
+    })
+     
+    setInputs(clearVal)
+  }
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      dispatch(clearValidation())
+    if(submitted){
+      if(errorMsg.errorCode === 200){
+        console.log(errorMsg.errorCode)
+        setSubmitted(false)
+        closeModal();
     }
-  }, [onOpen])
-
+    else if(errorMsg.errorCode === 400){
+      if(typeof errorMsg.description === 'object'){
+        inputs.forEach(input => {
+          Object.keys(errorMsg.description).forEach(desc => {
+            if(input.name_in_db === desc){
+              input.validation = errorMsg.description[desc][0];
+              input.error = true;
+            }
+          })
+        })
+      }
+      console.log(errorMsg)
+      setSubmitted(false)
+    }
+    else {
+      NotificationManager.error(errorMsg.description);
+      setSubmitted(false)
+    }}
+  }, [errorMsg])
 
   const editItem = (e) => {
     e.preventDefault();
@@ -68,29 +95,34 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value.hasOwnProperty('id') ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
-    dispatch(putData(`privilege/${itemId}`, body, closeModal));
+    setSubmitted(true)
+    dispatch(putData(`user/${itemId}`, body));
   }
+
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      if(oneItem){
-        if(input.name_in_db === 'permission'){
-          if(oneItem.permission){
+      if (oneItem) {
+        if (input.name_in_db === 'district') {
+          if(oneItem.district){
             input.value = {
-              label: oneItem.permission.name,
-              id: oneItem.permissions_id, 
+              label: oneItem.district.name,
+              id: oneItem.districts_id,
             }
           }
-        } else if(input.name_in_db === 'role') {
+        } else if (input.name_in_db === 'role') {
           input.value = oneItem.roles_id
-        } else {
-          input.value = item[index]
+        } else if (input.name_in_db === 'password_hash') {
+          input.value = ''
+        }
+        else {
+          input.value = oneItem[input.name_in_db]
         }
       }
-    }) 
-  }, [item, oneItem]);
+    })
+  }, [oneItem]);
 
   return (
     <div>
@@ -112,11 +144,11 @@ const EditModal = ({ onOpen, closeModal, item, itemId }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Uredi privilegiju'}
+                  title={'Uredi krštenika'}
                 />
               </Box>
               <form>
-                <InputForm inputs={inputs} setInputs={setInputs} validation={validation}></InputForm>
+                <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
                     <Button

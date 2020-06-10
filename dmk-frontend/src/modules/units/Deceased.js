@@ -6,7 +6,6 @@
 
 import { NotificationManager } from "react-notifications";
 import { getFunc, postFunc, deleteFunc, putFunc } from "../../services/mainApiServices";
-import { VALIDATION_MESSAGE, VALIDATION_CLEAR } from "./Validation";
 
 /**
 |--------------------------------------------------
@@ -74,25 +73,17 @@ export const getOneItem = (url) => async dispatch => {
   }
 };
 
-export const postData = (url, body, clearInputs, setOpen) => async dispatch => {
+export const postData = (url, body) => async dispatch => {
   dispatch({ type: POST_DATA_REQ });
 
   const response = await postFunc(url, body);
 
   if (response.status.errorCode === 200) {
     dispatch({ type: POST_DATA_SCS, payload: response.data, status: response.status });
-    dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
-    setOpen(true)
-    clearInputs();
   } else {
-    if (typeof response.status.description === "object") {
-      dispatch({ type: VALIDATION_MESSAGE, message: response.status });
-    }
-    else {
-      NotificationManager.error(response.status.description);
-    }
     dispatch({ type: POST_DATA_FLR, status: response.status });
+    console.log(response)
   }
 };
 
@@ -110,23 +101,15 @@ export const deactivateData = url => async dispatch => {
   }
 };
 
-export const putData = (url, body, closeModal) => async dispatch => {
+export const putData = (url, body) => async dispatch => {
   dispatch({ type: PUT_DATA_REQ });
 
   const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status });
-    dispatch({ type: VALIDATION_CLEAR });
-    NotificationManager.success(response.status.description);
-    closeModal()
+    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status});
+    NotificationManager.success(response.status.description,);
   } else {
-    if (typeof response.status.description === "object") {
-      dispatch({ type: VALIDATION_MESSAGE, message: response.status });
-    }
-    else {
-      NotificationManager.error(response.status.description);
-    }
     dispatch({ type: PUT_DATA_FLR, status: response.status });
   }
 };

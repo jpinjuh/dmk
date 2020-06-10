@@ -5,7 +5,8 @@ export const DistrictForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Adresa',
@@ -13,7 +14,8 @@ export const DistrictForm = [
     disabled: false,
     name_in_db: 'address',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Grad',
@@ -22,7 +24,8 @@ export const DistrictForm = [
     name_in_db: 'city',
     service: 'city/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
   {
     label: 'Biskupija',
@@ -31,7 +34,8 @@ export const DistrictForm = [
     name_in_db: 'archdiocese',
     service: 'archdiocese/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
 ]
 
@@ -42,7 +46,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'name',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Adresa',
@@ -50,7 +55,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'address',
     validation: null,
-    error: false
+    error: false,
+    value: ''
   },
   {
     label: 'Grad',
@@ -59,7 +65,8 @@ export const EditForm = [
     name_in_db: 'city',
     service: 'city/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
   {
     label: 'Biskupija',
@@ -68,6 +75,7 @@ export const EditForm = [
     name_in_db: 'archdiocese',
     service: 'archdiocese/autocomplete',
     validation: null,
-    error: false
+    error: false,
+    value: null
   }
 ]

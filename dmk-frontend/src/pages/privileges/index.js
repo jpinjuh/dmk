@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 
 // Organisms
-import AddForm from 'Components/organisms/roles/AddForm';
+import AddForm from 'Components/organisms/privileges/AddForm';
 import Table from 'Components/organisms/privileges/Table';
 
 // Templates
