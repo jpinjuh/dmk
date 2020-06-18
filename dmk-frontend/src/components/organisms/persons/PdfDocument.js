@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   notes: {
     position: 'absolute',
-    top: '666px',
+    top: '670px',
     left: '130px',
     height: '45px',
     width: '385px',
