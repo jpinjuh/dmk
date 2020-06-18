@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   jmbg: {
     position: 'absolute',
     top: '404px',
-    left: '265px'
+    left: '245px'
   },
   domicile: {
     position: 'absolute',
@@ -131,31 +131,26 @@ const styles = StyleSheet.create({
   },
   bestMan: {
     position: 'absolute',
-    top: '622px',
-    left: '265px'
+    top: '519px',
+    left: '245px'
   },
   actPerformed: {
     position: 'absolute',
-    top: '648px',
-    left: '265px'
+    top: '542px',
+    left: '245px'
   },
   notes: {
     position: 'absolute',
-    top: '666px',
-    left: '130px',
-    height: '45px',
-    width: '385px',
+    top: '578px',
+    left: '80px',
+    height: '100px',
+    width: '437px',
     fontSize: '8px'
   },
   todayDate: {
     position: 'absolute',
-    top: '727px',
-    left: '215px'
-  },
-  place: {
-    position: 'absolute',
-    top: '727px',
-    left: '110px'
+    top: '732px',
+    left: '148px'
   }
 });
 
@@ -189,7 +184,6 @@ const BaptizedPdf = () =>{
           <Text style={styles.bestMan}>Ivan Ivančić</Text>
           <Text style={styles.actPerformed}>Fratar Fratrić</Text>
           <Text style={styles.notes}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </Text>
-          <Text style={styles.place}>Mostaru</Text>
           <Text style={styles.todayDate}>{today}</Text>
         </View>
       </Page>

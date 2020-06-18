@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
   arch: {
     position: 'absolute',
     left: '155px',
-    top: '85px',
+    top: '84px',
   },
   district: {
     position: 'absolute',
-    top: '118px',
+    top: '117px',
     left: '125px',
   },
   num: {
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '80px',
     height: '14px',
-    top: '358px',
-    left: '445px',
+    top: '359px',
+    left: '446px',
     border: '1px solid black',
     borderRadius: '50%'
   },
@@ -131,22 +131,22 @@ const styles = StyleSheet.create({
   },
   mother: {
     position: 'absolute',
-    top: '570px',
+    top: '569px',
     left: '265px'
   },
   sakrament: {
     position: 'absolute',
-    top: '596px',
+    top: '595px',
     left: '265px'
   },
   deathPlaceAndDate: {
     position: 'absolute',
-    top: '622px',
+    top: '620px',
     left: '265px'
   },
   actPerformed: {
     position: 'absolute',
-    top: '648px',
+    top: '646px',
     left: '265px'
   },
   notes: {
@@ -159,13 +159,8 @@ const styles = StyleSheet.create({
   },
   todayDate: {
     position: 'absolute',
-    top: '727px',
+    top: '732px',
     left: '215px'
-  },
-  place: {
-    position: 'absolute',
-    top: '727px',
-    left: '110px'
   }
 });
 
@@ -201,7 +196,6 @@ const PdfDocument = () =>{
           <Text style={styles.deathPlaceAndDate}>Horvat</Text>
           <Text style={styles.actPerformed}>Fratar Fratrić</Text>
           <Text style={styles.notes}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </Text>
-          <Text style={styles.place}>Mostaru</Text>
           <Text style={styles.todayDate}>{today}</Text>
         </View>
       </Page>
