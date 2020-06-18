@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+// React pdf
+import { PDFDownloadLink } from "@react-pdf/renderer";
+
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
@@ -12,8 +15,12 @@ import Title from "Components/atoms/UI/Title";
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
+// Organisms
+import BaptizedPdf from 'Components/organisms/persons/BaptizedPdf'
+
 // Actions
 import { getOneItemPerson } from "Modules/units/Persons";
+
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -75,6 +82,21 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                     icon={'print'}
                     size="16px"
                   />
+                  <PDFDownloadLink
+                    document={<BaptizedPdf />}
+                    fileName="Krsni list.pdf"
+                    style={{
+                      textDecoration: "none",
+                      padding: "10px",
+                      color: "#4a4a4a",
+                      backgroundColor: "#f2f2f2",
+                      border: "1px solid #4a4a4a"
+                    }}
+                  >
+                    {({ blob, url, loading, error }) =>
+                      loading ? "Loading document..." : "Download Pdf"
+                    }
+                  </PDFDownloadLink>
                 </Box>
                 <Box>
                   <Grid container alignItems="center" spacing={3}>
