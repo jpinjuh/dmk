@@ -16,7 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import BaptizedPdf from 'Components/organisms/persons/BaptizedPdf'
+import PdfDocument from 'Components/organisms/persons/PdfDocument'
 
 // Actions
 import { getOneItemPerson } from "Modules/units/Persons";
@@ -71,24 +71,21 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
               </Box>
               <Box>
                 <Box my={2} display="flex" justifyContent="flex-end">
-                  <ButtonWithIcon 
-                    label="Isprintaj"
-                    icon={'print'}
-                    size="16px"
-                  />
                   <PDFDownloadLink
                     document={<BaptizedPdf baptized={baptized}/>}
                     fileName="Krsni list.pdf"
                     style={{
-                      textDecoration: "none",
-                      padding: "10px",
-                      color: "#4a4a4a",
-                      backgroundColor: "#f2f2f2",
-                      border: "1px solid #4a4a4a"
+                      textDecoration: "none"
                     }}
                   >
                     {({ blob, url, loading, error }) =>
-                      loading ? "Loading document..." : "Download Pdf"
+                      loading 
+                      ? "Učitavanje dokumenta..." 
+                      : <ButtonWithIcon 
+                          label="Isprintaj"
+                          icon={'print'}
+                          size="16px"
+                        />
                     }
                   </PDFDownloadLink>
                 </Box>

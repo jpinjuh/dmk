@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   jmbg: {
     position: 'absolute',
     top: '404px',
-    left: '265px'
+    left: '245px'
   },
   domicile: {
     position: 'absolute',
@@ -134,31 +134,26 @@ const styles = StyleSheet.create({
   },
   bestMan: {
     position: 'absolute',
-    top: '622px',
-    left: '265px'
+    top: '519px',
+    left: '245px'
   },
   actPerformed: {
     position: 'absolute',
-    top: '648px',
-    left: '265px'
+    top: '542px',
+    left: '245px'
   },
   notes: {
     position: 'absolute',
-    top: '666px',
-    left: '130px',
-    height: '45px',
-    width: '385px',
+    top: '578px',
+    left: '80px',
+    height: '100px',
+    width: '437px',
     fontSize: '8px'
   },
   todayDate: {
     position: 'absolute',
-    top: '727px',
-    left: '215px'
-  },
-  place: {
-    position: 'absolute',
-    top: '727px',
-    left: '110px'
+    top: '732px',
+    left: '148px'
   }
 });
 

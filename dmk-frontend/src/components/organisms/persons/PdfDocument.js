@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   arch: {
     position: 'absolute',
     left: '155px',
-    top: '85px',
+    top: '84px',
   },
   district: {
     position: 'absolute',
-    top: '118px',
+    top: '117px',
     left: '125px',
   },
   num: {
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '80px',
     height: '14px',
-    top: '358px',
-    left: '445px',
+    top: '359px',
+    left: '446px',
     border: '1px solid black',
     borderRadius: '50%'
   },
@@ -134,27 +134,27 @@ const styles = StyleSheet.create({
   },
   mother: {
     position: 'absolute',
-    top: '570px',
+    top: '569px',
     left: '265px'
   },
   sakrament: {
     position: 'absolute',
-    top: '596px',
+    top: '595px',
     left: '265px'
   },
   deathPlaceAndDate: {
     position: 'absolute',
-    top: '622px',
+    top: '620px',
     left: '265px'
   },
   actPerformed: {
     position: 'absolute',
-    top: '648px',
+    top: '646px',
     left: '265px'
   },
   notes: {
     position: 'absolute',
-    top: '666px',
+    top: '670px',
     left: '130px',
     height: '45px',
     width: '385px',
@@ -162,13 +162,8 @@ const styles = StyleSheet.create({
   },
   todayDate: {
     position: 'absolute',
-    top: '727px',
+    top: '732px',
     left: '215px'
-  },
-  place: {
-    position: 'absolute',
-    top: '727px',
-    left: '110px'
   }
 });
 
