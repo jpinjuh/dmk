@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,14 +35,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DeactivateModal = ({ onDeactivate, closeDeactivate, itemId }) => {
+const DeactivateModal = ({ onDeactivate, closeDeactivate }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const oneItem = useSelector(state => state.cities.oneItem);
+
 
   const deleteItem = (e) => {
     e.preventDefault();
 
-    dispatch(deactivateData(`city/${itemId}`))
+    dispatch(deactivateData(`city/${oneItem.id}`))
     closeDeactivate();
   }
 
