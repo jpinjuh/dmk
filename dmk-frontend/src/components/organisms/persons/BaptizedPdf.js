@@ -1,6 +1,9 @@
 import React from "react";
 import moment from 'moment';
 
+// Utils
+import { formatLocalDate } from 'Util/common'
+
 import {
   Page,
   Text,
@@ -161,36 +164,39 @@ const styles = StyleSheet.create({
 
 const today = moment().format('D.M.YYYY');
 
-const BaptizedPdf = () =>{
+const BaptizedPdf = ({baptized}) =>{
+  //const baptized = useSelector(state => state.baptized.oneItem);
   return (
     <Document>
       <Page size="A4">
         <View style={styles.text}>
-          <Text style={styles.arch}>Mostarsko-duvanjska</Text>
-          <Text style={styles.district}>Balinovac</Text>
-          <Text style={styles.num}>125795</Text>
-          <Text style={styles.rimDistrict}>Rim Župa</Text>
-          <Text style={styles.svezak}>78</Text>
-          <Text style={styles.year}>2019.</Text>
-          <Text style={styles.page}>6</Text>
-          <Text style={styles.broj}>23</Text>
-          <Text style={styles.baptDate}>01.01.2020</Text>
-          <Text style={styles.name}>Ivan</Text>
-          <Text style={styles.circleMen}></Text>
-          {/* <Text style={styles.circleWoman}></Text> */}
-          <Text style={styles.lastName}>Horvat</Text>
-          <Text style={styles.birthDate}>01.01.1920</Text>
-          <Text style={styles.birthPlace}>Mostar</Text>
-          <Text style={styles.jmbg}>1902997152732</Text>
-          <Text style={styles.domicile}>Mostar</Text>
-          <Text style={styles.father}>Marko Horvat</Text>
-          <Text style={styles.mother}>Ivana Marković</Text>
-          <Text style={styles.canocicallyMarried}>Da</Text>
-          <Text style={styles.bestMan}>Ivan Ivančić</Text>
-          <Text style={styles.actPerformed}>Fratar Fratrić</Text>
-          <Text style={styles.notes}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </Text>
-          <Text style={styles.place}>Mostaru</Text>
-          <Text style={styles.todayDate}>{today}</Text>
+          <Text style={styles.arch}>{baptized.archdiocese && baptized.archdiocese.name}</Text>
+          <Text style={styles.district}>{baptized.district && baptized.district.address}</Text>
+          <Text style={styles.num}>{baptized.document && baptized.document.document_number}</Text>
+          <Text style={styles.rimDistrict}>{baptized.district && baptized.district.name}</Text>
+          <Text style={styles.svezak}>{baptized.document && baptized.document.volume}</Text>
+          <Text style={styles.year}>{baptized.document && baptized.document.year}</Text>
+          <Text style={styles.page}>{baptized.document && baptized.document.page}</Text>
+          <Text style={styles.broj}>{baptized.document && baptized.document.number}</Text>
+          <Text style={styles.baptDate}>{baptized.document && formatLocalDate(baptized.document.act_date)}</Text>
+          <Text style={styles.name}>{baptized.person && baptized.person.first_name}</Text>
+          {
+            (baptized.child && baptized.child.value==='Sin')
+            ? <Text style={styles.circleMen}></Text>
+            : <Text style={styles.circleWoman}></Text>
+          }
+          <Text style={styles.lastName}>{baptized.person && baptized.person.last_name}</Text>
+          <Text style={styles.birthDate}>{baptized.person && formatLocalDate(baptized.person.birth_date)}</Text>
+          <Text style={styles.birthPlace}>{baptized.birth_place && baptized.birth_place.name}</Text>
+          <Text style={styles.jmbg}>{baptized.person && baptized.person.identity_number}</Text>
+          <Text style={styles.domicile}>{baptized.person && baptized.person.domicile}</Text>
+          <Text style={styles.father}>{(baptized.father && baptized.father.first_name) || '-'}</Text>
+          <Text style={styles.mother}>{(baptized.mother && baptized.mother.first_name) || '-'}</Text>
+          <Text style={styles.canocicallyMarried}>{baptized.parents_canonically_married && baptized.parents_canonically_married.value}</Text>
+          <Text style={styles.bestMan}>{baptized.best_man && baptized.best_man.first_name}</Text>
+          <Text style={styles.actPerformed}>{baptized.act_performed && `${baptized.act_performed.title} ${baptized.act_performed.first_name} ${baptized.act_performed.last_name}`}</Text>
+          <Text style={styles.notes}>{(baptized.note && baptized.note.other_notes) || '-'}</Text>
+          <Text style={styles.todayDate}>{formatLocalDate(baptized.created_at)}</Text>
         </View>
       </Page>
     </Document>

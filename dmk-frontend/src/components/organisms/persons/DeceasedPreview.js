@@ -16,11 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import BaptizedPdf from 'Components/organisms/persons/BaptizedPdf'
-
-// Actions
-import { getOneItemPerson } from "Modules/units/Persons";
-
+import BaptizedPdf from 'Components/organisms/persons/PdfDocument'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -40,10 +36,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DocumentPreview = ({ onOpen, closeModal }) => {
+const DeceasedPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
-  const baptized = useSelector(state => state.baptized.oneItem);
+  const deceased = useSelector(state => state.deceased.oneItem);
 
 
   return (
@@ -66,7 +62,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                 <Title
                   variant="h5"
                   align={'center'}
-                  title={'Krsni list'}
+                  title={'Smrtni list'}
                 />
               </Box>
               <Box>
@@ -77,8 +73,8 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                     size="16px"
                   />
                   <PDFDownloadLink
-                    document={<BaptizedPdf baptized={baptized}/>}
-                    fileName="Krsni list.pdf"
+                    document={<BaptizedPdf deceased={deceased}/>}
+                    fileName="SmrtniList.pdf"
                     style={{
                       textDecoration: "none",
                       padding: "10px",
@@ -100,7 +96,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Ime'}
                       />
-                      {baptized.person && baptized.person.first_name}
+                      {deceased.person && deceased.person.first_name}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
@@ -108,7 +104,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Sin/Kći'}
                       />
-                      {baptized.child && baptized.child.value}
+                      {deceased.child && deceased.child.value}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -116,15 +112,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Prezime'}
                       />
-                      {baptized.person && baptized.person.last_name}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                          variant="h6"
-                          align={'left'}
-                          title={'Djevojačko prezime'}
-                        />
-                      {(baptized.person && baptized.person.maiden_name) || '-'}
+                      {deceased.person && deceased.person.last_name}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
@@ -132,7 +120,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Datum rođenja'}
                       />
-                      {(baptized.person && formatLocalDate(baptized.person.birth_date)) || '-'}
+                      {(deceased.person && formatLocalDate(deceased.person.birth_date)) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -140,24 +128,15 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Mjesto rođenja'}
                       />
-                      {(baptized.birth_place && baptized.birth_place.name) || '-'}
+                      {(deceased.birth_place && deceased.birth_place.name) || '-'}
                     </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'JMBG'}
-                      />
-                      {(baptized.person && baptized.person.identity_number) || '-'}
-                    </Grid>
-                    
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
                         title={'Prebivalište'}
                       />
-                      {(baptized.person && baptized.person.domicile) || '-'}
+                      {(deceased.spouse && deceased.spouse.first_name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -165,7 +144,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(baptized.father && baptized.father.first_name) || '-'}
+                      {(deceased.father && deceased.father.first_name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -173,31 +152,15 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Majka'}
                       />
-                      {(baptized.mother && baptized.mother.first_name) || '-'}
+                      {(deceased.mother && deceased.mother.first_name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Roditelji kanonski vjenčani'}
+                        title={'Crkveni službenik sprovoda'}
                       />
-                      {(baptized.parents_canonically_married && baptized.parents_canonically_married.value) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Kum'}
-                      />
-                      {(baptized.best_man && baptized.best_man.first_name) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Krstitelj'}
-                      />
-                      {(baptized.act_performed && `${baptized.act_performed.title} ${baptized.act_performed.first_name} ${baptized.act_performed.last_name}`) || '-'}
+                      {(deceased.act_performed && `${deceased.act_performed.title} ${deceased.act_performed.first_name} ${deceased.act_performed.last_name}`) || '-'}
                     </Grid>
                   </Grid>
                 </Box>
@@ -210,4 +173,4 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
   );
 }
 
-export default DocumentPreview;
+export default DeceasedPreview;

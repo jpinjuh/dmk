@@ -15,9 +15,11 @@ import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Orgabisms
 import DocumentPreview from 'Components/organisms/persons/DocumentPreview'
+import DeceasedPreview from 'Components/organisms/persons/DeceasedPreview'
 
 // Actions
-import { getOneItem } from "Modules/units/Baptized";
+import { getOneItem as getBaptized } from "Modules/units/Baptized";
+import { getOneItem as getDeceased } from "Modules/units/Deceased";
 import { getOneItemPerson } from "Modules/units/Persons";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,8 +37,9 @@ const PersonDetails = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const [openPreview, setOpenPreview] = useState(false)
-  
+  const [openBaptized, setOpenBaptized] = useState(false)
+  const [openDeceased, setOpenDeceased] = useState(false)
+
   const id = history.location.state;
   const person = useSelector(state => state.persons.oneItem);
 
@@ -216,7 +219,7 @@ const PersonDetails = () => {
                     label={'Krsni List'}
                     icon={'open_in_new'}
                     size="20px"
-                    onClick={() => dispatch(getOneItem(`registry_of_baptism/${person.documents[0].id}`, setOpenPreview))}
+                    onClick={() => dispatch(getBaptized(`registry_of_baptism/${person.documents[0].id}`, setOpenPreview))}
                   />
                 </Container>
               </Grid>
@@ -244,7 +247,7 @@ const PersonDetails = () => {
                     label={'Vjenčani List'}
                     icon={'open_in_new'}
                     size="20px"
-                    onClick={() => dispatch(getOneItem(`registry_of_marriage/${person.documents[2].id}`, setOpenPreview))}
+                    onClick={() => dispatch(getOneItem(`registry_of_marriage/${person.documents[2].id}`, setOpenBaptized))}
                   />
                 </Container>
               </Grid>
@@ -258,7 +261,7 @@ const PersonDetails = () => {
                     label={'Smrtni List'}
                     icon={'open_in_new'}
                     size="20px"
-                    onClick={() => dispatch(getOneItem(`registry_of_death/${person.documents[3].id}`, setOpenPreview))}
+                    onClick={() => dispatch(getDeceased(`registry_of_deaths/${person.documents[3].id}`, setOpenDeceased))}
                   />
                 </Container>
               </Grid>
@@ -268,9 +271,13 @@ const PersonDetails = () => {
       </Grid>
 
       <DocumentPreview
-        onOpen={openPreview}
-        closeModal={() => setOpenPreview(false)}
-      ></DocumentPreview>
+        onOpen={openBaptized}
+        closeModal={() => setOpenBaptized(false)}
+      />
+      <DeceasedPreview
+        onOpen={openDeceased}
+        closeModal={() => setOpenDeceased(false)}
+      />
     </div>
   )
 }

@@ -1,6 +1,9 @@
 import React from "react";
 import moment from 'moment';
 
+// Utils
+import { formatLocalDate } from 'Util/common'
+
 import {
   Page,
   Text,
@@ -171,38 +174,40 @@ const styles = StyleSheet.create({
 
 const today = moment().format('D.M.YYYY');
 
-const PdfDocument = () =>{
+const PdfDocument = ({deceased}) =>{
   return (
     <Document>
       <Page size="A4">
         <View style={styles.text}>
-          <Text style={styles.arch}>Mostarsko-duvanjska</Text>
-          <Text style={styles.district}>Balinovac</Text>
-          <Text style={styles.num}>125795</Text>
-          <Text style={styles.rimDistrict}>Rim Župa</Text>
-          <Text style={styles.svezak}>78</Text>
-          <Text style={styles.year}>2019.</Text>
-          <Text style={styles.page}>6</Text>
-          <Text style={styles.broj}>23</Text>
-          <Text style={styles.deathDate}>01.01.2020</Text>
-          <Text style={styles.deathPlace}>Mostar</Text>
-          <Text style={styles.name}>Ivan</Text>
-          <Text style={styles.circleMen}></Text>
-         {/*  <Text style={styles.circleWoman}></Text> */}
-          <Text style={styles.lastName}>Horvat</Text>
-          <Text style={styles.birthDate}>01.01.1920</Text>
-          <Text style={styles.birthPlace}>Mostar</Text>
-          <Text style={styles.baptDistrict}>Mostar</Text>
-          <Text style={styles.baptDate}>01.03.1920</Text>
-          <Text style={styles.wife}>Ana Horvat</Text>
-          <Text style={styles.father}>Marko Horvat</Text>
-          <Text style={styles.mother}>Ivana Marković</Text>
+          <Text style={styles.arch}>{deceased.archdiocese && deceased.archdiocese.name}</Text>
+          <Text style={styles.district}>{deceased.district && deceased.district.address}</Text>
+          <Text style={styles.num}>{deceased.document && deceased.document.document_number}</Text>
+          <Text style={styles.rimDistrict}>{deceased.district && deceased.district.name}</Text>
+          <Text style={styles.svezak}>{deceased.document && deceased.document.volume}</Text>
+          <Text style={styles.year}>{deceased.document && deceased.document.document_year}</Text>
+          <Text style={styles.page}>{deceased.document && deceased.document.page}</Text>
+          <Text style={styles.broj}>{deceased.document && deceased.document.number}</Text>
+          <Text style={styles.deathDate}>{deceased.document && formatLocalDate(deceased.document.act_date)}</Text>
+          <Text style={styles.deathPlace}>{deceased.place_of_death && deceased.place_of_death.name}</Text>
+          <Text style={styles.name}>{deceased.person && deceased.person.first_name}</Text>
+          {
+            (deceased.child && deceased.child.value==='Sin')
+            ? <Text style={styles.circleMen}></Text>
+            : <Text style={styles.circleWoman}></Text>
+          }
+          <Text style={styles.lastName}>{deceased.person && deceased.person.last_name}</Text>
+          <Text style={styles.birthDate}>{deceased.person && formatLocalDate(deceased.person.birth_date)}</Text>
+          <Text style={styles.birthPlace}>{deceased.birth_place && deceased.birth_place.name}</Text>
+          <Text style={styles.baptDistrict}>{deceased.district_baptism && deceased.district_baptism.name}</Text>
+          <Text style={styles.baptDate}>{deceased.district_baptism && formatLocalDate(deceased.district_baptism.created_at)}</Text>
+          <Text style={styles.wife}>{(deceased.note && deceased.note.spouse_name) || '-'}</Text>
+          <Text style={styles.father}>{(deceased.father && deceased.father.name) || '-'}</Text>
+          <Text style={styles.mother}>{(deceased.mother && deceased.mother.name) || '-'}</Text>
           <Text style={styles.sakrament}>Krštenje, Krizma</Text>
-          <Text style={styles.deathPlaceAndDate}>Horvat</Text>
-          <Text style={styles.actPerformed}>Fratar Fratrić</Text>
-          <Text style={styles.notes}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </Text>
-          <Text style={styles.place}>Mostaru</Text>
-          <Text style={styles.todayDate}>{today}</Text>
+          <Text style={styles.deathPlaceAndDate}>{ deceased.place_of_burial && `${deceased.place_of_burial.value} ${formatLocalDate(deceased.place_of_burial.created_at)}` }</Text>
+          <Text style={styles.actPerformed}>{(deceased.act_performed && `${deceased.act_performed.title} ${deceased.act_performed.first_name} ${deceased.act_performed.last_name}`) || '-'}</Text>
+          <Text style={styles.notes}>{(deceased.note && deceased.note.other_notes) || '-'}</Text>
+          <Text style={styles.todayDate}>{formatLocalDate(deceased.created_at)}</Text>
         </View>
       </Page>
     </Document>
