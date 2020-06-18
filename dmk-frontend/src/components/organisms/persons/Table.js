@@ -14,7 +14,9 @@ import Chip from '@material-ui/core/Chip';
 
 // Atoms 
 import Button from 'Components/atoms/buttons/Button'
-import { formatLocalDate } from 'Components/atoms/inputs/Timepicker'
+
+// Utils
+import { formatLocalDate } from 'Util/common'
 
 // Organisms
 import EditModal from 'Components/organisms/persons/EditModal'
@@ -59,22 +61,6 @@ const Table = (props) => {
         sort: false,
       }
     },
-    /*{
-      label: 'Djevojačko prezime',
-      name: 'maiden_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Rođen/a',
-      name: 'birth_date',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },*/
     {
       label: 'JMBG',
       name: 'identity_number',
@@ -92,43 +78,11 @@ const Table = (props) => {
     },
     {
       label: 'Mjesto rođenja',
-      name: 'city.name',
+      name: 'birth_place.name',
       options: {
       customBodyRender: value => value ? <span>{value}</span> : <span>{'-'}</span>
       }
     },
-    /*{
-      label: 'Otac',
-      name: 'father.first_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Majka',
-      name: 'mother.first_name',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Župa',
-      name: 'district.name',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    },
-    {
-      label: 'Religija',
-      name: 'religion.value',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    }*/
     {
       name: "id",
       label: "Akcije",

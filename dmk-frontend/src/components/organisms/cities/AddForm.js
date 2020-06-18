@@ -80,7 +80,7 @@ const AddForm = ({open, setOpen}) => {
         </Box>
         <Box mx={3} mt={2}>
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={4} spacing={2} validation={open ? null : validation}></InputForm>
+            <InputForm inputs={inputs} setInputs={setInputs} spacing={2} validation={open ? null : validation}></InputForm>
             <Box mt={2} xs={4}>
               <Button
                 label="+ Dodaj grad"

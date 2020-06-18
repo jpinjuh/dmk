@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
@@ -18,9 +18,12 @@ import InputForm from "Components/molecules/InputForm"
 import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
-// Services
-import { editPassword } from "Modules/units/Users"
-import { clearValidation } from "Modules/units/Validation"
+// Actions
+import { putData, postData } from "Modules/units/Archdioceses";
+import { clearValidation } from "Modules/units/Validation";
+
+// Models
+import { EditForm } from 'Pages/archdioceses/model/archdiocese'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -41,61 +44,40 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const requiredInputs = [
-  {
-    label: 'Nova lozinka',
-    type: 'password',
-    disabled: false,
-    name_in_db: 'password_change',
-    validation: null,
-    error: false
-  },
-  {
-    label: 'Potvrdi lozinku',
-    type: 'password',
-    disabled: false,
-    name_in_db: 'password_confirm',
-    validation: null,
-    error: false
-  }
-]
-
-const ChangePasswordModal = ({ itemId, onOpen, closeModal }) => {
+const EditModal = ({ onOpen, closeModal}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [inputs, setInputs] = useState(EditForm);
+  const isInitialMount = useRef(true);
 
-  const [inputs, setInputs] = useState(requiredInputs);
+  const oneItem = useSelector(state => state.archdioceses.oneItem);
   const validation = useSelector(state => state.validation);
 
-
   useEffect(() => {
-    clearInputs()
-    dispatch(clearValidation())
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      dispatch(clearValidation())
+    }
   }, [onOpen])
 
-  
-  const clearInputs = () => {
-    setInputs(inputs.map(input => ({
-      label: input.label,
-      type: input.type,
-      disabled: false,
-      name_in_db: input.name_in_db,
-      validation: null,
-      error: false,
-      value: ""
-    })));
-  }
-
-  const changePassword = e => {
+  const editItem = (e) => {
     e.preventDefault();
+
     const body = {};
-    
+
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    dispatch(editPassword(`user/alter_pass/${itemId}`, body, closeModal));
-  
+    dispatch(putData(`notes/${oneItem.id}`, body, closeModal));
   }
+
+  useEffect(() => {
+    setInputs(inputs.map((input) => ({
+      ...input,
+      value: oneItem[input.name_in_db]
+    })))
+  }, [oneItem]);
 
   return (
     <div>
@@ -111,13 +93,13 @@ const ChangePasswordModal = ({ itemId, onOpen, closeModal }) => {
         }}
       >
         <Fade in={onOpen}>
-        <Container className={classes.paper} maxWidth="xs">
+          <Container className={classes.paper} maxWidth="xs">
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
                 <Title
                   variant="h5"
-                  align={'center'}
-                  title={'Promjeni lozinku'}
+                  align={'left'}
+                  title={'Uredi bilješke krsnog lista'}
                 />
               </Box>
               <form>
@@ -126,7 +108,7 @@ const ChangePasswordModal = ({ itemId, onOpen, closeModal }) => {
                   <Box pr={1}>
                     <Button
                       label="Potvrdi"
-                      onClick={changePassword}
+                      onClick={editItem}
                     />
                   </Box>
                   <Box>
@@ -147,4 +129,4 @@ const ChangePasswordModal = ({ itemId, onOpen, closeModal }) => {
   );
 }
 
-export default ChangePasswordModal;
+export default EditModal;

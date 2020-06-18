@@ -6,7 +6,6 @@ import clsx from 'clsx';
 
 // Mui
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,10 +15,17 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
+import { Box } from '@material-ui/core';
+
+// Atoms
+import Logo from "Components/atoms/UI/Logo";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1
+  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -71,8 +77,10 @@ const sidebarListItems = [
   {name:'Biskupije', path: '/biskupije'},
   {name:'Gradovi', path: '/gradovi'},
   {name:'Države', path: '/države'},
-  {name:'Kršteni', path: '/kršteni'},
-  {name:'Umrli', path: '/umrli'},
+  {name:'Krsni', path: '/krsni'},
+  {name:'Smrtni', path: '/smrtni'},
+  {name:'Vjenčani', path: '/vjenčani'},
+  {name:'Krizmena cedulja', path: '/krizmena'},
   {name:'Osobe', path: '/osobe'},
 ]
 
@@ -101,6 +109,9 @@ const Sidebar = ({open, setClosed, setOpen}) => {
         }}
       >
         <div className={classes.drawerHeader}>
+          <Box className={classes.title} ml={2}>
+            <Logo type="light" width="115px" goTo={"role"} />
+          </Box>
           <IconButton onClick={setClosed}>
             <ClearIcon style={{ color: 'white' }} />
           </IconButton>

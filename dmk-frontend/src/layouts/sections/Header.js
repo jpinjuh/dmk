@@ -10,16 +10,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 // Atoms
-import Logo from "Components/atoms/UI/Logo";
 import ToogleMenu from "Components/organisms/ToogleMenu"
 
 const drawerWidth = 240;
 
 
 const style = makeStyles(theme => ({
-  title: {
-    flexGrow: 1
-  },
   appBar: {
     zIndex: '1300',
     backgroundColor: '#f9f9f9',
@@ -32,16 +28,11 @@ const style = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   appBarShift: {
-    //width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    /*[theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },*/
   },
 }));
 
@@ -57,26 +48,25 @@ const Header = ({open, setOpen}) => {
         })}
         elevation={0}
       >
-      <Toolbar>
-        <Box>
-          <IconButton
-            aria-label="open drawer"
-            onClick={setOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Box>
-        <Box className={classes.title}>
-          <Logo width="115px" goTo={user ? "role" : ""} />
-        </Box>
-        <Box ml={1}>
-          {user ? (
+      {user ? (
+        <Toolbar>
+          <Box flexGrow={1}>
+            <IconButton
+              aria-label="open drawer"
+              onClick={setOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
+          <Box ml={1}>
+
             <ToogleMenu activeUser={user.user_claims} />
-          ) : ('')}
-        </Box>
-      </Toolbar>
+
+          </Box>
+        </Toolbar>
+      ) : ('')}
     </AppBar>
   );
 };

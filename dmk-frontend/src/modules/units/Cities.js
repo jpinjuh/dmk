@@ -81,7 +81,7 @@ export const postData = (url, body, clearInputs, setOpen) => async dispatch => {
   const response = await postFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: POST_DATA_SCS, payload: response.data, status: response.status });
+    dispatch({ type: POST_DATA_SCS, payload: response.data });
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
     setOpen(true)
@@ -93,7 +93,7 @@ export const postData = (url, body, clearInputs, setOpen) => async dispatch => {
     else {
       NotificationManager.error(response.status.description);
     }
-    dispatch({ type: POST_DATA_FLR, status: response.status });
+    dispatch({ type: POST_DATA_FLR });
   }
 };
 
@@ -117,7 +117,7 @@ export const putData = (url, body, closeModal) => async dispatch => {
   const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status });
+    dispatch({ type: PUT_DATA_SCS, payload: response.data });
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
     closeModal()
@@ -128,7 +128,7 @@ export const putData = (url, body, closeModal) => async dispatch => {
     else {
       NotificationManager.error(response.status.description);
     }
-    dispatch({ type: PUT_DATA_FLR, status: response.status });
+    dispatch({ type: PUT_DATA_FLR });
   }
 };
 
@@ -167,9 +167,7 @@ export const searchData = (url, body) => async dispatch => {
 const INIT_STATE = {
   data: "",
   oneItem: {},
-  total: "",
-  postErrorMsg: "",
-  editErrorMsg: ""
+  total: ""
 };
 
 export default function reducer(state = INIT_STATE, action = {}) {
@@ -218,13 +216,11 @@ export default function reducer(state = INIT_STATE, action = {}) {
         data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
         oneItem: action.payload,
-        postErrorMsg: action.status,
         loading: false
       };
     case POST_DATA_FLR:
       return {
         ...state,
-        postErrorMsg: action.status,
         loading: false
       };
     case DEACTIVATE_DATA_REQ:
@@ -264,13 +260,11 @@ export default function reducer(state = INIT_STATE, action = {}) {
           }
           return item;
         }),
-        editErrorMsg: action.status,
         loading: false
       };
     case PUT_DATA_FLR:
       return {
         ...state,
-        editErrorMsg: action.status,
         loading: false
       };
     case ACTIVATE_DATA_REQ:

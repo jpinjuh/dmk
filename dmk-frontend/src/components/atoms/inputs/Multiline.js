@@ -1,22 +1,21 @@
 // React
-import React, { useState } from "react";
+import React from "react";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import TogglePassword from "../buttons/TogglePassword";
 
 const useStyles = makeStyles(theme => ({
   input:{
-      color: `${theme.palette.secondary.main} !important`
+      color: `${theme.palette.secondary.main} !important`,
+      height: '80px !important',
+      //marginTop: '24px !important'
   }
 }));
 
-const Input = props => {
+const Multiline = props => {
 
   const classes = useStyles();
-
-  const [showPassword, setShowPassword] = useState(type==='password' ? true : false)
 
   const {
     type,
@@ -27,8 +26,7 @@ const Input = props => {
     onChange,
     required,
     disabled,
-    color,
-    multiline
+    color
   } = props;
 
 
@@ -37,10 +35,10 @@ const Input = props => {
       variant="outlined"
       fullWidth
       margin="normal"
-      multiline={multiline && true}
+      multiline
       rows={4}
       disabled={disabled}
-      type={type === 'password' ? (showPassword ? 'text' : 'password') : type }
+      type="text"
       label={label}
       value={value}
       color={color}
@@ -52,16 +50,11 @@ const Input = props => {
       InputProps={{
         classes: {
           root: classes.input,
-        },
-       endAdornment: type==='password' ? (
-            <TogglePassword setShowPassword={setShowPassword} />
-          )
-          :
-          null
-        
+        }
       }}
       InputLabelProps={{style:
         {
+          //marginTop: 24,
           fontSize: 14,
           lineHeight: 0
         }
@@ -70,16 +63,15 @@ const Input = props => {
   );
 };
 
-Input.defaultProps = {
+Multiline.defaultProps = {
   label: "Label",
   type: "text",
   value: "",
   error: false,
   helperText: "",
   required: false,
-  multiline: false,
   disabled: false,
   color: "primary",
 };
 
-export default Input;
+export default Multiline;

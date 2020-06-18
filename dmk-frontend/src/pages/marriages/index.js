@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // Organisms
-import AddForm from 'Components/organisms/baptized/AddForm';
+import AddForm from 'Components/organisms/marriages/AddForm';
 
 // Templates
 import MainTemplate from 'Components/templates/MainTemplate'

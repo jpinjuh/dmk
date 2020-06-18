@@ -10,7 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // Atoms
 import Button from "Components/atoms/buttons/Button";
 import Title from 'Components/atoms/UI/Title'
-import Link from 'Components/atoms/hyperlinks/Link'
 
 // Molecules 
 import InputForm from "Components/molecules/InputForm"
@@ -93,7 +92,7 @@ const LoginLayout = () => {
           />
         </Box>
         <form>
-          <InputForm inputs={inputs} setInputs={setInputs} validation={validation}></InputForm>
+          <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} validation={validation}></InputForm>
           <Box mt={3}>
             <Button
               label="Prijavi se"
@@ -102,7 +101,6 @@ const LoginLayout = () => {
               fullWidth
             />
           </Box>
-          <Link goTo="reset" label="Zaboravili ste lozinku?"/>
         </form>
        
       </Container>

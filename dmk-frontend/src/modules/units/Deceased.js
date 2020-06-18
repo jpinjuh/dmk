@@ -61,29 +61,32 @@ export const getData = (url) => async dispatch => {
   }
 };
 
-export const getOneItem = (url) => async dispatch => {
+export const getOneItem = (url, setOpenPreview) => async dispatch => {
   dispatch({ type: GET_ONE_ITEM_REQ });
 
   const response = await getFunc(url);
 
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_ONE_ITEM_SCS, payload: response.data });
+    console.log(response)
+    setOpenPreview(true)
   } else {
     dispatch({ type: GET_ONE_ITEM_FLR });
     NotificationManager.error(response.status.description);
   }
 };
 
-export const postData = (url, body, clearInputs) => async dispatch => {
+export const postData = (url, body, clearInputs, setOpen) => async dispatch => {
   dispatch({ type: POST_DATA_REQ });
 
   const response = await postFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: POST_DATA_SCS, payload: response.data, status: response.status });
+    dispatch({ type: POST_DATA_SCS, payload: response.data });
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
     clearInputs();
+    setOpen(true)
   } else {
     if (typeof response.status.description === "object") {
       dispatch({ type: VALIDATION_MESSAGE, message: response.status });
@@ -91,7 +94,7 @@ export const postData = (url, body, clearInputs) => async dispatch => {
     else {
       NotificationManager.error(response.status.description);
     }
-    dispatch({ type: POST_DATA_FLR, status: response.status });
+    dispatch({ type: POST_DATA_FLR });
   }
 };
 
@@ -115,10 +118,10 @@ export const putData = (url, body) => async dispatch => {
   const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status});
+    dispatch({ type: PUT_DATA_SCS, payload: response.data});
     NotificationManager.success(response.status.description,);
   } else {
-    dispatch({ type: PUT_DATA_FLR, status: response.status });
+    dispatch({ type: PUT_DATA_FLR });
   }
 };
 
@@ -156,10 +159,8 @@ export const searchData = (url, body) => async dispatch => {
 
 const INIT_STATE = {
   data: "",
-  oneItem: "",
+  oneItem: {},
   total: "",
-  postErrorMsg: "",
-  editErrorMsg: ""
 };
 
 export default function reducer(state = INIT_STATE, action = {}) {
@@ -189,7 +190,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case GET_ONE_ITEM_SCS:
       return {
         ...state,
-        oneItem: state.data.find(element => element.id === action.payload.id),
+        oneItem: action.payload,
         loading: false
       };
     case GET_ONE_ITEM_FLR:
@@ -208,13 +209,11 @@ export default function reducer(state = INIT_STATE, action = {}) {
         data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
         oneItem: action.payload,
-        postErrorMsg: action.status,
         loading: false
       };
     case POST_DATA_FLR:
       return {
         ...state,
-        postErrorMsg: action.status,
         loading: false
       };
     case DEACTIVATE_DATA_REQ:
@@ -254,13 +253,11 @@ export default function reducer(state = INIT_STATE, action = {}) {
           }
           return item;
         }),
-        editErrorMsg: action.status,
         loading: false
       };
     case PUT_DATA_FLR:
       return {
         ...state,
-        editErrorMsg: action.status,
         loading: false
       };
     case ACTIVATE_DATA_REQ:

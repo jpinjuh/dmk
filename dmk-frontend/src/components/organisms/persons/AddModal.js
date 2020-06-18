@@ -88,7 +88,7 @@ const AddModal = ({ onOpen, closeModal }) => {
     console.log(body)
     setItem(arr)
     setSubmitted(true)
-    dispatch(postData(`person`, body));
+    dispatch(postData(`person`, body, clearInputs));
   };
 
   const closeEditModal = () => {

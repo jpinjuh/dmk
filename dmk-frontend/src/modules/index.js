@@ -15,6 +15,9 @@ import persons from "Modules/units/Persons";
 import baptized from "Modules/units/Baptized";
 import validation from "Modules/units/Validation";
 import deceased from "Modules/units/Deceased";
+import chrisms from "Modules/units/Chrisms";
+import marriages from "Modules/units/Marriages";
+import notes from "Modules/units/Notes";
 
 export default combineReducers({
   auth,
@@ -29,5 +32,8 @@ export default combineReducers({
   persons,
   baptized,
   validation,
-  deceased
+  deceased,
+  chrisms,
+  marriages,
+  notes
 });

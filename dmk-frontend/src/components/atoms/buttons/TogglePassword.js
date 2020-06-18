@@ -2,23 +2,15 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // MUI
-import { makeStyles } from "@material-ui/core/styles";
 import { InputAdornment } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
 // Atoms
 import Icon from "Components/atoms/UI/Icon"
 
-const useStyles = makeStyles(theme => ({
-   eye: {
-       //height: '10 !important'
-   }
-}));
-
 const TogglePassword = ({setShowPassword}) => {
-  const classes = useStyles();
 
-  const [masked, setMasked] = useState(true)
+  const [masked, setMasked] = useState(false)
   const isInitialMount = useRef(true);
 
 

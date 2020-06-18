@@ -4,7 +4,6 @@ import { lazy } from "react";
 
 // Routes (Non splitted)
 import LoginLayout from "Layouts/LoginLayout";
-import PasswordResetLayout from "Layouts/PasswordResetLayout";
 import MainLayout from "Layouts/MainLayout";
 
 // Routes (Code splitting)
@@ -20,6 +19,8 @@ const Persons = lazy(() => import("Pages/persons/index.js"));
 const PersonDetails = lazy(() => import("Pages/persons/personDetails.js"));
 const Baptized = lazy(() => import("Pages/baptized/index.js"));
 const Deceased = lazy(() => import("Pages/deceased/index.js"));
+const Marriages = lazy(() => import("Pages/marriages/index.js"));
+const Chrisms = lazy(() => import("Pages/chrisms/index.js"));
 
 /**
 |--------------------------------------------------
@@ -35,14 +36,7 @@ export const publicRoutes = [
     path: "",
     exact: true,
     component: LoginLayout
-  },
-  {
-    id: "reset",
-    title: "Promjena Lozinke",
-    description: "Password reset section",
-    path: "reset",
-    component: PasswordResetLayout
-  },
+  }
 ];
 
 /**
@@ -125,16 +119,30 @@ export const privateRoutes = [
   },
   {
     id: "baptized",
-    title: "Kršteni",
+    title: "Krsni",
     description: "Baptized section",
-    path: "kršteni",
+    path: "krsni",
     component: Baptized
   },
   {
     id: "deceased",
-    title: "Umrli",
+    title: "Smrtni",
     description: "Deceased section",
-    path: "umrli",
+    path: "smrtni",
     component: Deceased
+  },
+  {
+    id: "marriages",
+    title: "Vjenčani",
+    description: "Marriages section",
+    path: "vjenčani",
+    component: Marriages
+  },
+  {
+    id: "chrisms",
+    title: "Krizmena cedulja",
+    description: "Chrisms section",
+    path: "krizmena",
+    component: Chrisms
   }
 ];

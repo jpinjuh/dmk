@@ -210,7 +210,7 @@ export const SearchForm = [
   },
   {
     label: 'JMBG',
-    type: 'text',
+    type: 'number',
     disabled: false,
     name_in_db: 'identity_number',
     validation: null,

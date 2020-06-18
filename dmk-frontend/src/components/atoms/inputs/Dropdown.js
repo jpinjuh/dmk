@@ -54,7 +54,7 @@ const Dropdown = props => {
   
   useEffect(() => {
     setParentState(
-      label === 'Metoda' ? item : { id: item }
+      (label === 'Metoda' || label === 'Groblje' || label === 'Titula') ? item : { id: item }
     )
   }, [item])
 
@@ -67,6 +67,7 @@ const Dropdown = props => {
       {options.data &&
       <FormControl fullWidth error={!!error}>
         <Select
+          error={!!error}
           displayEmpty
           variant="outlined"
           value={item}
@@ -83,7 +84,7 @@ const Dropdown = props => {
           {options.data.map(name => (
             <MenuItem
               key={name.id || name.list_id}
-              value={(label === 'Metoda' || label === 'Groblje') ? name.value : name.id}
+              value={(label === 'Metoda' || label === 'Groblje' || label === 'Titula') ? name.value : name.id}
             >
               {name.name || name.value} 
             </MenuItem>

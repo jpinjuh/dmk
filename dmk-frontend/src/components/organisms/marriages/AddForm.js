@@ -15,14 +15,14 @@ import Title from "Components/atoms/UI/Title";
 import InputForm from "Components/molecules/InputForm"
 
 // Model
-import { DeceasedForm } from 'Pages/deceased/model/deceased'
-import { NoteForm } from 'Pages/deceased/model/deceased'
+import { MarriageForm } from 'Pages/marriages/model/marriages'
+import { NoteForm } from 'Pages/marriages/model/marriages'
 
 // Organisms
-import EditModal from 'Components/organisms/deceased/EditModal'
+import EditModal from 'Components/organisms/marriages/EditModal'
 
 // Action
-import { postData } from "Modules/units/Deceased";
+import { postData } from "Modules/units/Marriages";
 import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddForm = ({open, setOpen}) => {
-  const [inputs, setInputs] = useState(DeceasedForm);
+  const [inputs, setInputs] = useState(MarriageForm);
   const [otherInputs, setOtherInputs] = useState(NoteForm);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -80,7 +80,7 @@ const AddForm = ({open, setOpen}) => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
 
-    dispatch(postData(`registry_of_death`, body, clearInputs, setOpen));
+    dispatch(postData(`registry_of_marriage`, body, clearInputs, setOpen));
   };
 
   return (
@@ -90,7 +90,7 @@ const AddForm = ({open, setOpen}) => {
           <Title
             variant="h6"
             align={'left'}
-            title={'Dodavanje preminulog'}
+            title={'Dodavanje vjenčanih'}
             bgColor={'#8e93b9'}
           />
         </Box>
@@ -100,7 +100,7 @@ const AddForm = ({open, setOpen}) => {
               <Box mb={2}>
                 <Title
                   align={'left'}
-                  title={'Podaci o preminulom'}
+                  title={'Podaci o vjenčanju'}
                   bgColor={'#8e93b9'}
                 />
               </Box>
@@ -119,7 +119,7 @@ const AddForm = ({open, setOpen}) => {
             </Box>
             <Box mt={4}>
               <Button
-                label="+ Dodaj preminulog"
+                label="+ Dodaj vjenčani"
                 onClick={addItem}
               />
             </Box>

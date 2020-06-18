@@ -8,6 +8,7 @@ import {Grid, Box, Container} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
+import { formatLocalDate } from 'Util/common'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
@@ -16,6 +17,7 @@ import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 import DocumentPreview from 'Components/organisms/persons/DocumentPreview'
 
 // Actions
+import { getOneItem } from "Modules/units/Baptized";
 import { getOneItemPerson } from "Modules/units/Persons";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +44,38 @@ const PersonDetails = () => {
     dispatch(getOneItemPerson(`person/${id}`))
   }, [])
 
+/*
+  const documentType = (index, item) => {
+    switch(index) {
+      case 0:
+        return () => setSelectedDocument(
+          {
+            label: 'Krsni list',
+
+          }
+        )
+        break;
+      case 1:
+        return 'Smrtni list'
+        break;
+      default:
+        return 'Vjenčani list'
+    }
+  }
+
+  const documentUrl = (index, item) => {
+    switch(index) {
+      case 0:
+        return `registry_od_baptism/${item.id}`
+        break;
+      case 1:
+        return `registry_od_death/${item.id}`
+        break;
+      default:
+        return 'Vjenčani list'
+    }
+  }
+*/
   return (
     <div>
       <Grid>
@@ -101,7 +135,7 @@ const PersonDetails = () => {
                   align={'left'}
                   title={'Datum rođenja'}
                 />
-                {person.birth_date || '-'}
+                {formatLocalDate(person.birth_date) || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
@@ -111,7 +145,7 @@ const PersonDetails = () => {
                   align={'left'}
                   title={'Mjesto rođenja'}
                 />
-                {person.city ? person.city.name : '-'}
+                {person.birth_place ? person.birth_place.name : '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
@@ -173,25 +207,69 @@ const PersonDetails = () => {
             title={'Dokumenti'}
           />
         </Box>
-        <Box mt={3} mb={4}>
-          <Grid container alignItems="center" spacing={2}>
-            <Grid item> 
-              <Container>
-                <ButtonWithIcon 
-                  label="Krsni list"
-                  icon={'open_in_new'}
-                  size="20px"
-                  onClick={() => setOpenPreview(true)}
-                />
-              </Container>
+        <Box mt={3} mb={4} display="flex">
+          {person.documents && person.documents[0] &&
+            <Grid container item alignItems="center" spacing={2} xs={2}>
+              <Grid item>
+                <Container>
+                  <ButtonWithIcon
+                    label={'Krsni List'}
+                    icon={'open_in_new'}
+                    size="20px"
+                    onClick={() => dispatch(getOneItem(`registry_of_baptism/${person.documents[0].id}`, setOpenPreview))}
+                  />
+                </Container>
+              </Grid>
             </Grid>
-          </Grid>
+          }
+          {person.documents && person.documents[1] &&
+            <Grid container item alignItems="center" spacing={2} xs={2}>
+              <Grid item>
+                <Container>
+                  <ButtonWithIcon
+                    label={'Krizmana Cedulja'}
+                    icon={'open_in_new'}
+                    size="20px"
+                    onClick={() => dispatch(getOneItem(`chrism_note/${person.documents[1].id}`, setOpenPreview))}
+                  />
+                </Container>
+              </Grid>
+            </Grid>
+          }
+          {person.documents && person.documents[2] &&
+            <Grid container item alignItems="center" spacing={2} xs={2}>
+              <Grid item>
+                <Container>
+                  <ButtonWithIcon
+                    label={'Vjenčani List'}
+                    icon={'open_in_new'}
+                    size="20px"
+                    onClick={() => dispatch(getOneItem(`registry_of_marriage/${person.documents[2].id}`, setOpenPreview))}
+                  />
+                </Container>
+              </Grid>
+            </Grid>
+          }
+          {person.documents && person.documents[3] &&
+            <Grid container item alignItems="center" spacing={2} xs={2}>
+              <Grid item>
+                <Container>
+                  <ButtonWithIcon
+                    label={'Smrtni List'}
+                    icon={'open_in_new'}
+                    size="20px"
+                    onClick={() => dispatch(getOneItem(`registry_of_death/${person.documents[3].id}`, setOpenPreview))}
+                  />
+                </Container>
+              </Grid>
+            </Grid>
+          }
         </Box>
       </Grid>
 
       <DocumentPreview
-        onOpen={openPreview} 
-        closeModal={() => setOpenPreview(false)} 
+        onOpen={openPreview}
+        closeModal={() => setOpenPreview(false)}
       ></DocumentPreview>
     </div>
   )

@@ -121,7 +121,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
                 />
               </Box>
               <form>
-                <InputForm inputs={inputs} setInputs={setInputs} validation={validation}></InputForm>
+                <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} validation={validation}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
                     <Button

@@ -71,6 +71,14 @@ const Table = () => {
       }
     },
     {
+      label: 'Titula',
+      name: 'title',
+      options: {
+        filter: false,
+        sort: false,
+      }
+    },
+    {
       label: 'Email',
       name: 'email',
       options: {

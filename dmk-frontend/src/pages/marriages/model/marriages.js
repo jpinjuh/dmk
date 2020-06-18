@@ -1,54 +1,54 @@
-export const DeceasedForm = [
+export const MarriageForm = [
   {
-    label: 'Datum smrti',
-    type: 'date',
-    disabled: false,
-    name_in_db: 'date_of_death',
-    validation: null,
-    error: false,
-    value: null
-  },
-  {
-    label: 'Mjesto smrti',
-    type: 'autocomplete',
-    disabled: false,
-    name_in_db: 'place_of_death',
-    service: 'city/autocomplete',
-    validation: null,
-    error: false,
-    value: null
-  },
-  {
-    label: 'Osoba',
+    label: 'Zaručnik',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'person',
     service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
-    label: 'Mjesto pokopa',
-    type: 'dropdown',
+    label: 'Zaručnica',
+    type: 'autocomplete',
     disabled: false,
-    name_in_db: 'place_of_burial',
-    service: 'listItem?list_id=1cb9f951-1059-4c17-ba30-b1846dd98b97',
+    name_in_db: 'person2',
+    service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
-    label: 'Datum pokopa',
+    label: 'Svjedok zaručnika',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'best_man',
+    service: 'person/autocomplete',
+    validation: null,
+    error: false,
+    value: ''
+  },
+  {
+    label: 'Svjedok zaručnice',
+    type: 'autocomplete',
+    disabled: false,
+    name_in_db: 'best_man2',
+    service: 'person/autocomplete',
+    validation: null,
+    error: false,
+    value: ''
+  },
+  {
+    label: 'Datum vjenčanja',
     type: 'date',
     disabled: false,
     name_in_db: 'act_date',
     validation: null,
-    error: false,
-    value: null
+    error: false
   },
   {
-    label: 'Crkveni službenik sprovoda',
+    label: 'Vjenčatelj',
     type: 'autocomplete',
     disabled: false,
     name_in_db: 'act_performed',
@@ -107,7 +107,7 @@ export const DeceasedForm = [
 
 export const NoteForm = [
   {
-    label: 'Bilješke',
+    label: 'Ostale Bilješke',
     type: 'multiline',
     disabled: false,
     name_in_db: 'other_notes',
@@ -115,6 +115,7 @@ export const NoteForm = [
     error: false
   }
 ]
+
 
 export const EditForm = [
   {

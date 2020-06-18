@@ -27,6 +27,16 @@ export const UserForm = [
     value: ''
   },
   {
+    label: 'Titula',
+    type: 'dropdown',
+    disabled: false,
+    name_in_db: 'title',
+    service: 'listItem?list_id=778bba91-813b-4c74-80b1-d0cde2f761ad',
+    validation: null,
+    error: false,
+    value: ''
+  },
+  {
     label: 'Email',
     type: 'text',
     disabled: false,
@@ -90,6 +100,16 @@ export const EditForm = [
     type: 'text',
     disabled: false,
     name_in_db: 'username',
+    validation: null,
+    error: false,
+    value: ''
+  },
+  {
+    label: 'Titula',
+    type: 'dropdown',
+    disabled: false,
+    name_in_db: 'title',
+    service: 'listItem?list_id=778bba91-813b-4c74-80b1-d0cde2f761ad',
     validation: null,
     error: false,
     value: ''

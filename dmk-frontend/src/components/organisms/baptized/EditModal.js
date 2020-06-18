@@ -18,7 +18,7 @@ import Button from "Components/atoms/buttons/Button";
 import Title from "Components/atoms/UI/Title";
 
 // Actions
-import { putData } from "Modules/units/Baptized";
+import { putData } from "Modules/units/Notes";
 
 // Models
 import { EditForm } from 'Pages/baptized/model/baptized'
@@ -42,52 +42,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, itemId }) => {
+const EditModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(EditForm);
-  const [submitted, setSubmitted] = useState(false)
-  const errorMsg = useSelector(state => state.users.editErrorMsg);
 
-  const oneItem = useSelector(state => state.users.oneItem);
-
-  const func = () => {
-    let clearVal = inputs.filter(input => {
-      input.value = '';
-      input.validation = '';
-      input.error = false;
-      return input;
-    })
-     
-    setInputs(clearVal)
-  }
-
-  useEffect(() => {
-    if(submitted){
-      if(errorMsg.errorCode === 200){
-        console.log(errorMsg.errorCode)
-        setSubmitted(false)
-        closeModal();
-    }
-    else if(errorMsg.errorCode === 400){
-      if(typeof errorMsg.description === 'object'){
-        inputs.forEach(input => {
-          Object.keys(errorMsg.description).forEach(desc => {
-            if(input.name_in_db === desc){
-              input.validation = errorMsg.description[desc][0];
-              input.error = true;
-            }
-          })
-        })
-      }
-      console.log(errorMsg)
-      setSubmitted(false)
-    }
-    else {
-      NotificationManager.error(errorMsg.description);
-      setSubmitted(false)
-    }}
-  }, [errorMsg])
+  const oneItem = useSelector(state => state.baptized.oneItem);
+  const validation = useSelector(state => state.validation);
 
   const editItem = (e) => {
     e.preventDefault();
@@ -97,30 +58,14 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
-    setSubmitted(true)
-    dispatch(putData(`user/${itemId}`, body));
+    dispatch(putData(`note/${oneItem.note.id}`, body, closeModal));
   }
 
 
   useEffect(() => {
     inputs.forEach((input, index) => {
-      if (oneItem) {
-        if (input.name_in_db === 'district') {
-          if(oneItem.district){
-            input.value = {
-              label: oneItem.district.name,
-              id: oneItem.districts_id,
-            }
-          }
-        } else if (input.name_in_db === 'role') {
-          input.value = oneItem.roles_id
-        } else if (input.name_in_db === 'password_hash') {
-          input.value = ''
-        }
-        else {
-          input.value = oneItem[input.name_in_db]
-        }
-      }
+      if(oneItem.note)
+      input.value = oneItem.note[input.name_in_db] || ''
     })
   }, [oneItem]);
 
@@ -144,11 +89,11 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
                 <Title
                   variant="h5"
                   align={'left'}
-                  title={'Uredi krštenika'}
+                  title={'Uredi krštenikove bilješke'}
                 />
               </Box>
               <form>
-                <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
+                <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} validation={validation}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
                     <Button

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,12 +7,11 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
+import { formatLocalDate } from 'Util/common'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
-// Actions
-import { getOneItemPerson } from "Modules/units/Persons";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -34,16 +32,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DocumentPreview = ({ onOpen, closeModal }) => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const history = useHistory();
 
-  const id = history.location.state;
-  const person = useSelector(state => state.persons.oneItem);
+  const baptized = useSelector(state => state.baptized.oneItem);
 
-  useEffect(() => {
-    dispatch(getOneItemPerson(`person/${id}`))
-  }, [])
 
   return (
     <div>
@@ -84,7 +76,15 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Ime'}
                       />
-                      {person.first_name || '-'}
+                      {baptized.person && baptized.person.first_name}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Sin/Kći'}
+                      />
+                      {baptized.child && baptized.child.value}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -92,7 +92,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Prezime'}
                       />
-                      {person.last_name || '-'}
+                      {baptized.person && baptized.person.last_name}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -100,15 +100,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                           align={'left'}
                           title={'Djevojačko prezime'}
                         />
-                      {person.maiden_name || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'JMBG'}
-                      />
-                      {person.identity_number || '-'}
+                      {(baptized.person && baptized.person.maiden_name) || '-'}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
@@ -116,7 +108,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Datum rođenja'}
                       />
-                      {person.birth_date || '-'}
+                      {(baptized.person && formatLocalDate(baptized.person.birth_date)) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -124,23 +116,24 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Mjesto rođenja'}
                       />
-                      {person.city ? person.city.name : '-'}
+                      {(baptized.birth_place && baptized.birth_place.name) || '-'}
                     </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'JMBG'}
+                      />
+                      {(baptized.person && baptized.person.identity_number) || '-'}
+                    </Grid>
+                    
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
                         title={'Prebivalište'}
                       />
-                      {person.domicile || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Majka'}
-                      />
-                      {person.mother ? person.mother.first_name : '-'}
+                      {(baptized.person && baptized.person.domicile) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -148,23 +141,39 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {person.father ? person.father.first_name : '-'}
+                      {(baptized.father && baptized.father.first_name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Župa'}
+                        title={'Majka'}
                       />
-                      {person.district ? person.district.name : '-'}
+                      {(baptized.mother && baptized.mother.first_name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Religija'}
+                        title={'Roditelji kanonski vjenčani'}
                       />
-                      {person.religion ? person.religion.value : '-'}
+                      {(baptized.parents_canonically_married && baptized.parents_canonically_married.value) || '-'}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Kum'}
+                      />
+                      {(baptized.best_man && baptized.best_man.first_name) || '-'}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Krstitelj'}
+                      />
+                      {(baptized.act_performed && `${baptized.act_performed.title} ${baptized.act_performed.first_name} ${baptized.act_performed.last_name}`) || '-'}
                     </Grid>
                   </Grid>
                 </Box>

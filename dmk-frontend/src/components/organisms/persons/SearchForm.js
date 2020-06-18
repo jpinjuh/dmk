@@ -1,13 +1,11 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 // MUI
 import { Box, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
 // Atoms
 import Button from "Components/atoms/buttons/Button";
@@ -31,10 +29,25 @@ const style = makeStyles(theme => ({
 
 const SearchForm = () => {
   const classes = style();
-  const theme = useTheme();
   const [inputs, setInputs] = useState(searchForm);
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.users);
+
+  useEffect(() => {
+    clearInputs()
+  }, [])
+
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
 
   const searchFunc = e => {
     e.preventDefault();
@@ -60,8 +73,8 @@ const SearchForm = () => {
           </Box>
           <Box mx={3} mt={4}>
             <form>
-            <InputForm inputs={inputs} setInputs={setInputs} cols={useMediaQuery(theme.breakpoints.up('sm')) ? 4 : 12} spacing={2}></InputForm>
-            <Grid item xs={useMediaQuery(theme.breakpoints.up('sm')) ? 4 : 12}>
+            <InputForm inputs={inputs} setInputs={setInputs} spacing={2}></InputForm>
+            <Grid item xs={12} md={6} lg={4}>
               <Box mt={3} mb={2} pr={1}>
                 <Button
                   label="Pretraži"

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { NotificationManager } from "react-notifications";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,6 +19,7 @@ import Title from "Components/atoms/UI/Title";
 
 // Services
 import { editPassword } from "Modules/units/Auth"
+import { clearValidation } from "Modules/units/Validation"
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -72,50 +72,26 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState(requiredInputs);
-  const [submitted, setSubmitted] = useState(false)
 
-  const errorMsg = useSelector(state => state.auth.editErrorMsg);
+  const validation = useSelector(state => state.validation);
 
   useEffect(() => {
-    return () => {
-      let clearVal = inputs.filter(input => {
-        input.value = '';
-        input.validation = '';
-        input.error = false;
-        return input;
-      })
-      setInputs(clearVal)
-    }
+    clearInputs()
+    dispatch(clearValidation())
   }, [onOpen])
 
-  useEffect(() => {
-    if (submitted) {
-      if (errorMsg.errorCode === 200) {
-        let clearVal = inputs.filter(input => {
-          input.value = '';
-          input.validation = '';
-          input.error = false;
-          return input;
-        })
-        
-        setInputs(clearVal)
-        setSubmitted(false)
-        closeModal()
-      } else if(errorMsg.errorCode === 400){
-        if(typeof errorMsg.description === 'object'){
-          inputs.forEach(input => {
-            Object.keys(errorMsg.description).forEach(desc => {
-              if(input.name_in_db === desc){
-                input.validation = errorMsg.description[desc][0];
-                input.error = true;
-              }
-            })
-          })
-        }
-        setSubmitted(false)
-      }
-    }
-  }, [errorMsg])
+  
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
 
   const changePassword = e => {
     e.preventDefault();
@@ -124,9 +100,7 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    console.log(body)
-    setSubmitted(true)
-    dispatch(editPassword(`alter_your_password`, body));
+    dispatch(editPassword(`alter_your_password`, body, closeModal));
   
   }
 
@@ -154,7 +128,7 @@ const ChangePasswordModal = ({ onOpen, closeModal }) => {
                 />
               </Box>
               <form>
-                <InputForm inputs={inputs} setInputs={setInputs}></InputForm>
+                <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} validation={validation}></InputForm>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
                     <Button

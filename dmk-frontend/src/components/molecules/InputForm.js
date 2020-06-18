@@ -4,21 +4,20 @@ import React from "react";
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
 
 // Atoms
 import Input from "Components/atoms/inputs/Input";
 import Autocomplete from "Components/atoms/inputs/Autocomplete";
 import Dropdown from "../atoms/inputs/Dropdown";
 import Timepicker from "../atoms/inputs/Timepicker";
+import Multiline from "../atoms/inputs/Multiline";
 
 const useStyles = makeStyles(theme => ({
   
 }));
 
 const InputForm = props => {
-  const { inputs, setInputs, cols, spacing, validation } = props;
+  const { inputs, setInputs, xs, md, lg, spacing, validation } = props;
   const classes = useStyles();
 
   console.log(inputs)
@@ -38,7 +37,7 @@ const InputForm = props => {
       {inputs.map((input, index) => {
         switch (input.type) {
           case 'dropdown':
-            return <Grid item xs={cols || 12} key={input.name_in_db}>
+            return <Grid item xs={xs || 12}  md={md || 6} lg={lg || 4} key={input.name_in_db}>
                 <Dropdown
                   service={input.service}
                   label={input.label}
@@ -49,7 +48,7 @@ const InputForm = props => {
                 />
             </Grid>;
           case 'autocomplete':
-            return <Grid item xs={cols || 12} key={input.name_in_db}>
+            return <Grid item xs={xs || 12}  md={md || 6} lg={lg || 4} key={input.name_in_db}>
                 <Autocomplete
                   service={input.service}
                   label={input.label}
@@ -60,7 +59,7 @@ const InputForm = props => {
                 />
             </Grid>;
           case 'date':
-            return <Grid item xs={cols || 12} key={input.name_in_db}>
+            return <Grid item xs={xs || 12}  md={md || 6} lg={lg || 4} key={input.name_in_db}>
                 <Timepicker
                   type={input.type}
                   value={input.value}
@@ -71,8 +70,20 @@ const InputForm = props => {
                   error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
                 />
             </Grid>;
+          case 'multiline':
+            return <Grid item xs={xs || 12}  md={md || 6} lg={lg || 4} key={input.name_in_db}>
+                <Multiline
+                  type={input.type}
+                  value={input.value}
+                  disabled={input.disabled}
+                  onChange={handleInputChange(index)}
+                  label={input.label}
+                  validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
+                  error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
+                />
+            </Grid>;
           default:
-            return <Grid item xs={cols || 12} key={input.name_in_db}>
+            return <Grid item xs={xs || 12}  md={md || 6} lg={lg || 4} key={input.name_in_db}>
                 <Input
                   type={input.type}
                   value={input.value}

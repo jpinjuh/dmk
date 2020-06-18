@@ -41,10 +41,6 @@ const ACTIVATE_DATA_FLR = "ACTIVATE_DATA_FLR";
 const SEARCH_DATA_REQ = "SEARCH_DATA_REQ";
 const SEARCH_DATA_SCS = "SEARCH_DATA_SCS";
 const SEARCH_DATA_FLR = "SEARCH_DATA_FLR";
-//  CHANGE USER PASSWORD
-const CHANGE_PASS_DATA_REQ = "CHANGE_PASS_DATA_REQ";
-const CHANGE_PASS_DATA_SCS = "CHANGE_PASS_DATA_SCS";
-const CHANGE_PASS_DATA_FLR = "CHANGE_PASS_DATA_FLR";
 
 /**
 |--------------------------------------------------
@@ -65,13 +61,14 @@ export const getData = (url) => async dispatch => {
   }
 };
 
-export const getOneItem = (url) => async dispatch => {
+export const getOneItem = (url, setOpen) => async dispatch => {
   dispatch({ type: GET_ONE_ITEM_REQ });
 
   const response = await getFunc(url);
 
   if (response.status.errorCode === 200) {
     dispatch({ type: GET_ONE_ITEM_SCS, payload: response.data });
+    setOpen(true);
   } else {
     dispatch({ type: GET_ONE_ITEM_FLR });
     NotificationManager.error(response.status.description);
@@ -161,27 +158,6 @@ export const searchData = (url, body) => async dispatch => {
     NotificationManager.error(response.status.description);
   }
 };
-
-export const editPassword = (url, body, closeModal) => async dispatch => {
-  dispatch({ type: CHANGE_PASS_DATA_REQ });
-
-  const response = await putFunc(url, body);
-
-  if (response.status.errorCode === 200) {
-    dispatch({ type: CHANGE_PASS_DATA_SCS, payload: response.data, status: response.status });
-    dispatch({ type: VALIDATION_CLEAR });
-    NotificationManager.success(response.status.description);
-    closeModal()
-  } else {
-    if (typeof response.status.description === "object") {
-      dispatch({ type: VALIDATION_MESSAGE, message: response.status });
-    }
-    else {
-      NotificationManager.error(response.status.description);
-    }
-    dispatch({ type: CHANGE_PASS_DATA_FLR, status: response.status });
-  }
-};
 /**
 |--------------------------------------------------
 | REDUCERS
@@ -190,7 +166,7 @@ export const editPassword = (url, body, closeModal) => async dispatch => {
 
 const INIT_STATE = {
   data: "",
-  oneItem: "",
+  oneItem: {},
   total: "",
   postErrorMsg: "",
   editErrorMsg: ""
@@ -333,23 +309,6 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case SEARCH_DATA_FLR:
       return {
         ...state,
-        loading: false
-      };
-    case CHANGE_PASS_DATA_REQ:
-      return {
-        ...state,
-        loading: true
-      };
-    case CHANGE_PASS_DATA_SCS:
-      return {
-        ...state,
-        editErrorMsg: action.status,
-        loading: false
-      };
-    case CHANGE_PASS_DATA_FLR:
-      return {
-        ...state,
-        editErrorMsg: action.status,
         loading: false
       };
     default:
