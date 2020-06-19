@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   tableCell: { 
     margin: "auto",
     height: '100%',
-    padding: '5px 10px',
+    padding: '5px 6px',
     fontSize: 10,
     borderStyle: "solid",
     borderBottom: 1 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
 const today = moment().format('D.M.YYYY');
 
-const ChrismNotePdf = () =>{
+const ChrismNotePdf = ({chrisms}) =>{
   //const baptized = useSelector(state => state.baptized.oneItem);
   return (
     <Document>
@@ -81,70 +81,70 @@ const ChrismNotePdf = () =>{
         <View style={styles.section}>
           <View style={styles.table}> 
             <View style={styles.tableRow}> 
-              <View style={[styles.tableCol, { width: '20%', paddingTop:'36px'}]}> 
+              <View style={[styles.tableCol, { width: '19%', paddingTop:'36px'}]}> 
                 <Text style={styles.tableCell}>KRIZMANIK</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '30%' }]}> 
+              <View style={[styles.tableCol, { width: '28%' }]}> 
                 <Text style={styles.tableCell}>Ime i prezime</Text>
                 <Text style={styles.tableCell}>Mjesto i datum rođenja</Text> 
                 <Text style={styles.tableCell}>Župa i datum krštenja</Text> 
                 <Text style={styles.tableCell}>Mjesto stanovanja</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '50%' }]}> 
-                <Text style={styles.tableCell}></Text>
-                <Text style={styles.tableCell}></Text> 
-                <Text style={styles.tableCell}></Text> 
-                <Text style={styles.tableCell}></Text>  
+              <View style={[styles.tableCol, { width: '53%' }]}> 
+                <Text style={styles.tableCell}>{chrisms.person && `${chrisms.person.first_name}, ${chrisms.person.last_name}`}</Text>
+                <Text style={styles.tableCell}>{chrisms.person && chrisms.birth_place && `${chrisms.person.last_name}, ${formatLocalDate(chrisms.person.birth_date)}`}</Text> 
+                <Text style={styles.tableCell}>{chrisms.baptism_district && `${chrisms.baptism_district.name}, 10.05.1985`}</Text> 
+                <Text style={styles.tableCell}>{(chrisms.person && chrisms.person.domicile) || '-'}</Text>  
               </View> 
             </View>
 
             <View style={styles.tableRow}> 
-              <View style={[styles.tableCol, { width: '20%', paddingTop:'12px'}]}> 
+              <View style={[styles.tableCol, { width: '19%', paddingTop:'12px'}]}> 
                 <Text style={styles.tableCell}>RODITELJI</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '30%' }]}> 
+              <View style={[styles.tableCol, { width: '28%' }]}> 
                 <Text style={styles.tableCell}>Ime oca</Text>
                 <Text style={styles.tableCell}>Ime i djevojačko prezime majke</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '50%' }]}> 
-                <Text style={styles.tableCell}></Text>
-                <Text style={styles.tableCell}></Text> 
+              <View style={[styles.tableCol, { width: '53%' }]}> 
+                <Text style={styles.tableCell}>{chrisms.father && `${chrisms.father.first_name}, ${chrisms.father.last_name}`}</Text>
+                <Text style={styles.tableCell}>{chrisms.mother && `${chrisms.mother.first_name}, ${chrisms.mother.maiden_name}`}</Text> 
               </View> 
             </View>
 
             <View style={styles.tableRow}> 
-              <View style={[styles.tableCol, { width: '20%'}]}> 
+              <View style={[styles.tableCol, { width: '19%'}]}> 
                 <Text style={styles.tableCell}>KUM/A</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '30%' }]}> 
+              <View style={[styles.tableCol, { width: '28%' }]}> 
                 <Text style={styles.tableCell}>Ime i prezime, njihova župa</Text>
               </View> 
-              <View style={[styles.tableCol, { width: '50%' }]}> 
-                <Text style={styles.tableCell}></Text>
+              <View style={[styles.tableCol, { width: '53%' }]}> 
+                <Text style={styles.tableCell}>{chrisms.best_man && `${chrisms.best_man.first_name} ${chrisms.best_man.last_name}` || '-'}</Text>
               </View> 
             </View>
 
             <View style={styles.tableRow}> 
-              <View style={[styles.tableCol, { width: '20%'}]}> 
+              <View style={[styles.tableCol, { width: '19%'}]}> 
                 <Text style={styles.tableCell}>DJELITELJ KRIZME</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '30%' }]}> 
+              <View style={[styles.tableCol, { width: '28%' }]}> 
                 <Text style={styles.tableCell}>Ime, prezime i služba</Text>
               </View> 
-              <View style={[styles.tableCol, { width: '50%' }]}> 
-                <Text style={styles.tableCell}></Text>
+              <View style={[styles.tableCol, { width: '53%' }]}> 
+                <Text style={styles.tableCell}>{chrisms.act_performed && `${chrisms.act_performed.title} ${chrisms.act_performed.first_name} ${chrisms.act_performed.last_name}` || '-'}</Text>
               </View> 
             </View>
 
             <View style={styles.tableRow}> 
-              <View style={[styles.tableCol, { width: '20%'}]}> 
+              <View style={[styles.tableCol, { width: '19%'}]}> 
                 <Text style={styles.tableCell}>MJESTO I DATUM</Text> 
               </View> 
-              <View style={[styles.tableCol, { width: '30%' }]}> 
+              <View style={[styles.tableCol, { width: '28%' }]}> 
                 <Text style={styles.tableCell}>Krizme</Text>
               </View> 
-              <View style={[styles.tableCol, { width: '50%' }]}> 
-                <Text style={styles.tableCell}></Text>
+              <View style={[styles.tableCol, { width: '53%' }]}> 
+                <Text style={styles.tableCell}>{chrisms.document_chrism && `Mjesto ${formatLocalDate(chrisms.document_chrism.act_date)}` || '-'}</Text>
               </View> 
             </View>
           </View>

@@ -40,6 +40,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
   const deceased = useSelector(state => state.deceased.oneItem);
+  const fullName = `${deceased.person && deceased.person.first_name} ${deceased.person && deceased.person.last_name}`;
 
 
   return (
@@ -67,24 +68,21 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
               </Box>
               <Box>
                 <Box my={2} display="flex" justifyContent="flex-end">
-                  <ButtonWithIcon 
-                    label="Isprintaj"
-                    icon={'print'}
-                    size="16px"
-                  />
                   <PDFDownloadLink
                     document={<PdfDocument deceased={deceased}/>}
-                    fileName="SmrtniList.pdf"
+                    fileName={`Smrtni list - ${fullName}.pdf`}
                     style={{
-                      textDecoration: "none",
-                      padding: "10px",
-                      color: "#4a4a4a",
-                      backgroundColor: "#f2f2f2",
-                      border: "1px solid #4a4a4a"
+                      textDecoration: "none"
                     }}
                   >
                     {({ blob, url, loading, error }) =>
-                      loading ? "Loading document..." : "Download Pdf"
+                      loading 
+                      ? "Učitavanje dokumenta..." 
+                      : <ButtonWithIcon 
+                          label="Isprintaj"
+                          icon={'print'}
+                          size="16px"
+                        />
                     }
                   </PDFDownloadLink>
                 </Box>
@@ -102,9 +100,13 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Sin/Kći'}
+                        title={'Spol'}
                       />
-                      {deceased.child && deceased.child.value}
+                      {deceased.gender && 
+                        deceased.gender.value === 'Sin'
+                        ? 'Muško'
+                        : 'Žensko'
+                      }
                     </Grid>
                     <Grid item xs={4}>
                       <Title

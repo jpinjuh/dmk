@@ -16,6 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
+import ChrismNotePdf from 'Components/organisms/persons/ChrismNotePdf'
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,6 +41,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
   const chrisms = useSelector(state => state.chrisms.oneItem);
+  const fullName = `${chrisms.person && chrisms.person.first_name} ${chrisms.person && chrisms.person.last_name}`;
 
 
   return (
@@ -66,7 +68,25 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                 />
               </Box>
               <Box>
-              
+              <Box my={2} display="flex" justifyContent="flex-end">
+                  <PDFDownloadLink
+                    document={<ChrismNotePdf chrisms={chrisms}/>}
+                    fileName={`Krizmena cedulja - ${fullName}.pdf`}
+                    style={{
+                      textDecoration: "none"
+                    }}
+                  >
+                    {({ blob, url, loading, error }) =>
+                      loading 
+                      ? "Učitavanje dokumenta..." 
+                      : <ButtonWithIcon 
+                          label="Isprintaj"
+                          icon={'print'}
+                          size="16px"
+                        />
+                    }
+                  </PDFDownloadLink>
+                </Box>
                 <Box>
                   <Grid container alignItems="center" spacing={3}>
                     <Grid item xs={4}> 
@@ -107,7 +127,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Župa krštenja'}
                       />
-                      {(chrisms.district_baptism && chrisms.district_baptism.name) || '-'}
+                      {(chrisms.baptism_district && chrisms.baptism_district.name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -115,7 +135,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Datum krštenja'}
                       />
-                      {(chrisms.district_baptism && formatLocalDate(chrisms.district_baptism.act_date)) || '-'}
+                      {(chrisms.baptism_district && formatLocalDate(chrisms.baptism_district.act_date)) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title

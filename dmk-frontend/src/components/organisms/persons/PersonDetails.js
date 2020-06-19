@@ -236,7 +236,7 @@ const PersonDetails = () => {
               <Grid item>
                 <Container>
                   <ButtonWithIcon
-                    label={'Krizmana Cedulja'}
+                    label={'Krizmena Cedulja'}
                     icon={'open_in_new'}
                     size="20px"
                     onClick={() => dispatch(getChrisms(`chrism_note/${person.documents[1].id}`, setOpenChrisms))}

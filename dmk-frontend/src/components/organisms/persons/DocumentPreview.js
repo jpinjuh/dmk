@@ -73,7 +73,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
               <Box>
                 <Box my={2} display="flex" justifyContent="flex-end">
                   <PDFDownloadLink
-                    document={<BaptizedPdf />}
+                    document={<BaptizedPdf baptized={baptized}/>}
                     fileName={`Krsni list - ${fullName}.pdf`}
                     style={{
                       textDecoration: "none"

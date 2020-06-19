@@ -179,14 +179,14 @@ const PdfDocument = ({deceased}) =>{
           <Text style={styles.num}>{deceased.document && deceased.document.document_number}</Text>
           <Text style={styles.rimDistrict}>{deceased.district_person && deceased.district_person.name}</Text>
           <Text style={styles.svezak}>{deceased.document && deceased.document.volume}</Text>
-          <Text style={styles.year}>{deceased.document && deceased.document.document_year}</Text>
+          <Text style={styles.year}>{deceased.document && deceased.document.year}</Text>
           <Text style={styles.page}>{deceased.document && deceased.document.page}</Text>
           <Text style={styles.broj}>{deceased.document && deceased.document.number}</Text>
           <Text style={styles.deathDate}>{deceased.document && formatLocalDate(deceased.document.act_date)}</Text>
           <Text style={styles.deathPlace}>{deceased.place_of_death && deceased.place_of_death.name}</Text>
           <Text style={styles.name}>{deceased.person && deceased.person.first_name}</Text>
           {
-            (deceased.child && deceased.child.value==='Sin')
+            (deceased.gender && deceased.gender.value==='Sin')
             ? <Text style={styles.circleMen}></Text>
             : <Text style={styles.circleWoman}></Text>
           }
