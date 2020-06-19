@@ -16,7 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import PdfDocument from 'Components/organisms/persons/PdfDocument'
+import BaptizedPdf from 'Components/organisms/persons/BaptizedPdf'
 
 // Actions
 import { getOneItemPerson } from "Modules/units/Persons";
@@ -45,7 +45,8 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
 
   const baptized = useSelector(state => state.baptized.oneItem);
 
-
+  const fullName = `${baptized.person && baptized.person.first_name} ${baptized.person && baptized.person.last_name}`;
+  
   return (
     <div>
       <Modal
@@ -72,8 +73,8 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
               <Box>
                 <Box my={2} display="flex" justifyContent="flex-end">
                   <PDFDownloadLink
-                    document={<BaptizedPdf baptized={baptized}/>}
-                    fileName="Krsni list.pdf"
+                    document={<BaptizedPdf />}
+                    fileName={`Krsni list - ${fullName}.pdf`}
                     style={{
                       textDecoration: "none"
                     }}

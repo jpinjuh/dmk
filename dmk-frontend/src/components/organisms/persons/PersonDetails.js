@@ -219,7 +219,7 @@ const PersonDetails = () => {
                     label={'Krsni List'}
                     icon={'open_in_new'}
                     size="20px"
-                    onClick={() => dispatch(getBaptized(`registry_of_baptism/${person.documents[0].id}`, setOpenPreview))}
+                    onClick={() => dispatch(getBaptized(`registry_of_baptism/${person.documents[0].id}`, setOpenBaptized))}
                   />
                 </Container>
               </Grid>

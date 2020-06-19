@@ -25,60 +25,60 @@ const styles = StyleSheet.create({
   },
   arch: {
     position: 'absolute',
-    left: '155px',
-    top: '88px',
+    left: '150px',
+    top: '85px',
   },
   district: {
     position: 'absolute',
-    top: '114px',
-    left: '125px',
+    top: '113px',
+    left: '120px',
   },
   num: {
     position: 'absolute',
-    top: '129px',
-    left: '112px',
+    top: '128px',
+    left: '102px',
   },
   rimDistrict: {
     position: 'absolute',
-    top: '228px',
-    left: '250px'
+    top: '229px',
+    left: '245px'
   },
   svezak: {
     position: 'absolute',
-    top: '254px',
+    top: '255px',
     left: '130px'
   },
   year: {
     position: 'absolute',
-    top: '254px',
-    left: '245px'
+    top: '255px',
+    left: '247px'
   },
   page: {
     position: 'absolute',
-    top: '254px',
-    left: '350px'
+    top: '255px',
+    left: '352px'
   },
   broj: {
     position: 'absolute',
-    top: '254px',
-    left: '422px'
+    top: '255px',
+    left: '424px'
   },
   baptDate: {
     position: 'absolute',
-    top: '289px',
+    top: '290px',
     left: '245px'
   },
   name: {
     position: 'absolute',
-    top: '312px',
+    top: '314px',
     left: '245px'
   },
   circleMen: {
     position: 'absolute',
     width: '35px',
     height: '35px',
-    top: '303px',
-    left: '425px',
+    top: '304px',
+    left: '428px',
     border: '1px solid black',
     borderRadius: '50%'
   },
@@ -86,65 +86,65 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '35px',
     height: '35px',
-    top: '303px',
-    left: '483px',
+    top: '304px',
+    left: '486px',
     border: '1px solid black',
     borderRadius: '50%'
   },
   lastName: {
     position: 'absolute',
-    top: '335px',
+    top: '337px',
     left: '245px'
   },
   birthDate: {
     position: 'absolute',
-    top: '358px',
+    top: '361px',
     left: '245px',
     fontSize: '10px'
   },
   birthPlace: {
     position: 'absolute',
-    top: '381px',
+    top: '385px',
     left: '245px'
   },
   jmbg: {
     position: 'absolute',
-    top: '404px',
+    top: '408px',
     left: '245px'
   },
   domicile: {
     position: 'absolute',
-    top: '427px',
+    top: '431px',
     left: '245px'
   },
   father: {
     position: 'absolute',
-    top: '450px',
+    top: '454px',
     left: '245px'
   },
   mother: {
     position: 'absolute',
-    top: '473px',
+    top: '478px',
     left: '245px'
   },
   canocicallyMarried: {
     position: 'absolute',
-    top: '496px',
+    top: '501px',
     left: '245px'
   },
   bestMan: {
     position: 'absolute',
-    top: '519px',
+    top: '525px',
     left: '245px'
   },
   actPerformed: {
     position: 'absolute',
-    top: '542px',
+    top: '549px',
     left: '245px'
   },
   notes: {
     position: 'absolute',
-    top: '578px',
+    top: '562px',
     left: '80px',
     height: '100px',
     width: '437px',
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   todayDate: {
     position: 'absolute',
-    top: '732px',
+    top: '741px',
     left: '148px'
   }
 });
