@@ -29,10 +29,10 @@ export const DistrictForm = [
   },
   {
     label: 'Biskupija',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'archdiocese',
-    service: 'archdiocese/autocomplete',
+    service: 'archdiocese',
     validation: null,
     error: false,
     value: null
@@ -70,10 +70,10 @@ export const EditForm = [
   },
   {
     label: 'Biskupija',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'archdiocese',
-    service: 'archdiocese/autocomplete',
+    service: 'archdiocese',
     validation: null,
     error: false,
     value: null

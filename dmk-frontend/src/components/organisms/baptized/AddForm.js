@@ -122,7 +122,7 @@ const AddForm = ({open, setOpen}) => {
               <InputForm inputs={personInputs} setInputs={setPersonInputs} spacing={2} validation={validation}></InputForm>
             </Box>
             <Divider />
-            <Box mt={4}>
+            <Box mt={4} mb={6}>
               <Box mb={2}>
                 <Title
                   align={'left'}

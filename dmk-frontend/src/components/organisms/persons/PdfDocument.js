@@ -3,6 +3,7 @@ import moment from 'moment';
 
 // Utils
 import { formatLocalDate } from 'Util/common'
+import { capitalize } from 'Util/common'
 
 import {
   Page,
@@ -170,6 +171,7 @@ const styles = StyleSheet.create({
 const today = moment().format('D.M.YYYY');
 
 const PdfDocument = ({deceased}) =>{
+
   return (
     <Document>
       <Page size="A4">
@@ -198,7 +200,7 @@ const PdfDocument = ({deceased}) =>{
           <Text style={styles.wife}>{(deceased.note && deceased.note.spouse_name) || '-'}</Text>
           <Text style={styles.father}>{(deceased.father && `${deceased.father.first_name}, ${deceased.father.last_name}`) || '-'}</Text>
           <Text style={styles.mother}>{(deceased.mother && `${deceased.mother.first_name}, ${deceased.mother.maiden_name}`) || '-'}</Text>
-          <Text style={styles.sakrament}>Krštenje, Krizma</Text>
+          <Text style={styles.sakrament}>{deceased.sacraments && capitalize(deceased.sacraments)}</Text>
           <Text style={styles.deathPlaceAndDate}>{ deceased.place_of_burial && `${deceased.place_of_burial.value} ${formatLocalDate(deceased.place_of_burial.created_at)}` }</Text>
           <Text style={styles.actPerformed}>{(deceased.act_performed && `${deceased.act_performed.title} ${deceased.act_performed.first_name} ${deceased.act_performed.last_name}`) || '-'}</Text>
           <Text style={styles.notes}>{(deceased.note && deceased.note.other_notes) || '-'}</Text>

@@ -13,3 +13,10 @@ export const formatLocalDate = date => {
   
     return [day, month, year].join('.');
   }
+
+export const capitalize = arr => {
+  const x = arr.map(item => {
+    return item.charAt(0).toUpperCase() + item.slice(1)
+  }).join(', ')
+  return x
+}

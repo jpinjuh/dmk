@@ -10,7 +10,10 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
+
+// Utils
 import { formatLocalDate } from 'Util/common'
+import { capitalize } from 'Util/common'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
@@ -171,6 +174,22 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         title={'Majka'}
                       />
                       {(deceased.mother && `${deceased.mother.first_name}, ${deceased.mother.maiden_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Proviđen sakramentima'}
+                      />
+                      {(deceased.sacraments && capitalize(deceased.sacraments)) || '-'}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto i datum pokopa'}
+                      />
+                      {(deceased.place_of_burial && `${deceased.place_of_burial.value} ${formatLocalDate(deceased.place_of_burial.created_at)}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
