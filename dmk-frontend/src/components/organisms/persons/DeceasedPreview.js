@@ -16,7 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import BaptizedPdf from 'Components/organisms/persons/PdfDocument'
+import PdfDocument from 'Components/organisms/persons/PdfDocument'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -73,7 +73,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                     size="16px"
                   />
                   <PDFDownloadLink
-                    document={<BaptizedPdf deceased={deceased}/>}
+                    document={<PdfDocument deceased={deceased}/>}
                     fileName="SmrtniList.pdf"
                     style={{
                       textDecoration: "none",
@@ -130,11 +130,27 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                       />
                       {(deceased.birth_place && deceased.birth_place.name) || '-'}
                     </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Župa krštenja'}
+                      />
+                      {(deceased.district_baptism && deceased.district_baptism.name) || '-'}
+                    </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Prebivalište'}
+                        title={'Datum krštenja'}
+                      />
+                      {(deceased.district_baptism && formatLocalDate(deceased.district_baptism.created_at)) || '-'}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Suprug/a'}
                       />
                       {(deceased.spouse && deceased.spouse.first_name) || '-'}
                     </Grid>
@@ -144,7 +160,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(deceased.father && deceased.father.first_name) || '-'}
+                      {(deceased.father && `${deceased.father.first_name}, ${deceased.father.last_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -152,7 +168,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Majka'}
                       />
-                      {(deceased.mother && deceased.mother.first_name) || '-'}
+                      {(deceased.mother && `${deceased.mother.first_name}, ${deceased.mother.maiden_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title

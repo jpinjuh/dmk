@@ -16,10 +16,6 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import BaptizedPdf from 'Components/organisms/persons/BaptizedPdf'
-
-// Actions
-import { getOneItemPerson } from "Modules/units/Persons";
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,10 +36,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DocumentPreview = ({ onOpen, closeModal }) => {
+const ChrismPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
-  const baptized = useSelector(state => state.baptized.oneItem);
+  const chrisms = useSelector(state => state.chrisms.oneItem);
 
 
   return (
@@ -66,45 +62,20 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                 <Title
                   variant="h5"
                   align={'center'}
-                  title={'Krsni list'}
+                  title={'Krizmena cedulja'}
                 />
               </Box>
               <Box>
-                <Box my={2} display="flex" justifyContent="flex-end">
-                  <PDFDownloadLink
-                    document={<BaptizedPdf baptized={baptized}/>}
-                    fileName="Krsni list.pdf"
-                    style={{
-                      textDecoration: "none"
-                    }}
-                  >
-                    {({ blob, url, loading, error }) =>
-                      loading 
-                      ? "Učitavanje dokumenta..." 
-                      : <ButtonWithIcon 
-                          label="Isprintaj"
-                          icon={'print'}
-                          size="16px"
-                        />
-                    }
-                  </PDFDownloadLink>
-                </Box>
+              
                 <Box>
                   <Grid container alignItems="center" spacing={3}>
                     <Grid item xs={4}> 
                       <Title
+                        variant="h6"
                         align={'left'}
                         title={'Ime'}
                       />
-                      {baptized.person && baptized.person.first_name}
-                    </Grid>
-                    <Grid item xs={4}> 
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Sin/Kći'}
-                      />
-                      {baptized.child && baptized.child.value}
+                      {chrisms.person && chrisms.person.first_name}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -112,48 +83,47 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Prezime'}
                       />
-                      {baptized.person && baptized.person.last_name}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                          variant="h6"
-                          align={'left'}
-                          title={'Djevojačko prezime'}
-                        />
-                      {(baptized.person && baptized.person.maiden_name) || '-'}
+                      {chrisms.person && chrisms.person.last_name}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Datum rođenja'}
-                      />
-                      {(baptized.person && formatLocalDate(baptized.person.birth_date)) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
                         title={'Mjesto rođenja'}
                       />
-                      {(baptized.birth_place && baptized.birth_place.name) || '-'}
+                      {(chrisms.person && formatLocalDate(chrisms.person.birth_date)) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'JMBG'}
+                        title={'Datum rođenja'}
                       />
-                      {(baptized.person && baptized.person.identity_number) || '-'}
+                      {(chrisms.birth_place && chrisms.birth_place.name) || '-'}
                     </Grid>
-                    
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Župa krštenja'}
+                      />
+                      {(chrisms.district_baptism && chrisms.district_baptism.name) || '-'}
+                    </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Prebivalište'}
+                        title={'Datum krštenja'}
                       />
-                      {(baptized.person && baptized.person.domicile) || '-'}
+                      {(chrisms.district_baptism && formatLocalDate(chrisms.district_baptism.act_date)) || '-'}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto stanovanja'}
+                      />
+                      {(chrisms.person && chrisms.person.domicile) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -161,54 +131,51 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(baptized.father && `${baptized.father.first_name}, ${baptized.father.last_name}, vjera`) || '-'}
+                      {(chrisms.father && `${chrisms.father.first_name}, ${chrisms.father.last_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Majka'}
+                        title={'Majka, djevojačko prezime'}
                       />
-                      {(baptized.mother && `${baptized.mother.first_name}, ${baptized.mother.maiden_name}, vjera`) || '-'}
+                      {(chrisms.mother && `${chrisms.mother.first_name}, ${chrisms.mother.maiden_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Roditelji kanonski vjenčani'}
+                        title={'Kum/a, župa'}
                       />
-                      {(baptized.parents_canonically_married && baptized.parents_canonically_married.value) || '-'}
+                      {(chrisms.best_man && `${chrisms.best_man.first_name} ${chrisms.best_man.last_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Kum'}
+                        title={'Djelitelj krizme, služba'}
                       />
-                      {(baptized.best_man && `${baptized.best_man.first_name}, ${baptized.best_man.last_name}`) || '-'}
+                      {(chrisms.act_performed && `${chrisms.act_performed.title} ${chrisms.act_performed.first_name} ${chrisms.act_performed.last_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto krizme'}
+                      />
+                      {/*(chrisms.person && formatLocalDate(chrisms.person.birth_date)) || '-'*/'Mjesto krizme'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Krstitelj'}
+                        title={'Datum krizme'}
                       />
-                      {(baptized.act_performed && `${baptized.act_performed.title} ${baptized.act_performed.first_name} ${baptized.act_performed.last_name}`) || '-'}
+                      {(chrisms.document_chrism && formatLocalDate(chrisms.document_chrism.act_date)) || '-'}
                     </Grid>
                   </Grid>
                 </Box>
               </Box>
-              <Box mt={4}>
-              <Box mb={2}>
-                <Title
-                  variant={'h6'}
-                  align={'center'}
-                  title={'Bilješke'}
-                  bgColor={'#8e93b9'}
-                />
-              </Box>
-
-            </Box>
             </Grid>
           </Container>
         </Fade>
@@ -217,4 +184,4 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
   );
 }
 
-export default DocumentPreview;
+export default ChrismPreview;
