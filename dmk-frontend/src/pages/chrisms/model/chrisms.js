@@ -6,7 +6,7 @@ export const ChrismForm = [
     name_in_db: 'act_date',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Krizmanik',
@@ -16,7 +16,7 @@ export const ChrismForm = [
     service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Kum/a',
@@ -26,7 +26,7 @@ export const ChrismForm = [
     service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Djelitelj krizme',
@@ -36,7 +36,7 @@ export const ChrismForm = [
     service: 'user/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Župa',
@@ -46,7 +46,7 @@ export const ChrismForm = [
     service: 'district/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   }
 ]
 
@@ -58,7 +58,7 @@ export const EditForm = [
     name_in_db: 'act_date',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Krizmanik',
@@ -68,7 +68,7 @@ export const EditForm = [
     service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Kum/a',
@@ -78,7 +78,7 @@ export const EditForm = [
     service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Djelitelj krizme',
@@ -88,7 +88,7 @@ export const EditForm = [
     service: 'user/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Župa',
@@ -98,6 +98,6 @@ export const EditForm = [
     service: 'district/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   }
 ]

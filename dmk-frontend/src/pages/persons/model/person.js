@@ -126,7 +126,8 @@ export const EditForm = [
     disabled: false,
     name_in_db: 'birth_date',
     validation: null,
-    error: false
+    error: false,
+    value: null
   },
   {
     label: 'Mjesto rođenja',

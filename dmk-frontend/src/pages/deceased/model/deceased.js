@@ -6,7 +6,7 @@ export const DeceasedForm = [
     name_in_db: 'date_of_death',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Mjesto smrti',
@@ -16,7 +16,7 @@ export const DeceasedForm = [
     service: 'city/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Osoba',
@@ -26,7 +26,7 @@ export const DeceasedForm = [
     service: 'person/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Mjesto pokopa',
@@ -36,7 +36,7 @@ export const DeceasedForm = [
     service: 'listItem?list_id=1cb9f951-1059-4c17-ba30-b1846dd98b97',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Datum pokopa',
@@ -45,7 +45,7 @@ export const DeceasedForm = [
     name_in_db: 'act_date',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Crkveni službenik sprovoda',
@@ -55,7 +55,7 @@ export const DeceasedForm = [
     service: 'user/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Župa',
@@ -65,7 +65,7 @@ export const DeceasedForm = [
     service: 'district/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Svezak',
