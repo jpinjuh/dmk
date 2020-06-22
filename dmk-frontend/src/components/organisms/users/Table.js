@@ -30,8 +30,6 @@ const Table = () => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
   const [changePwdOpen, setChangePwdOpen] = useState(false);
-  const [itemId, setItemId] = useState('');
-  const [item, setItem] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
@@ -39,11 +37,6 @@ const Table = () => {
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.users);
-
-  const getItem = async id => {
-    dispatch(getOneItem(`user/${id}`))
-    setTimeout(() => setOpen(true), 500)
-  };
 
   const columns = [
     {
@@ -134,14 +127,14 @@ const Table = () => {
                   <ButtonWithIcon
                     label={'Uredi'}
                     icon={"edit"}
-                    onClick={() => { setItemId(value); getItem(value); }}
+                    onClick={() => dispatch(getOneItem(`user/${value}`, setOpen))}
                   />
                 </Box>
                 <Box mr={3}>
                   <ButtonWithIcon
                     label={'Promjeni lozinku'}
                     icon={"vpn_key"}
-                    onClick={() => {setChangePwdOpen(true), setItemId(value)}}
+                    onClick={() => dispatch(getOneItem(`user/${value}`, setChangePwdOpen))}
                   />
                 </Box>
                 <div>
@@ -150,14 +143,14 @@ const Table = () => {
                       <ButtonWithIcon
                         label={'Aktiviraj'}
                         icon={"visibility"}
-                        onClick={() => { setActivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`user/${value}`, setActivateOpen))}
                       />
                     </Box>
                     : <Box>
                       <ButtonWithIcon
                         label={'Deaktiviraj'}
                         icon={"visibility_off"}
-                        onClick={() => { setDeactivateOpen(true); setItemId(value) }}
+                        onClick={() => dispatch(getOneItem(`user/${value}`, setDeactivateOpen))}
                       />
                     </Box>
                   }
@@ -262,33 +255,29 @@ const Table = () => {
         />}
 
       <AddModal
-        onOpen={openAdd} 
+        onOpen={openAdd}
+        openEdit={() => setOpen(true)} 
         closeModal={() => setOpenAdd(false)} 
       ></AddModal>
 
       <EditModal
         onOpen={open}
         closeModal={() => setOpen(false)}
-        item={item}
-        itemId={itemId}
       ></EditModal>
 
       <UserPasswordModal
         onOpen={changePwdOpen}
         closeModal={() => setChangePwdOpen(false)}
-        itemId={itemId}
       ></UserPasswordModal>
 
       <DeactivateModal
         onDeactivate={deactivateOpen}
         closeDeactivate={() => setDeactivateOpen(false)}
-        itemId={itemId}
       ></DeactivateModal>
 
       <ActivateModal
         onActivate={activateOpen}
         closeActivate={() => setActivateOpen(false)}
-        itemId={itemId}
       ></ActivateModal>
     </>
   );

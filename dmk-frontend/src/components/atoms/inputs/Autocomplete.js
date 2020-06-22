@@ -14,7 +14,7 @@ const optionText = (option) => {
   //const values = Object.values(option);
   if (typeof option === "object") {
     for (let property in option) {
-      label = option['identity_number'] ? `${option['first_name']} ${option['last_name']}, JMBG: ${option['identity_number']}` : (option['name'] || `${option['first_name']} ${option['last_name']}`)
+      label = option['identity_number'] ? `${option['first_name']} ${option['last_name']}, JMBG: ${option['identity_number']}` : (option['name'] || `${option['first_name']} ${option['last_name']}, ${option['title']}`)
     }
     return label;
   }

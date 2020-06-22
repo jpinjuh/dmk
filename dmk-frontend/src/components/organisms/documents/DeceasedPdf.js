@@ -1,5 +1,4 @@
 import React from "react";
-import moment from 'moment';
 
 // Utils
 import { formatLocalDate } from 'Util/common'
@@ -168,9 +167,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const today = moment().format('D.M.YYYY');
-
-const PdfDocument = ({deceased}) =>{
+const DeceasedPdf = ({deceased}) =>{
 
   return (
     <Document>
@@ -184,7 +181,7 @@ const PdfDocument = ({deceased}) =>{
           <Text style={styles.year}>{deceased.document && deceased.document.year}</Text>
           <Text style={styles.page}>{deceased.document && deceased.document.page}</Text>
           <Text style={styles.broj}>{deceased.document && deceased.document.number}</Text>
-          <Text style={styles.deathDate}>{deceased.document && formatLocalDate(deceased.document.act_date)}</Text>
+          <Text style={styles.deathDate}>{deceased.date_of_death && formatLocalDate(deceased.date_of_death)}</Text>
           <Text style={styles.deathPlace}>{deceased.place_of_death && deceased.place_of_death.name}</Text>
           <Text style={styles.name}>{deceased.person && deceased.person.first_name}</Text>
           {
@@ -211,4 +208,4 @@ const PdfDocument = ({deceased}) =>{
   );
 }
 
-export default PdfDocument;
+export default DeceasedPdf;

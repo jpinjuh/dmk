@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddModal = ({ onOpen, closeModal }) => {
+const AddModal = ({ onOpen, closeModal, openEdit }) => {
   const [inputs, setInputs] = useState(UserForm);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -75,7 +75,7 @@ const AddModal = ({ onOpen, closeModal }) => {
   useEffect(() => {
     clearInputs();
     dispatch(clearValidation())
-  }, [])
+  }, [onOpen])
 
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
@@ -94,14 +94,10 @@ const AddModal = ({ onOpen, closeModal }) => {
     e.preventDefault();
 
     const body = {};
-    const arr = []
-
     inputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
-      arr.push(input.value)
     })
-    setItem(arr)
-    dispatch(postData(`user`, body, clearInputs, setOpen));
+    dispatch(postData(`user`, body, clearInputs, closeModal, openEdit));
   };
 
   const closeEditModal = () => {

@@ -14,10 +14,10 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import DocumentPreview from 'Components/organisms/persons/DocumentPreview'
-import DeceasedPreview from 'Components/organisms/persons/DeceasedPreview'
-import ChrismPreview from 'Components/organisms/persons/ChrismPreview'
-import MarriagePreview from 'Components/organisms/persons/MarriagePreview'
+import BaptizedPreview from 'Components/organisms/documents/BaptizedPreview'
+import DeceasedPreview from 'Components/organisms/documents/DeceasedPreview'
+import ChrismPreview from 'Components/organisms/documents/ChrismPreview'
+import MarriagePreview from 'Components/organisms/documents/MarriagePreview'
 
 // Actions
 import { getOneItem as getBaptized } from "Modules/units/Baptized";
@@ -276,7 +276,7 @@ const PersonDetails = () => {
         </Box>
       </Grid>
 
-      <DocumentPreview
+      <BaptizedPreview
         onOpen={openBaptized}
         closeModal={() => setOpenBaptized(false)}
       />

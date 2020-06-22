@@ -1,5 +1,4 @@
 import React from "react";
-import moment from 'moment';
 
 // Utils
 import { formatLocalDate } from 'Util/common'
@@ -157,10 +156,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const today = moment().format('D.M.YYYY');
 
 const BaptizedPdf = ({baptized}) =>{
-  //const baptized = useSelector(state => state.baptized.oneItem);
   return (
     <Document>
       <Page size="A4">
@@ -185,8 +182,8 @@ const BaptizedPdf = ({baptized}) =>{
           <Text style={styles.birthPlace}>{baptized.birth_place && baptized.birth_place.name}</Text>
           <Text style={styles.jmbg}>{baptized.person && baptized.person.identity_number}</Text>
           <Text style={styles.domicile}>{baptized.person && baptized.person.domicile}</Text>
-          <Text style={styles.father}>{(baptized.father && `${baptized.father.first_name}, ${baptized.father.last_name}, vjera`) || '-'}</Text>
-          <Text style={styles.mother}>{(baptized.mother && `${baptized.mother.first_name}, ${baptized.mother.maiden_name}, vjera`) || '-'}</Text>
+          <Text style={styles.father}>{(baptized.father && baptized.father_religion && `${baptized.father.first_name}, ${baptized.father.last_name}, ${baptized.father_religion.value}`) || '-'}</Text>
+          <Text style={styles.mother}>{(baptized.mother && baptized.mother_religion && `${baptized.mother.first_name}, ${baptized.mother.maiden_name}, ${baptized.mother_religion.value}`) || '-'}</Text>
           <Text style={styles.canocicallyMarried}>{baptized.parents_canonically_married && baptized.parents_canonically_married.value}</Text>
           <Text style={styles.bestMan}>{baptized.best_man && `${baptized.best_man.first_name}, ${baptized.best_man.last_name}`}</Text>
           <Text style={styles.actPerformed}>{baptized.act_performed && `${baptized.act_performed.title} ${baptized.act_performed.first_name} ${baptized.act_performed.last_name}`}</Text>
@@ -194,9 +191,9 @@ const BaptizedPdf = ({baptized}) =>{
             {baptized.note &&
               `
               Mjesto potvrde: ${baptized.chrism_city && baptized.chrism_city.name || '-'} , 
-              Datum potvrde: ${formatLocalDate(baptized.note.chrism_date) || '-'} , 
+              Datum potvrde: ${baptized.note.chrism_date && formatLocalDate(baptized.note.chrism_date) || '-'} , 
               Župa ženidbe: ${baptized.note.marriage_district || '-'} , 
-              Datum ženidbe: ${formatLocalDate(baptized.note.marriage_date) || '-'} , 
+              Datum ženidbe: ${baptized.note.chrism_date && formatLocalDate(baptized.note.marriage_date) || '-'} , 
               Ime supruga-e: ${baptized.note.spouse_name || '-'} , 
               Ostale bilješke: ${baptized.note.other_notes || '-'} , 
               `

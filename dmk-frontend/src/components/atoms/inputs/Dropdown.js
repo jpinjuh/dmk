@@ -9,8 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Input from "@material-ui/core/Input";
-import TextField from "@material-ui/core/TextField";
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 
@@ -74,12 +72,12 @@ const Dropdown = props => {
           onChange={handleChange}
           className={classes.input}
           input={<OutlinedInput
+            id={service}
             required={required}
-            error={!!error}
           />}
         >
-          <MenuItem disabled value="">
-            {label || 'Odaberi'}
+          <MenuItem disabled selected value="">
+            {label}
           </MenuItem>
           {options.data.map(name => (
             <MenuItem

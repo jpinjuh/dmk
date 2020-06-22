@@ -30,11 +30,6 @@ const Table = ({open, setOpen}) => {
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.states);
 
-  const getItem = async id => {
-    dispatch(getOneItem(`state/${id}`))
-    setTimeout(() => setOpen(true), 500)
-  };
-
   const columns = [
     {
       label: 'Naziv države',

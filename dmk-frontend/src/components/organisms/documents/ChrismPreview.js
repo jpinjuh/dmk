@@ -10,16 +10,14 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
-
-// Utils
 import { formatLocalDate } from 'Util/common'
-import { capitalize } from 'Util/common'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import PdfDocument from 'Components/organisms/persons/PdfDocument'
+import ChrismNotePdf from 'Components/organisms/documents/ChrismNotePdf'
+
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -39,11 +37,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DeceasedPreview = ({ onOpen, closeModal }) => {
+const ChrismPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
-  const deceased = useSelector(state => state.deceased.oneItem);
-  const fullName = `${deceased.person && deceased.person.first_name} ${deceased.person && deceased.person.last_name}`;
+  const chrisms = useSelector(state => state.chrisms.oneItem);
+  const fullName = `${chrisms.person && chrisms.person.first_name} ${chrisms.person && chrisms.person.last_name}`;
 
 
   return (
@@ -66,14 +64,14 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                 <Title
                   variant="h5"
                   align={'center'}
-                  title={'Smrtni list'}
+                  title={'Krizmena cedulja'}
                 />
               </Box>
               <Box>
-                <Box my={2} display="flex" justifyContent="flex-end">
+              <Box my={2} display="flex" justifyContent="flex-end">
                   <PDFDownloadLink
-                    document={<PdfDocument deceased={deceased}/>}
-                    fileName={`Smrtni list - ${fullName}.pdf`}
+                    document={<ChrismNotePdf chrisms={chrisms}/>}
+                    fileName={`Krizmena cedulja - ${fullName}.pdf`}
                     style={{
                       textDecoration: "none"
                     }}
@@ -97,19 +95,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Ime'}
                       />
-                      {deceased.person && deceased.person.first_name}
-                    </Grid>
-                    <Grid item xs={4}> 
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Spol'}
-                      />
-                      {deceased.gender && 
-                        deceased.gender.value === 'Sin'
-                        ? 'Muško'
-                        : 'Žensko'
-                      }
+                      {chrisms.person && chrisms.person.first_name}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -117,23 +103,23 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Prezime'}
                       />
-                      {deceased.person && deceased.person.last_name}
+                      {chrisms.person && chrisms.person.last_name}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Datum rođenja'}
+                        title={'Mjesto rođenja'}
                       />
-                      {(deceased.person && formatLocalDate(deceased.person.birth_date)) || '-'}
+                      {(chrisms.person && formatLocalDate(chrisms.person.birth_date)) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Mjesto rođenja'}
+                        title={'Datum rođenja'}
                       />
-                      {(deceased.birth_place && deceased.birth_place.name) || '-'}
+                      {(chrisms.birth_place && chrisms.birth_place.name) || '-'}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
@@ -141,7 +127,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Župa krštenja'}
                       />
-                      {(deceased.district_baptism && deceased.district_baptism.name) || '-'}
+                      {(chrisms.baptism_district && chrisms.baptism_district.name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -149,15 +135,15 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Datum krštenja'}
                       />
-                      {(deceased.district_baptism && formatLocalDate(deceased.district_baptism.created_at)) || '-'}
+                      {(chrisms.document_baptism && formatLocalDate(chrisms.document_baptism.act_date)) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Suprug/a'}
+                        title={'Mjesto stanovanja'}
                       />
-                      {(deceased.spouse && deceased.spouse.first_name) || '-'}
+                      {(chrisms.person && chrisms.person.domicile) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -165,39 +151,47 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(deceased.father && `${deceased.father.first_name}, ${deceased.father.last_name}`) || '-'}
+                      {(chrisms.father && `${chrisms.father.first_name}, ${chrisms.father.last_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Majka'}
+                        title={'Majka, djevojačko prezime'}
                       />
-                      {(deceased.mother && `${deceased.mother.first_name}, ${deceased.mother.maiden_name}`) || '-'}
+                      {(chrisms.mother && `${chrisms.mother.first_name}, ${chrisms.mother.maiden_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Proviđen sakramentima'}
+                        title={'Kum/a, župa'}
                       />
-                      {(deceased.sacraments && capitalize(deceased.sacraments)) || '-'}
+                      {(chrisms.best_man && `${chrisms.best_man.first_name} ${chrisms.best_man.last_name}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Mjesto i datum pokopa'}
+                        title={'Djelitelj krizme, služba'}
                       />
-                      {(deceased.place_of_burial && `${deceased.place_of_burial.value} ${formatLocalDate(deceased.place_of_burial.created_at)}`) || '-'}
+                      {(chrisms.act_performed && `${chrisms.act_performed.title} ${chrisms.act_performed.first_name} ${chrisms.act_performed.last_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto krizme'}
+                      />
+                      {(chrisms.chrism_district && chrisms.chrism_district.name) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Crkveni službenik sprovoda'}
+                        title={'Datum krizme'}
                       />
-                      {(deceased.act_performed && `${deceased.act_performed.title} ${deceased.act_performed.first_name} ${deceased.act_performed.last_name}`) || '-'}
+                      {(chrisms.document_chrism && formatLocalDate(chrisms.document_chrism.act_date)) || '-'}
                     </Grid>
                   </Grid>
                 </Box>
@@ -210,4 +204,4 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
   );
 }
 
-export default DeceasedPreview;
+export default ChrismPreview;

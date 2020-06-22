@@ -16,10 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-import BaptizedPdf from 'Components/organisms/persons/BaptizedPdf'
-
-// Actions
-import { getOneItemPerson } from "Modules/units/Persons";
+import BaptizedPdf from 'Components/organisms/documents/BaptizedPdf'
 
 
 const useStyles = makeStyles(theme => ({
@@ -162,7 +159,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(baptized.father && `${baptized.father.first_name}, ${baptized.father.last_name}, vjera`) || '-'}
+                      {(baptized.father && baptized.father_religion && `${baptized.father.first_name}, ${baptized.father.last_name}, ${baptized.father_religion.value}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -170,7 +167,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Majka'}
                       />
-                      {(baptized.mother && `${baptized.mother.first_name}, ${baptized.mother.maiden_name}, vjera`) || '-'}
+                      {(baptized.mother && baptized.mother_religion && `${baptized.mother.first_name}, ${baptized.mother.last_name}, ${baptized.mother_religion.value}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title

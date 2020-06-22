@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EditModal = ({ onOpen, closeModal, itemId }) => {
+const EditModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(EditForm);
@@ -68,7 +68,7 @@ const EditModal = ({ onOpen, closeModal, itemId }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
     })
-    dispatch(putData(`user/${itemId}`, body, closeModal));
+    dispatch(putData(`user/${oneItem.id}`, body, closeModal));
   }
 
 

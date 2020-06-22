@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Input from "Components/atoms/inputs/Input";
 import Autocomplete from "Components/atoms/inputs/Autocomplete";
 import Dropdown from "../atoms/inputs/Dropdown";
-import Timepicker from "../atoms/inputs/Timepicker";
+import Datepicker from "../atoms/inputs/Datepicker";
 import Multiline from "../atoms/inputs/Multiline";
 
 const useStyles = makeStyles(theme => ({
@@ -60,7 +60,7 @@ const InputForm = props => {
             </Grid>;
           case 'date':
             return <Grid item xs={xs || 12}  md={md || 6} lg={lg || 4} key={input.name_in_db}>
-                <Timepicker
+                <Datepicker
                   type={input.type}
                   value={input.value}
                   disabled={input.disabled}

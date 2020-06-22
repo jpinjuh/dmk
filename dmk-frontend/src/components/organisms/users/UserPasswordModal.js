@@ -60,12 +60,13 @@ const requiredInputs = [
   }
 ]
 
-const ChangePasswordModal = ({ itemId, onOpen, closeModal }) => {
+const ChangePasswordModal = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState(requiredInputs);
   const validation = useSelector(state => state.validation);
+  const oneItem = useSelector(state => state.users.oneItem)
 
 
   useEffect(() => {
@@ -93,7 +94,7 @@ const ChangePasswordModal = ({ itemId, onOpen, closeModal }) => {
     inputs.forEach(input => {
       body[input.name_in_db] = input.value;
     })
-    dispatch(editPassword(`user/alter_pass/${itemId}`, body, closeModal));
+    dispatch(editPassword(`user/alter_pass/${oneItem.id}`, body, closeModal));
   
   }
 
