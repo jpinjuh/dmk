@@ -10,7 +10,6 @@ import CustomSearch from "Components/molecules/CustomSearch";
 // MUI
 import MUIDataTable from "mui-datatables";
 import { Box } from "@material-ui/core";
-import Chip from '@material-ui/core/Chip';
 
 // Atoms 
 import Button from 'Components/atoms/buttons/Button'
@@ -19,21 +18,13 @@ import Button from 'Components/atoms/buttons/Button'
 import { formatLocalDate } from 'Util/common'
 
 // Organisms
-import EditModal from 'Components/organisms/persons/EditModal'
 import AddModal from 'Components/organisms/persons/AddModal'
-import DeactivateModal from 'Components/organisms/persons/DeactivateModal'
-import ActivateModal from 'Components/organisms/persons/ActivateModal'
 
 // Actions
-import { getData, getOneItem, searchData } from "Modules/units/Persons";
+import { getData, searchData } from "Modules/units/Persons";
 
-const Table = (props) => {
-  const [open, setOpen] = useState(false);
-  const [openAdd, setOpenAdd] = useState(false)
-  const [deactivateOpen, setDeactivateOpen] = useState(false);
-  const [activateOpen, setActivateOpen] = useState(false);
-  const [itemId, setItemId] = useState('');
-  const [item, setItem] = useState('');
+const Table = ({open, setOpen}) => {
+  
   const [searchVal, setSearchVal] = useState('');
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
@@ -43,7 +34,6 @@ const Table = (props) => {
   const history = useHistory();
   const tableData = useSelector(state => state.persons);
 
-  console.log(history)
   const columns = [
     {
       label: 'Ime',
@@ -174,7 +164,7 @@ const Table = (props) => {
       return (
         <Button
           label="+ Dodaj osobu"
-          onClick={() => setOpenAdd(true)}
+          onClick={() => setOpen(true)}
         />
       );
     },
@@ -204,8 +194,8 @@ const Table = (props) => {
         />}
 
       <AddModal
-        onOpen={openAdd} 
-        closeModal={() => setOpenAdd(false)} 
+        onOpen={open} 
+        closeModal={() => setOpen(false)} 
       ></AddModal>
     </>
   );

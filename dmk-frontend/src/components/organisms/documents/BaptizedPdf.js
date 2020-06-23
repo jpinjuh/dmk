@@ -190,12 +190,12 @@ const BaptizedPdf = ({baptized}) =>{
           <Text style={styles.notes}>
             {baptized.note &&
               `
-              Mjesto potvrde: ${baptized.chrism_city && baptized.chrism_city.name || '-'} , 
-              Datum potvrde: ${baptized.note.chrism_date && formatLocalDate(baptized.note.chrism_date) || '-'} , 
-              Župa ženidbe: ${baptized.note.marriage_district || '-'} , 
-              Datum ženidbe: ${baptized.note.chrism_date && formatLocalDate(baptized.note.marriage_date) || '-'} , 
-              Ime supruga-e: ${baptized.note.spouse_name || '-'} , 
-              Ostale bilješke: ${baptized.note.other_notes || '-'} , 
+              ${baptized.chrism_city ? 'Mjesto potvrde: ' + baptized.chrism_city.name : ''} 
+              ${baptized.note.chrism_date ? 'Datum potvrde: ' + formatLocalDate(baptized.note.chrism_date) : ''} 
+              ${baptized.note.marriage_district ? 'Župa ženidbe: ' + baptized.note.marriage_district : ''}
+              ${baptized.note.chrism_date ? 'Datum ženidbe: ' + formatLocalDate(baptized.note.marriage_date) : ''}
+              ${baptized.note.spouse_name ? 'Ime supruga-e: ' + baptized.note.spouse_name : ''}
+              ${baptized.note.other_notes ? 'Ostale bilješke: ' + baptized.note.other_notes : ''}
               `
             }
           </Text>

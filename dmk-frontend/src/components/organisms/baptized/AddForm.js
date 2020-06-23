@@ -21,6 +21,7 @@ import { NoteForm } from 'Pages/baptized/model/baptized'
 
 // Organisms
 import EditModal from 'Components/organisms/baptized/EditModal'
+import AddModal from 'Components/organisms/persons/AddModal'
 
 // Action
 import { postData } from "Modules/units/Baptized";
@@ -30,10 +31,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     backgroundColor: '#dcdeef',
     padding: '8px 8px 8px 24px'
+  },
+  center: {
+    display: 'flex',
+    alignItems: 'center',
   }
 }));
 
 const AddForm = ({open, setOpen}) => {
+  const [personOpen, setPersonOpen] = useState(false)
   const [personInputs, setPersonInputs] = useState(UserForm);
   const [baptInputs, setBaptInputs] = useState(BaptizedForm);
   const [otherInputs, setOtherInputs] = useState(NoteForm);
@@ -111,13 +117,23 @@ const AddForm = ({open, setOpen}) => {
         </Box>
         <Box mx={3} mt={1} >
           <form>
-            <Box mt={4} mb={6}>
-              <Box mb={2}>
-                <Title
-                  align={'left'}
-                  title={'Podaci o kršteniku'}
-                  bgColor={'#8e93b9'}
-                />
+          <Box mt={4} mb={6}>
+              <Box mb={2} display="flex">
+                <Box flexGrow={1} className={classes.center}>
+                  <Title
+                    align={'left'}
+                    title={'Podaci o kršteniku'}
+                    bgColor={'#8e93b9'}
+                  />
+                </Box>
+                <Box>
+                  <Button
+                    size={'large'}
+                    variant={'text'}
+                    label="+ Brzo dodavanje"
+                    onClick={()=>setPersonOpen(true)}
+                  />
+                </Box>
               </Box>
               <InputForm inputs={personInputs} setInputs={setPersonInputs} spacing={2} validation={validation}></InputForm>
             </Box>
@@ -156,6 +172,10 @@ const AddForm = ({open, setOpen}) => {
         onOpen={open}
         closeModal={() => setOpen(false)}
       ></EditModal>
+      <AddModal
+        onOpen={personOpen}
+        closeModal={() => setPersonOpen(false)}
+      ></AddModal>
     </>
   );
 };

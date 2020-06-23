@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { NotificationManager } from "react-notifications";
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +9,9 @@ import Fade from '@material-ui/core/Fade';
 import MUIButton from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 // Molecules
 import InputForm from "Components/molecules/InputForm"
@@ -20,9 +22,7 @@ import Title from "Components/atoms/UI/Title";
 
 // Models
 import { PersonForm } from 'Pages/persons/model/person'
-
-// Organisms
-import EditModal from 'Components/organisms/persons/EditModal'
+import { ExtraForm } from 'Pages/persons/model/person'
 
 // Actions
 import { postData } from "Modules/units/Persons";
@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     border: 'none',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(4, 5, 4),
+    width: '85%'
   },
   button: {
     fontSize: '14px',
@@ -48,20 +49,14 @@ const useStyles = makeStyles(theme => ({
 
 const AddModal = ({ onOpen, closeModal }) => {
   const [inputs, setInputs] = useState(PersonForm);
+  const [extraInputs, setExtraInputs] = useState(ExtraForm);
+
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [item, setItem] = useState([]);
-  const [itemId, setItemId] = useState('');
-  const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const theme = useTheme();
 
-  const newItem = useSelector(state => state.users.oneItem);
   const validation = useSelector(state => state.validation);
 
-  useEffect(() => {
-    if (newItem)
-      setItemId(newItem.id)
-  }, [newItem])
 
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
@@ -69,6 +64,17 @@ const AddModal = ({ onOpen, closeModal }) => {
       type: input.type,
       disabled: false,
       name_in_db: input.name_in_db,
+      service: input.service,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+    setExtraInputs(extraInputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      service: input.service,
       validation: null,
       error: false,
       value: ""
@@ -79,23 +85,17 @@ const AddModal = ({ onOpen, closeModal }) => {
     e.preventDefault();
 
     const body = {};
-    const arr = []
 
     inputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
-      arr.push(input.value)
     })
-    console.log(body)
-    setItem(arr)
-    setSubmitted(true)
-    dispatch(postData(`person`, body, clearInputs));
+    extraInputs.forEach(input => {
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+    })
+    dispatch(postData(`person`, body, clearInputs, closeModal));
   };
 
-  const closeEditModal = () => {
-    setOpen(false);
-    setItem([]);
-  }
-
+  
   return (
     <div>
       <Modal
@@ -110,7 +110,7 @@ const AddModal = ({ onOpen, closeModal }) => {
         }}
       >
         <Fade in={onOpen}>
-          <Container className={classes.paper} maxWidth="xs">
+          <Container className={classes.paper} maxWidth={useMediaQuery(theme.breakpoints.up('sm')) ? 'md' : 'xs'}>
             <Box display="flex" flexDirection="column" p={2}>
               <Box mb={3}>
                 <Title
@@ -120,7 +120,27 @@ const AddModal = ({ onOpen, closeModal }) => {
                 />
               </Box>
               <form>
-                <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} spacing={0} validation={validation}></InputForm>
+              <Box mt={4} mb={6}>
+              <Box mb={2}>
+                  <Title
+                    align={'left'}
+                    title={'Podaci o osobi'}
+                    bgColor={'#8e93b9'}
+                  />
+              </Box>
+              <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={6} lg={6} spacing={2} validation={validation}></InputForm>
+            </Box>
+            <Divider />
+            <Box mt={4} mb={6}>
+              <Box mb={2}>
+                <Title
+                  align={'left'}
+                  title={'Dodatni podaci'}
+                  bgColor={'#8e93b9'}
+                />
+              </Box>
+              <InputForm inputs={extraInputs} setInputs={setExtraInputs} xs={12} md={6} lg={6} spacing={2} validation={validation}></InputForm>
+            </Box>
                 <Box pt={3} display="flex" justifyContent="flex-start">
                   <Box pr={1}>
                     <Button
@@ -142,12 +162,6 @@ const AddModal = ({ onOpen, closeModal }) => {
           </Container>
         </Fade>
       </Modal>
-      <EditModal
-        onOpen={open}
-        closeModal={closeEditModal}
-        item={item}
-        itemId={itemId}
-      ></EditModal>
     </div>
   );
 }

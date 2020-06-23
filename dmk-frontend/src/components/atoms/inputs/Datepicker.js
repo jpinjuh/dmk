@@ -1,5 +1,5 @@
 // React
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -33,19 +33,24 @@ export const formatDate = date => {
 
 const Datepicker = props => {
   const classes = useStyles();
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   const {
     value,
     label,
     validation,
     error,
-    onChange,
-    required,
-    disabled,
-    color
+    onChange
   } = props;
 
   
+  useEffect(() => {
+    setTimeout(
+      () => {
+        onChange(formatDate(selectedDate))
+      }, 100
+    )
+  }, [selectedDate])
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={hrLocale}>
@@ -55,14 +60,13 @@ const Datepicker = props => {
             inputVariant="outlined"
             fullWidth
             margin="normal"
-            value={value}
+            animateYearScrolling
+            value={selectedDate}
             label={label}
             error={!!error}
             helperText={validation}
             format="dd-MM-yyyy"
-            onChange={date => {
-              Date.parse(date) ? onChange(formatDate(date)) : onChange(null);
-            }}
+            onChange={handleDateChange}
             InputProps={{
                 classes: {
                   root: classes.input,

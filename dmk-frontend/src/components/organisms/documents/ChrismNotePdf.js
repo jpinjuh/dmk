@@ -88,7 +88,7 @@ const ChrismNotePdf = ({chrisms}) =>{
                 <Text style={styles.tableCell}>Mjesto stanovanja</Text> 
               </View> 
               <View style={[styles.tableCol, { width: '53%' }]}> 
-                <Text style={styles.tableCell}>{chrisms.person && `${chrisms.person.first_name}, ${chrisms.person.last_name}`}</Text>
+                <Text style={styles.tableCell}>{chrisms.person && `${chrisms.person.first_name} ${chrisms.person.last_name}`}</Text>
                 <Text style={styles.tableCell}>{chrisms.person && chrisms.birth_place && `${chrisms.person.last_name}, ${formatLocalDate(chrisms.person.birth_date)}`}</Text> 
                 <Text style={styles.tableCell}>{chrisms.baptism_district && chrisms.document_baptism && `${chrisms.baptism_district.name}, ${chrisms.document_baptism.act_date}`}</Text> 
                 <Text style={styles.tableCell}>{(chrisms.person && chrisms.person.domicile) || '-'}</Text>  
@@ -104,8 +104,8 @@ const ChrismNotePdf = ({chrisms}) =>{
                 <Text style={styles.tableCell}>Ime i djevojačko prezime majke</Text> 
               </View> 
               <View style={[styles.tableCol, { width: '53%' }]}> 
-                <Text style={styles.tableCell}>{chrisms.father && `${chrisms.father.first_name}, ${chrisms.father.last_name}` || '-'}</Text>
-                <Text style={styles.tableCell}>{chrisms.mother && `${chrisms.mother.first_name}, ${chrisms.mother.maiden_name}` || '-'}</Text> 
+                <Text style={styles.tableCell}>{chrisms.father && `${chrisms.father.first_name} ${chrisms.father.last_name}` || '-'}</Text>
+                <Text style={styles.tableCell}>{chrisms.mother && `${chrisms.mother.first_name} ${chrisms.mother.maiden_name}` || '-'}</Text> 
               </View> 
             </View>
 

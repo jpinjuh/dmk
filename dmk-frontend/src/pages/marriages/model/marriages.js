@@ -55,7 +55,7 @@ export const MarriageForm = [
     service: 'user/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Župa',
@@ -65,7 +65,7 @@ export const MarriageForm = [
     service: 'district/autocomplete',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Svezak',
