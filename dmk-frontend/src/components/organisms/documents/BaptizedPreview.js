@@ -10,11 +10,13 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
-import { formatLocalDate } from 'Util/common'
 import Button from "Components/atoms/buttons/Button";
 
+// Utils
+import { formatLocalDate } from 'Util/common'
+
 // Models
-import { NoteForm } from 'Pages/deceased/model/deceased'
+import { NoteForm } from 'Pages/baptized/model/baptized'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
@@ -59,7 +61,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
   useEffect(() => {
     setInputs(inputs.map((input) => ({
       ...input,
-      value: baptized.note && baptized.note[input.name_in_db]
+      value: baptized.note && baptized.note[input.name_in_db] || ''
     })))
   }, [baptized]);
 
@@ -87,7 +89,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      body[input.name_in_db] = input.value;
     })
     dispatch(putData(`note/${baptized.note.id}`, body));
   }
@@ -160,14 +162,20 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                       />
                       {baptized.person && baptized.person.last_name}
                     </Grid>
-                    <Grid item xs={4}>
-                      <Title
+                    {
+                      baptized.person && baptized.person.maiden_name
+                      ?
+                      <Grid item xs={4}>
+                        <Title
                           variant="h6"
                           align={'left'}
                           title={'Djevojačko prezime'}
                         />
-                      {(baptized.person && baptized.person.maiden_name) || '-'}
-                    </Grid>
+                        {(baptized.person && baptized.person.maiden_name) || '-'}
+                      </Grid>
+                      : null
+                    }
+                    
                     <Grid item xs={4}> 
                       <Title
                         variant="h6"
@@ -207,7 +215,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(baptized.father && baptized.father_religion && `${baptized.father.first_name}, ${baptized.father.last_name}, ${baptized.father_religion.value}`) || '-'}
+                      {(baptized.father && baptized.father_religion && `${baptized.father.first_name} ${baptized.father.last_name} ${baptized.father_religion.value}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -215,7 +223,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Majka'}
                       />
-                      {(baptized.mother && baptized.mother_religion && `${baptized.mother.first_name}, ${baptized.mother.last_name}, ${baptized.mother_religion.value}`) || '-'}
+                      {(baptized.mother && baptized.mother_religion && `${baptized.mother.first_name} ${baptized.mother.last_name} ${baptized.mother_religion.value}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -256,7 +264,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
               <Box>
                   <Grid container alignItems="center" spacing={3}>
                     {
-                      baptized.chrism_city
+                      baptized.note && baptized.chrism_city
                       ? 
                       <Grid item xs={4}> 
                       <Title
@@ -264,7 +272,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Mjesto potvrde'}
                       />
-                      {baptized.chrism_city}
+                      {baptized.chrism_city.name}
                       </Grid>
                       : null
                     }
@@ -282,7 +290,7 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                       : null
                     }
                     {
-                      baptized.note && baptized.note.marriage_district
+                      baptized.note && baptized.marriage_district
                       ? 
                       <Grid item xs={4}> 
                       <Title
@@ -290,12 +298,12 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Župa ženidbe'}
                       />
-                      {baptized.note.marriage_district}
+                      {baptized.marriage_district.name}
                       </Grid>
                       : null
                     }
                     {
-                      baptized.note && baptized.note.marraige_date
+                      baptized.note && baptized.note.marriage_date
                       ? 
                       <Grid item xs={4}> 
                       <Title

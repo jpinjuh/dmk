@@ -253,14 +253,7 @@ export default function reducer(state = INIT_STATE, action = {}) {
     case PUT_NOTE_SCS:
       return {
         ...state,
-        oneItem: Object.keys(state.oneItem).forEach(
-          item => {
-            if(item === 'note')
-            { 
-              Object.assign(state.oneItem[item], action.payload)
-            }
-          }
-        ),
+        oneItem: Object.assign(state.oneItem['note'], action.payload),
         loading: false
       };
     case PUT_NOTE_FLR:

@@ -143,7 +143,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Mjesto stanovanja'}
                       />
-                      {(chrisms.person && chrisms.person.domicile) || '-'}
+                      {chrisms.person && chrisms.person.domicile || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -151,7 +151,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Otac'}
                       />
-                      {(chrisms.father && `${chrisms.father.first_name}, ${chrisms.father.last_name}`) || '-'}
+                      {chrisms.father && `${chrisms.father.first_name} ${chrisms.father.last_name}` || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -159,7 +159,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Majka, djevojačko prezime'}
                       />
-                      {(chrisms.mother && `${chrisms.mother.first_name}, ${chrisms.mother.maiden_name}`) || '-'}
+                      {chrisms.mother && `${chrisms.mother.first_name} ${chrisms.mother.maiden_name}` || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title

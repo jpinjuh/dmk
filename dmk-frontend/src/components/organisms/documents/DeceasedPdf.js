@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
 
 const DeceasedPdf = ({deceased}) =>{
 
+  const todayDate = formatLocalDate(new Date());
+
   return (
     <Document>
       <Page size="A4">
@@ -194,14 +196,14 @@ const DeceasedPdf = ({deceased}) =>{
           <Text style={styles.birthPlace}>{deceased.birth_place && deceased.birth_place.name}</Text>
           <Text style={styles.baptDistrict}>{deceased.district_baptism && deceased.district_baptism.name}</Text>
           <Text style={styles.baptDate}>{deceased.district_baptism && formatLocalDate(deceased.district_baptism.created_at)}</Text>
-          <Text style={styles.wife}>{deceased.spouses[0] && `${deceased.spouses[0].first_name}, ${deceased.spouses[0].last_name}` || '-'}</Text>
-          <Text style={styles.father}>{(deceased.father && `${deceased.father.first_name}, ${deceased.father.last_name}`) || '-'}</Text>
-          <Text style={styles.mother}>{(deceased.mother && `${deceased.mother.first_name}, ${deceased.mother.maiden_name}`) || '-'}</Text>
+          <Text style={styles.wife}>{deceased.spouses[0] && `${deceased.spouses[0].first_name} ${deceased.spouses[0].last_name}` || '-'}</Text>
+          <Text style={styles.father}>{(deceased.father && `${deceased.father.first_name} ${deceased.father.last_name}`) || '-'}</Text>
+          <Text style={styles.mother}>{(deceased.mother && `${deceased.mother.first_name} ${deceased.mother.maiden_name}`) || '-'}</Text>
           <Text style={styles.sakrament}>{deceased.sacraments && capitalize(deceased.sacraments)}</Text>
           <Text style={styles.deathPlaceAndDate}>{ deceased.place_of_burial && `${deceased.place_of_burial.value} ${formatLocalDate(deceased.place_of_burial.created_at)}` }</Text>
           <Text style={styles.actPerformed}>{(deceased.act_performed && `${deceased.act_performed.title} ${deceased.act_performed.first_name} ${deceased.act_performed.last_name}`) || '-'}</Text>
           <Text style={styles.notes}>{(deceased.note && deceased.note.other_notes) || '-'}</Text>
-          <Text style={styles.todayDate}>{formatLocalDate(deceased.created_at)}</Text>
+          <Text style={styles.todayDate}>{todayDate}</Text>
         </View>
       </Page>
     </Document>

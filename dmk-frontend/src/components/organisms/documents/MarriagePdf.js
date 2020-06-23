@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
 
 const todayDate = formatLocalDate(new Date());
 
-const DeceasedPdf = ({marriages}) =>{
+const MarriagePdf = ({marriages}) =>{
 
   return (
     <Document>
@@ -246,13 +246,13 @@ const DeceasedPdf = ({marriages}) =>{
           <Text style={styles.person1Father}>{marriages.person1_father && `${marriages.person1_father.first_name} ${marriages.person1_father.last_name}`}</Text>
           <Text style={styles.person2Father}>{marriages.person2_father && `${marriages.person2_father.first_name} ${marriages.person2_father.last_name}`}</Text>
           <Text style={styles.person1Mother}>{marriages.person1_mother && `${marriages.person1_mother.first_name} ${marriages.person1_mother.maiden_name}`}</Text>
-          <Text style={styles.person2Mother}>{marriages.person2_mother && `${marriages.person2_mother.first_name} ${marriages.person2_mother.maiden_name}`}</Text>
+          <Text style={styles.person2Mother}>{marriages.person2_mother && `${marriages.person2_mother.first_name} ${marriages.person2_mother.maiden_name || ''}`}</Text>
           <Text style={styles.person1Parents}>{marriages.person1_parents_canonically && marriages.person1_parents_canonically_married.value}</Text>
           <Text style={styles.person2Parents}>{marriages.person2_parents_canonically && marriages.person2_parents_canonically_married.value}</Text>
           <Text style={styles.bestMan1}>{marriages.best_man1 && `${marriages.best_man1.first_name} ${marriages.best_man1.last_name}`}</Text>
           <Text style={styles.bestMan2}>{marriages.best_man2 && `${marriages.best_man2.first_name} ${marriages.best_man2.last_name}`}</Text>
           <Text style={styles.actPerformed}>{marriages.act_performed && `${marriages.act_performed.title} ${marriages.act_performed.first_name} ${marriages.act_performed.last_name}`}</Text>
-          <Text style={styles.notes}>Notes</Text>
+          <Text style={styles.notes}>{marriages.note && marriages.note.other_notes || ''}</Text>
           <Text style={styles.todayDate}>{todayDate}</Text>
         </View>
       </Page>
@@ -260,4 +260,4 @@ const DeceasedPdf = ({marriages}) =>{
   );
 }
 
-export default DeceasedPdf;
+export default MarriagePdf;

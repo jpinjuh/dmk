@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   title: {
     display: 'flex',
     flexDirection: 'row',
-    fontSize: '14px',
+    fontSize: '12px',
     justifyContent: 'space-between',
     borderBottom: '1px solid black',
     margin: '40px 100px 0px'
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     height: '100%',
     padding: '5px 6px',
-    fontSize: 10,
+    fontSize: '8px',
     borderStyle: "solid",
     borderBottom: 1 
   }
@@ -72,7 +72,7 @@ const ChrismNotePdf = ({chrisms}) =>{
         <View>
           <View style={styles.title}>
             <Text>KRIZMENA CEDULJA</Text>
-            <Text>ŽUPA POSUŠJE</Text>
+            <Text>Župa {chrisms.chrism_district && chrisms.chrism_district.name.split(',')[1]}</Text>
           </View>
         </View>
         <View style={styles.section}>
@@ -89,8 +89,8 @@ const ChrismNotePdf = ({chrisms}) =>{
               </View> 
               <View style={[styles.tableCol, { width: '53%' }]}> 
                 <Text style={styles.tableCell}>{chrisms.person && `${chrisms.person.first_name} ${chrisms.person.last_name}`}</Text>
-                <Text style={styles.tableCell}>{chrisms.person && chrisms.birth_place && `${chrisms.person.last_name}, ${formatLocalDate(chrisms.person.birth_date)}`}</Text> 
-                <Text style={styles.tableCell}>{chrisms.baptism_district && chrisms.document_baptism && `${chrisms.baptism_district.name}, ${chrisms.document_baptism.act_date}`}</Text> 
+                <Text style={styles.tableCell}>{chrisms.person && chrisms.birth_place && `${chrisms.birth_place.name}, ${formatLocalDate(chrisms.person.birth_date)}`}</Text> 
+                <Text style={styles.tableCell}>{chrisms.baptism_district && chrisms.document_baptism && `${chrisms.baptism_district.name}, ${formatLocalDate(chrisms.document_baptism.act_date)}`}</Text> 
                 <Text style={styles.tableCell}>{(chrisms.person && chrisms.person.domicile) || '-'}</Text>  
               </View> 
             </View>

@@ -10,16 +10,25 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
+import Button from "Components/atoms/buttons/Button";
 
 // Utils
 import { formatLocalDate } from 'Util/common'
 import { capitalize } from 'Util/common'
 
+// Models
+import { NoteForm } from 'Pages/deceased/model/deceased'
+
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
+import InputForm from "Components/molecules/InputForm"
 
 // Organisms
 import DeceasedPdf from 'Components/organisms/documents/DeceasedPdf'
+
+// Actions
+import { putData } from "Modules/units/Notes";
+import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -41,9 +50,48 @@ const useStyles = makeStyles(theme => ({
 
 const DeceasedPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const [inputs, setInputs] = useState(NoteForm)
+  
+  const validation = useSelector(state => state.validation)
   const deceased = useSelector(state => state.deceased.oneItem);
   const fullName = `${deceased.person && deceased.person.first_name} ${deceased.person && deceased.person.last_name}`;
+
+  useEffect(() => {
+    setInputs(inputs.map((input) => ({
+      ...input,
+      value: deceased.note && deceased.note[input.name_in_db] || ''
+    })))
+  }, [deceased]);
+
+  useEffect(() => {
+    clearInputs()
+    dispatch(clearValidation())
+  }, [])
+
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      service: input.service,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
+
+  const editItem = (e) => {
+    e.preventDefault();
+
+    const body = {};
+
+    inputs.forEach(input => {
+      body[input.name_in_db] = input.value;
+    })
+    dispatch(putData(`note/${deceased.note.id}`, body));
+  }
 
 
   return (
@@ -189,7 +237,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                         align={'left'}
                         title={'Mjesto i datum pokopa'}
                       />
-                      {(deceased.place_of_burial && `${deceased.place_of_burial.value} ${formatLocalDate(deceased.place_of_burial.created_at)}`) || '-'}
+                      {(deceased.place_of_burial && `${deceased.place_of_burial.value}, ${formatLocalDate(deceased.place_of_burial.created_at)}`) || '-'}
                     </Grid>
                     <Grid item xs={4}>
                       <Title
@@ -201,6 +249,17 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                     </Grid>
                   </Grid>
                 </Box>
+              </Box>
+              <Box mt={3}>
+                <form>
+                  <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} spacing={2} validation={validation}></InputForm>
+                  <Box mt={2}>
+                    <Button
+                      label="+ Ažuriraj bilješke"
+                      onClick={editItem}
+                    />
+                  </Box>
+                </form>
               </Box>
             </Grid>
           </Container>

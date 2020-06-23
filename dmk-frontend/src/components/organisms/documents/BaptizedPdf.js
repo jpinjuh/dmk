@@ -158,6 +158,9 @@ const styles = StyleSheet.create({
 
 
 const BaptizedPdf = ({baptized}) =>{
+
+  const todayDate = formatLocalDate(new Date());
+  
   return (
     <Document>
       <Page size="A4">
@@ -182,24 +185,24 @@ const BaptizedPdf = ({baptized}) =>{
           <Text style={styles.birthPlace}>{baptized.birth_place && baptized.birth_place.name}</Text>
           <Text style={styles.jmbg}>{baptized.person && baptized.person.identity_number}</Text>
           <Text style={styles.domicile}>{baptized.person && baptized.person.domicile}</Text>
-          <Text style={styles.father}>{(baptized.father && baptized.father_religion && `${baptized.father.first_name}, ${baptized.father.last_name}, ${baptized.father_religion.value}`) || '-'}</Text>
-          <Text style={styles.mother}>{(baptized.mother && baptized.mother_religion && `${baptized.mother.first_name}, ${baptized.mother.maiden_name}, ${baptized.mother_religion.value}`) || '-'}</Text>
+          <Text style={styles.father}>{(baptized.father && baptized.father_religion && `${baptized.father.first_name} ${baptized.father.last_name}, ${baptized.father_religion.value}`) || '-'}</Text>
+          <Text style={styles.mother}>{(baptized.mother && baptized.mother_religion && `${baptized.mother.first_name} ${baptized.mother.maiden_name}, ${baptized.mother_religion.value}`) || '-'}</Text>
           <Text style={styles.canocicallyMarried}>{baptized.parents_canonically_married && baptized.parents_canonically_married.value}</Text>
-          <Text style={styles.bestMan}>{baptized.best_man && `${baptized.best_man.first_name}, ${baptized.best_man.last_name}`}</Text>
+          <Text style={styles.bestMan}>{baptized.best_man && `${baptized.best_man.first_name} ${baptized.best_man.last_name}`}</Text>
           <Text style={styles.actPerformed}>{baptized.act_performed && `${baptized.act_performed.title} ${baptized.act_performed.first_name} ${baptized.act_performed.last_name}`}</Text>
           <Text style={styles.notes}>
             {baptized.note &&
               `
               ${baptized.chrism_city ? 'Mjesto potvrde: ' + baptized.chrism_city.name : ''} 
               ${baptized.note.chrism_date ? 'Datum potvrde: ' + formatLocalDate(baptized.note.chrism_date) : ''} 
-              ${baptized.note.marriage_district ? 'Župa ženidbe: ' + baptized.note.marriage_district : ''}
+              ${baptized.marriage_district ? 'Župa ženidbe: ' + baptized.marriage_district.name : ''}
               ${baptized.note.chrism_date ? 'Datum ženidbe: ' + formatLocalDate(baptized.note.marriage_date) : ''}
               ${baptized.note.spouse_name ? 'Ime supruga-e: ' + baptized.note.spouse_name : ''}
-              ${baptized.note.other_notes ? 'Ostale bilješke: ' + baptized.note.other_notes : ''}
+              ${baptized.note.other_notes ? baptized.note.other_notes : ''}
               `
             }
           </Text>
-          <Text style={styles.todayDate}>{formatLocalDate(baptized.created_at)}</Text>
+          <Text style={styles.todayDate}>{todayDate}</Text>
         </View>
       </Page>
     </Document>

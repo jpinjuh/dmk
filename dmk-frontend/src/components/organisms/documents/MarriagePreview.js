@@ -10,13 +10,24 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
+import Button from "Components/atoms/buttons/Button";
+
+// Utils
 import { formatLocalDate } from 'Util/common'
+
+// Models
+import { NoteForm } from 'Pages/marriages/model/marriages'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
+import InputForm from "Components/molecules/InputForm"
 
 // Organisms
 import MarriagePdf from 'Components/organisms/documents/MarriagePdf'
+
+// Actions
+import { putData } from "Modules/units/Notes";
+import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -38,11 +49,49 @@ const useStyles = makeStyles(theme => ({
 
 const MarriagePreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const [inputs, setInputs] = useState(NoteForm)
   const marriages = useSelector(state => state.marriages.oneItem);
+  const validation = useSelector(state => state.validation)
 
   const fullName = `${marriages.person1 && marriages.person1.first_name} ${marriages.person1 && marriages.person1.last_name} & ${
                     marriages.person2 && marriages.person2.first_name} ${marriages.person2 && marriages.person2.last_name}`;
+
+  useEffect(() => {
+    setInputs(inputs.map((input) => ({
+      ...input,
+      value: marriages.note && marriages.note[input.name_in_db] || ''
+    })))
+  }, [marriages]);
+
+  useEffect(() => {
+    clearInputs()
+    dispatch(clearValidation())
+  }, [])
+
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      service: input.service,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
+
+  const editItem = (e) => {
+    e.preventDefault();
+
+    const body = {};
+
+    inputs.forEach(input => {
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+    })
+    dispatch(putData(`note/${marriages.note.id}`, body));
+  }
 
   return (
     <div>
@@ -219,6 +268,17 @@ const MarriagePreview = ({ onOpen, closeModal }) => {
                     </Grid>
                   </Grid>
                 </Box> 
+              </Box>
+              <Box mt={3}>
+                <form>
+                  <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} spacing={2} validation={validation}></InputForm>
+                  <Box mt={2}>
+                    <Button
+                      label="+ Ažuriraj bilješke"
+                      onClick={editItem}
+                    />
+                  </Box>
+                </form>
               </Box>
             </Grid>
           </Container>
