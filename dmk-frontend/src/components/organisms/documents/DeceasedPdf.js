@@ -194,7 +194,7 @@ const DeceasedPdf = ({deceased}) =>{
           <Text style={styles.birthPlace}>{deceased.birth_place && deceased.birth_place.name}</Text>
           <Text style={styles.baptDistrict}>{deceased.district_baptism && deceased.district_baptism.name}</Text>
           <Text style={styles.baptDate}>{deceased.district_baptism && formatLocalDate(deceased.district_baptism.created_at)}</Text>
-          <Text style={styles.wife}>{(deceased.note && deceased.note.spouse_name) || '-'}</Text>
+          <Text style={styles.wife}>{deceased.spouses[0] && `${deceased.spouses[0].first_name}, ${deceased.spouses[0].last_name}` || '-'}</Text>
           <Text style={styles.father}>{(deceased.father && `${deceased.father.first_name}, ${deceased.father.last_name}`) || '-'}</Text>
           <Text style={styles.mother}>{(deceased.mother && `${deceased.mother.first_name}, ${deceased.mother.maiden_name}`) || '-'}</Text>
           <Text style={styles.sakrament}>{deceased.sacraments && capitalize(deceased.sacraments)}</Text>

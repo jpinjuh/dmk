@@ -11,12 +11,21 @@ import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
 // Atoms
 import Title from "Components/atoms/UI/Title";
 import { formatLocalDate } from 'Util/common'
+import Button from "Components/atoms/buttons/Button";
+
+// Models
+import { NoteForm } from 'Pages/deceased/model/deceased'
 
 // Molecules
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
+import InputForm from "Components/molecules/InputForm"
 
 // Organisms
 import BaptizedPdf from 'Components/organisms/documents/BaptizedPdf'
+
+// Actions
+import { putData } from "Modules/units/Notes";
+import { clearValidation } from "Modules/units/Validation";
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,10 +49,49 @@ const useStyles = makeStyles(theme => ({
 const DocumentPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const [inputs, setInputs] = useState(NoteForm)
   const baptized = useSelector(state => state.baptized.oneItem);
+  const validation = useSelector(state => state.validation)
 
   const fullName = `${baptized.person && baptized.person.first_name} ${baptized.person && baptized.person.last_name}`;
+
+  useEffect(() => {
+    setInputs(inputs.map((input) => ({
+      ...input,
+      value: baptized.note && baptized.note[input.name_in_db]
+    })))
+  }, [baptized]);
+
+  useEffect(() => {
+    clearInputs()
+    dispatch(clearValidation())
+  }, [])
   
+  const clearInputs = () => {
+    setInputs(inputs.map(input => ({
+      label: input.label,
+      type: input.type,
+      disabled: false,
+      name_in_db: input.name_in_db,
+      service: input.service,
+      validation: null,
+      error: false,
+      value: ""
+    })));
+  }
+
+  const editItem = (e) => {
+    e.preventDefault();
+
+    const body = {};
+
+    inputs.forEach(input => {
+      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+    })
+    dispatch(putData(`note/${baptized.note.id}`, body));
+  }
+
   return (
     <div>
       <Modal
@@ -205,7 +253,86 @@ const DocumentPreview = ({ onOpen, closeModal }) => {
                   bgColor={'#8e93b9'}
                 />
               </Box>
-
+              <Box>
+                  <Grid container alignItems="center" spacing={3}>
+                    {
+                      baptized.chrism_city
+                      ? 
+                      <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto potvrde'}
+                      />
+                      {baptized.chrism_city}
+                      </Grid>
+                      : null
+                    }
+                    {
+                      baptized.note && baptized.note.chrism_date
+                      ? 
+                      <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Datum potvrde'}
+                      />
+                      {formatLocalDate(baptized.note.chrism_date)}
+                      </Grid>
+                      : null
+                    }
+                    {
+                      baptized.note && baptized.note.marriage_district
+                      ? 
+                      <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Župa ženidbe'}
+                      />
+                      {baptized.note.marriage_district}
+                      </Grid>
+                      : null
+                    }
+                    {
+                      baptized.note && baptized.note.marraige_date
+                      ? 
+                      <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Datum ženidbe'}
+                      />
+                      {formatLocalDate(baptized.note.marriage_date)}
+                      </Grid>
+                      : null
+                    }
+                    {
+                      baptized.note && baptized.note.spouse_name
+                      ? 
+                      <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Ime supruga-e'}
+                      />
+                      {baptized.note.spouse_name}
+                      </Grid>
+                      : null
+                    }
+                </Grid>
+              </Box>
+            </Box>
+            <Box mt={3}>
+            <form>
+              <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={12} lg={12} spacing={2} validation={validation}></InputForm>
+              <Box mt={2}>
+                <Button
+                  label="+ Ažuriraj bilješke"
+                  onClick={editItem}
+                />
+              </Box>
+            </form>
             </Box>
             </Grid>
           </Container>

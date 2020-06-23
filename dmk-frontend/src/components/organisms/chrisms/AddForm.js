@@ -17,7 +17,7 @@ import InputForm from "Components/molecules/InputForm"
 import { ChrismForm } from 'Pages/chrisms/model/chrisms'
 
 // Organisms
-import EditModal from 'Components/organisms/chrisms/EditModal'
+import AddModal from 'Components/organisms/persons/AddModal'
 
 // Action
 import { postData } from "Modules/units/Baptized";
@@ -26,11 +26,16 @@ import { clearValidation } from "Modules/units/Validation";
 const useStyles = makeStyles((theme) => ({
   title: {
     backgroundColor: '#dcdeef',
-    padding: '8px 8px 8px 24px'
+    padding: '8px 8px 8px 24px',
+  },
+  center: {
+    display: 'flex',
+    alignItems: 'center',
   }
 }));
 
 const AddForm = () => {
+  const [personOpen, setPersonOpen] = useState(false)
   const [inputs, setInputs] = useState(ChrismForm);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -59,11 +64,9 @@ const AddForm = () => {
     e.preventDefault();
 
     const body = {};
-    const arr = []
 
     inputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
-      arr.push(input.value)
     })
 
     dispatch(postData(`chrism_note`, body, clearInputs));
@@ -82,7 +85,26 @@ const AddForm = () => {
         </Box>
         <Box mx={3} mt={1} >
           <form>
-            <InputForm inputs={inputs} setInputs={setInputs} spacing={2} validation={validation}></InputForm>
+          <Box mt={4} mb={6}>
+              <Box mb={2} display="flex">
+                <Box flexGrow={1} className={classes.center}>
+                  <Title
+                    align={'left'}
+                    title={'Podaci o krizmi'}
+                    bgColor={'#8e93b9'}
+                  />
+                </Box>
+                <Box>
+                  <Button
+                    size={'large'}
+                    variant={'text'}
+                    label="+ Brzo dodavanje"
+                    onClick={()=>setPersonOpen(true)}
+                  />
+                </Box>
+              </Box>
+              <InputForm inputs={inputs} setInputs={setInputs} spacing={2} validation={validation}></InputForm>
+            </Box>
             <Box mt={4}>
               <Button
                 label="+ Dodaj"
@@ -92,6 +114,10 @@ const AddForm = () => {
           </form>
         </Box>
       </Box>
+      <AddModal
+        onOpen={personOpen}
+        closeModal={() => setPersonOpen(false)}
+      ></AddModal>
     </>
   );
 };

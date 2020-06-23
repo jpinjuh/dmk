@@ -16,7 +16,7 @@ const Button = props => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { variant, label, onClick, color, goTo, fullWidth, type } = props;
+  const { variant, label, onClick, color, goTo, fullWidth, type, size } = props;
 
   return (
     <ButtonMUI
@@ -25,6 +25,7 @@ const Button = props => {
       fullWidth={fullWidth}
       color={color}
       type={type}
+      size={size}
       disableElevation
     >
       {label}
@@ -39,7 +40,8 @@ Button.defaultProps = {
   onClick: () => console.log("Ouch!"),
   goTo: "",
   fullWidth: false,
-  type: "button"
+  type: "button",
+  size: "medium"
 };
 
 export default Button;

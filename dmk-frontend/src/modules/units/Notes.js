@@ -30,9 +30,9 @@ const DEACTIVATE_DATA_REQ = "DEACTIVATE_DATA_REQ";
 const DEACTIVATE_DATA_SCS = "DEACTIVATE_DATA_SCS";
 const DEACTIVATE_DATA_FLR = "DEACTIVATE_DATA_FLR";
 // PUT
-const PUT_DATA_REQ = "PUT_DATA_REQ";
-const PUT_DATA_SCS = "PUT_DATA_SCS";
-const PUT_DATA_FLR = "PUT_DATA_FLR";
+const PUT_NOTE_REQ = "PUT_NOTE_REQ";
+const PUT_NOTE_SCS = "PUT_NOTE_SCS";
+const PUT_NOTE_FLR = "PUT_NOTE_FLR";
 // ACTIVATE
 const ACTIVATE_DATA_REQ = "ACTIVATE_DATA_REQ";
 const ACTIVATE_DATA_SCS = "ACTIVATE_DATA_SCS";
@@ -112,15 +112,15 @@ export const deactivateData = url => async dispatch => {
 };
 
 export const putData = (url, body, closeModal) => async dispatch => {
-  dispatch({ type: PUT_DATA_REQ });
+  dispatch({ type: PUT_NOTE_REQ });
 
   const response = await putFunc(url, body);
 
   if (response.status.errorCode === 200) {
-    dispatch({ type: PUT_DATA_SCS, payload: response.data, status: response.status });
+    dispatch({ type: PUT_NOTE_SCS, payload: response.data, status: response.status });
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
-    closeModal()
+    closeModal && closeModal()
   } else {
     if (typeof response.status.description === "object") {
       dispatch({ type: VALIDATION_MESSAGE, message: response.status });
@@ -128,7 +128,7 @@ export const putData = (url, body, closeModal) => async dispatch => {
     else {
       NotificationManager.error(response.status.description);
     }
-    dispatch({ type: PUT_DATA_FLR, status: response.status });
+    dispatch({ type: PUT_NOTE_FLR, status: response.status });
   }
 };
 
@@ -168,8 +168,6 @@ const INIT_STATE = {
   data: "",
   oneItem: {},
   total: "",
-  postErrorMsg: "",
-  editErrorMsg: ""
 };
 
 export default function reducer(state = INIT_STATE, action = {}) {
@@ -218,13 +216,11 @@ export default function reducer(state = INIT_STATE, action = {}) {
         data: state.data ? state.data.concat(action.payload) : [],
         total: state.total + 1,
         oneItem: action.payload,
-        postErrorMsg: action.status,
         loading: false
       };
     case POST_DATA_FLR:
       return {
         ...state,
-        postErrorMsg: action.status,
         loading: false
       };
     case DEACTIVATE_DATA_REQ:
@@ -249,28 +245,27 @@ export default function reducer(state = INIT_STATE, action = {}) {
         ...state,
         loading: false
       };
-    case PUT_DATA_REQ:
+    case PUT_NOTE_REQ:
       return {
         ...state,
         loading: true
       };
-    case PUT_DATA_SCS:
+    case PUT_NOTE_SCS:
       return {
         ...state,
-        data: state.data.map(item => {
-          if(item.id === action.payload.id){
-            const { ...itemCopy} = item;
-            return { ...itemCopy, ...action.payload }
+        oneItem: Object.keys(state.oneItem).forEach(
+          item => {
+            if(item === 'note')
+            { 
+              Object.assign(state.oneItem[item], action.payload)
+            }
           }
-          return item;
-        }),
-        editErrorMsg: action.status,
+        ),
         loading: false
       };
-    case PUT_DATA_FLR:
+    case PUT_NOTE_FLR:
       return {
         ...state,
-        editErrorMsg: action.status,
         loading: false
       };
     case ACTIVATE_DATA_REQ:

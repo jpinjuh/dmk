@@ -40,21 +40,16 @@ const Datepicker = props => {
     label,
     validation,
     error,
-    onChange,
-    required,
-    disabled,
-    color
+    onChange
   } = props;
 
   
   useEffect(() => {
     setTimeout(
       () => {
-        console.log(typeof formatDate(selectedDate))
         onChange(formatDate(selectedDate))
-      }, 500
+      }, 100
     )
-    
   }, [selectedDate])
 
   return (
@@ -65,6 +60,7 @@ const Datepicker = props => {
             inputVariant="outlined"
             fullWidth
             margin="normal"
+            animateYearScrolling
             value={selectedDate}
             label={label}
             error={!!error}

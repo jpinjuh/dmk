@@ -20,6 +20,7 @@ import { NoteForm } from 'Pages/marriages/model/marriages'
 
 // Organisms
 import EditModal from 'Components/organisms/marriages/EditModal'
+import AddModal from 'Components/organisms/persons/AddModal'
 
 // Action
 import { postData } from "Modules/units/Marriages";
@@ -29,10 +30,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     backgroundColor: '#dcdeef',
     padding: '8px 8px 8px 24px'
+  },
+  center: {
+    display: 'flex',
+    alignItems: 'center',
   }
 }));
 
 const AddForm = ({open, setOpen}) => {
+  const [personOpen, setPersonOpen] = useState(false)
   const [inputs, setInputs] = useState(MarriageForm);
   const [otherInputs, setOtherInputs] = useState(NoteForm);
   const dispatch = useDispatch();
@@ -93,16 +99,27 @@ const AddForm = ({open, setOpen}) => {
             title={'Dodavanje vjenčanih'}
             bgColor={'#8e93b9'}
           />
+         
         </Box>
         <Box mx={3} mt={1} >
         <form>
             <Box mt={4} mb={6}>
-              <Box mb={2}>
-                <Title
-                  align={'left'}
-                  title={'Podaci o vjenčanju'}
-                  bgColor={'#8e93b9'}
-                />
+              <Box mb={2} display="flex">
+                <Box flexGrow={1} className={classes.center}>
+                  <Title
+                    align={'left'}
+                    title={'Podaci o vjenčanju'}
+                    bgColor={'#8e93b9'}
+                  />
+                </Box>
+                <Box>
+                  <Button
+                    size={'large'}
+                    variant={'text'}
+                    label="+ Brzo dodavanje"
+                    onClick={()=>setPersonOpen(true)}
+                  />
+                </Box>
               </Box>
               <InputForm inputs={inputs} setInputs={setInputs} spacing={2} validation={validation}></InputForm>
             </Box>
@@ -130,6 +147,10 @@ const AddForm = ({open, setOpen}) => {
         onOpen={open}
         closeModal={() => setOpen(false)}
       ></EditModal>
+      <AddModal
+        onOpen={personOpen}
+        closeModal={() => setPersonOpen(false)}
+      ></AddModal>
     </>
   );
 };

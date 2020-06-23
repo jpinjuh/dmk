@@ -74,7 +74,7 @@ export const getOneItemPerson = (url) => async dispatch => {
   }
 };
 
-export const postData = (url, body, clearInputs) => async dispatch => {
+export const postData = (url, body, clearInputs, closeModal) => async dispatch => {
   dispatch({ type: POST_DATA_REQ });
 
   const response = await postFunc(url, body);
@@ -84,6 +84,7 @@ export const postData = (url, body, clearInputs) => async dispatch => {
     dispatch({ type: VALIDATION_CLEAR });
     NotificationManager.success(response.status.description);
     clearInputs();
+    closeModal();
   } else {
     if (typeof response.status.description === "object") {
       dispatch({ type: VALIDATION_MESSAGE, message: response.status });
