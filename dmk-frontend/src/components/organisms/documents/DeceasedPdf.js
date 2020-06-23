@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   num: {
     position: 'absolute',
     top: '147px',
-    left: '130px',
+    left: '120px',
   },
   rimDistrict: {
     position: 'absolute',
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   page: {
     position: 'absolute',
     top: '257px',
-    left: '345px'
+    left: '346px'
   },
   broj: {
     position: 'absolute',
     top: '257px',
-    left: '428px'
+    left: '432px'
   },
   deathDate: {
     position: 'absolute',
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '72px',
     height: '14px',
-    top: '370px',
-    left: '453px',
+    top: '371px',
+    left: '456px',
     border: '1px solid black',
     borderRadius: '50%'
   },
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   todayDate: {
     position: 'absolute',
     top: '732px',
-    left: '215px'
+    left: '214px'
   }
 });
 

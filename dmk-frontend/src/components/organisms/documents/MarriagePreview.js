@@ -16,7 +16,7 @@ import { formatLocalDate } from 'Util/common'
 import ButtonWithIcon from "Components/molecules/ButtonWithIcon";
 
 // Organisms
-
+import MarriagePdf from 'Components/organisms/documents/MarriagePdf'
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -36,11 +36,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChrismPreview = ({ onOpen, closeModal }) => {
+const MarriagePreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
 
-  const chrisms = useSelector(state => state.chrisms.oneItem);
+  const marriages = useSelector(state => state.marriages.oneItem);
 
+  const fullName = `${marriages.person1 && marriages.person1.first_name} ${marriages.person1 && marriages.person1.last_name} & ${
+                    marriages.person2 && marriages.person2.first_name} ${marriages.person2 && marriages.person2.last_name}`;
 
   return (
     <div>
@@ -62,119 +64,161 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
                 <Title
                   variant="h5"
                   align={'center'}
-                  title={'Krizmena cedulja'}
+                  title={'Vjenčani list'}
                 />
               </Box>
               <Box>
-              
+              <Box my={2} display="flex" justifyContent="flex-end">
+                <PDFDownloadLink
+                  document={<MarriagePdf marriages={marriages} />}
+                  fileName={`Vjenčani list - ${fullName}.pdf`}
+                  style={{
+                    textDecoration: "none"
+                  }}
+                >
+                  {({ blob, url, loading, error }) =>
+                    loading 
+                    ? "Učitavanje dokumenta..." 
+                    : <ButtonWithIcon 
+                        label="Isprintaj"
+                        icon={'print'}
+                        size="16px"
+                      />
+                  }
+                </PDFDownloadLink>
+                </Box>
                 <Box>
                   <Grid container alignItems="center" spacing={3}>
-                    <Grid item xs={4}> 
+                  <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Ime'}
+                        title={'Datum vjenčanja'}
                       />
-                      {chrisms.person && chrisms.person.first_name}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Prezime'}
-                      />
-                      {chrisms.person && chrisms.person.last_name}
+                      {marriages.document_marriage && formatLocalDate(marriages.document_marriage.act_date)}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Mjesto rođenja'}
+                        title={'Zaručnik'}
                       />
-                      {(chrisms.person && formatLocalDate(chrisms.person.birth_date)) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Datum rođenja'}
-                      />
-                      {(chrisms.birth_place && chrisms.birth_place.name) || '-'}
+                      {marriages.person1 && `${marriages.person1.first_name} ${marriages.person1.last_name}`}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Župa krštenja'}
+                        title={'Zaručnica'}
                       />
-                      {(chrisms.district_baptism && chrisms.district_baptism.name) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Datum krštenja'}
-                      />
-                      {(chrisms.district_baptism && formatLocalDate(chrisms.district_baptism.act_date)) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Mjesto stanovanja'}
-                      />
-                      {(chrisms.person && chrisms.person.domicile) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Otac'}
-                      />
-                      {(chrisms.father && `${chrisms.father.first_name}, ${chrisms.father.last_name}`) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Majka, djevojačko prezime'}
-                      />
-                      {(chrisms.mother && `${chrisms.mother.first_name}, ${chrisms.mother.maiden_name}`) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Kum/a, župa'}
-                      />
-                      {(chrisms.best_man && `${chrisms.best_man.first_name} ${chrisms.best_man.last_name}`) || '-'}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Title
-                        variant="h6"
-                        align={'left'}
-                        title={'Djelitelj krizme, služba'}
-                      />
-                      {(chrisms.act_performed && `${chrisms.act_performed.title} ${chrisms.act_performed.first_name} ${chrisms.act_performed.last_name}`) || '-'}
+                      {marriages.person2 && `${marriages.person2.first_name} ${marriages.person2.last_name}`}
                     </Grid>
                     <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Mjesto krizme'}
+                        title={'Datum rođenja (zaručnik)'}
                       />
-                      {/*(chrisms.person && formatLocalDate(chrisms.person.birth_date)) || '-'*/'Mjesto krizme'}
+                      {marriages.person1 && formatLocalDate(marriages.person1.birth_date)}
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4}> 
                       <Title
                         variant="h6"
                         align={'left'}
-                        title={'Datum krizme'}
+                        title={'Datum rođenja (zaručnica)'}
                       />
-                      {(chrisms.document_chrism && formatLocalDate(chrisms.document_chrism.act_date)) || '-'}
+                      {marriages.person2 && formatLocalDate(marriages.person2.birth_date)}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto rođenja (zaručnik)'}
+                      />
+                      {marriages.person1_birth_place && marriages.person1_birth_place.name}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Mjesto rođenja (zaručnica)'}
+                      />
+                      {marriages.person2_birth_place && marriages.person2_birth_place.name}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Prebivalište (zaručnik)'}
+                      />
+                      {marriages.person1 && marriages.person1.domicile}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Prebivalište (zaručnica)'}
+                      />
+                      {marriages.person2 && marriages.person2.domicile}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Otac (zaručnik)'}
+                      />
+                      {(marriages.person1_father && `${marriages.person1_father.first_name} ${marriages.person1_father.last_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Otac (zaručnica)'}
+                      />
+                      {(marriages.person2_father && `${marriages.person2_father.first_name} ${marriages.person2_father.last_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Majka (zaručnik)'}
+                      />
+                      {(marriages.person1_mother && `${marriages.person1_mother.first_name} ${marriages.person1_mother.last_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Majka (zaručnica)'}
+                      />
+                      {(marriages.person2_mother && `${marriages.person2_mother.first_name} ${marriages.person2_mother.last_name}`) || '-'}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Kum'}
+                      />
+                      {marriages.best_man1 && `${marriages.best_man1.first_name} ${marriages.best_man1.last_name}`}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Kuma'}
+                      />
+                      {marriages.best_man2 && `${marriages.best_man2.first_name} ${marriages.best_man2.last_name}`}
+                    </Grid>
+                    <Grid item xs={4}> 
+                      <Title
+                        variant="h6"
+                        align={'left'}
+                        title={'Vjenčatelj'}
+                      />
+                      {marriages.act_performed && `${marriages.act_performed.title} ${marriages.act_performed.first_name} ${marriages.act_performed.last_name}`}
                     </Grid>
                   </Grid>
-                </Box>
+                </Box> 
               </Box>
             </Grid>
           </Container>
@@ -184,4 +228,4 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
   );
 }
 
-export default ChrismPreview;
+export default MarriagePreview;

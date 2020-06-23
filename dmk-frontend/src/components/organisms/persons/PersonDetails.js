@@ -53,38 +53,6 @@ const PersonDetails = () => {
     dispatch(getOneItemPerson(`person/${id}`))
   }, [])
 
-/*
-  const documentType = (index, item) => {
-    switch(index) {
-      case 0:
-        return () => setSelectedDocument(
-          {
-            label: 'Krsni list',
-
-          }
-        )
-        break;
-      case 1:
-        return 'Smrtni list'
-        break;
-      default:
-        return 'Vjenčani list'
-    }
-  }
-
-  const documentUrl = (index, item) => {
-    switch(index) {
-      case 0:
-        return `registry_od_baptism/${item.id}`
-        break;
-      case 1:
-        return `registry_od_death/${item.id}`
-        break;
-      default:
-        return 'Vjenčani list'
-    }
-  }
-*/
   return (
     <div>
       <Grid>
@@ -253,7 +221,7 @@ const PersonDetails = () => {
                     label={'Vjenčani List'}
                     icon={'open_in_new'}
                     size="20px"
-                    onClick={() => dispatch(getMarriages(`registry_of_marriage/${person.documents[2].id}`, setOpenMarriages))}
+                    onClick={() => dispatch(getMarriages(`registry_of_marriages/${person.documents[2].id}`, setOpenMarriages))}
                   />
                 </Container>
               </Grid>

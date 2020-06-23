@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
   },
   district: {
     position: 'absolute',
-    top: '113px',
+    top: '112px',
     left: '120px',
   },
   num: {
     position: 'absolute',
-    top: '128px',
-    left: '102px',
+    top: '127px',
+    left: '97px',
   },
   rimDistrict: {
     position: 'absolute',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     width: '35px',
     height: '35px',
     top: '304px',
-    left: '428px',
+    left: '426px',
     border: '1px solid black',
     borderRadius: '50%'
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   jmbg: {
     position: 'absolute',
-    top: '408px',
+    top: '409px',
     left: '245px'
   },
   domicile: {
@@ -118,32 +118,32 @@ const styles = StyleSheet.create({
   },
   father: {
     position: 'absolute',
-    top: '454px',
+    top: '455px',
     left: '245px'
   },
   mother: {
     position: 'absolute',
-    top: '478px',
+    top: '479px',
     left: '245px'
   },
   canocicallyMarried: {
     position: 'absolute',
-    top: '501px',
+    top: '502px',
     left: '245px'
   },
   bestMan: {
     position: 'absolute',
-    top: '525px',
+    top: '526px',
     left: '245px'
   },
   actPerformed: {
     position: 'absolute',
-    top: '549px',
+    top: '550px',
     left: '245px'
   },
   notes: {
     position: 'absolute',
-    top: '562px',
+    top: '572px',
     left: '80px',
     height: '100px',
     width: '437px',
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
   },
   todayDate: {
     position: 'absolute',
-    top: '741px',
-    left: '148px'
+    top: '743px',
+    left: '143px'
   }
 });
 
