@@ -20,6 +20,8 @@ import { searchData } from "Modules/units/Roles";
 // Models
 import { SearchForm as searchForm } from 'Pages/persons/model/person'
 
+import moment from "moment";
+
 const style = makeStyles(theme => ({
   title: {
     backgroundColor: '#dcdeef',
@@ -45,7 +47,7 @@ const SearchForm = () => {
       name_in_db: input.name_in_db,
       validation: null,
       error: false,
-      value: ""
+      value: input.type === "date" ? moment() : ""
     })));
   }
 
@@ -55,7 +57,11 @@ const SearchForm = () => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = input.value;
+      if (input.type === "date") {
+        body[input.name_in_db] = moment(input.value).format("YYYY-MM-DD")
+      } else {
+        body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      }
     })
    
     dispatch(searchData(`person/search`, body));

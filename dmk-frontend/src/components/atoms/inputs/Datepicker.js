@@ -9,6 +9,8 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import hrLocale from "date-fns/locale/hr";
 
+import moment from "moment";
+
 
 const useStyles = makeStyles(theme => ({
   input:{
@@ -33,40 +35,30 @@ export const formatDate = date => {
 
 const Datepicker = props => {
   const classes = useStyles();
-  const [selectedDate, handleDateChange] = useState(new Date());
 
   const {
     value,
     label,
     validation,
     error,
-    onChange
+    onChangeDate
   } = props;
-
-  
-  useEffect(() => {
-    setTimeout(
-      () => {
-        onChange(formatDate(selectedDate))
-      }, 100
-    )
-  }, [selectedDate])
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={hrLocale}>
         <DatePicker 
             variant="inline"
-            disableFuture
             inputVariant="outlined"
+            disableFuture
             fullWidth
             margin="normal"
             animateYearScrolling
-            value={selectedDate}
+            value={value}
             label={label}
             error={!!error}
             helperText={validation}
             format="dd-MM-yyyy"
-            onChange={handleDateChange}
+            onChange={event => onChangeDate(moment(event))}
             InputProps={{
                 classes: {
                   root: classes.input,

@@ -7,7 +7,7 @@ export const PrivilegeForm = [
     service: 'role',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Pravo',

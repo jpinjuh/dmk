@@ -7,6 +7,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
@@ -21,9 +23,13 @@ import ChrismNotePdf from 'Components/organisms/documents/ChrismNotePdf'
 
 const useStyles = makeStyles(theme => ({
   modal: {
+    position: 'absolute',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'scroll',
+    height:'100%',
+    display:'block'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -39,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 
 const ChrismPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const chrisms = useSelector(state => state.chrisms.oneItem);
   const fullName = `${chrisms.person && chrisms.person.first_name} ${chrisms.person && chrisms.person.last_name}`;
@@ -58,7 +65,7 @@ const ChrismPreview = ({ onOpen, closeModal }) => {
         }}
       >
         <Fade in={onOpen}>
-          <Container className={classes.paper} maxWidth="md">
+          <Container className={classes.paper} maxWidth={useMediaQuery(theme.breakpoints.up('sm')) ? 'md' : 'xs'}>
             <Grid>
               <Box className={classes.title} display="flex" alignItems="center" justifyContent="center">
                 <Title

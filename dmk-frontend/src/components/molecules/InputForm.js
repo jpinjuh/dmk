@@ -20,11 +20,9 @@ const InputForm = props => {
   const { inputs, setInputs, xs, md, lg, spacing, validation } = props;
   const classes = useStyles();
 
-  console.log(inputs)
-
   const handleInputChange = index => value => {
     const tempInputs = [...inputs];
-    console.log(tempInputs)
+
     tempInputs[index].value = value;
 
     setInputs(tempInputs);
@@ -64,7 +62,7 @@ const InputForm = props => {
                   type={input.type}
                   value={input.value}
                   disabled={input.disabled}
-                  onChange={handleInputChange(index)}
+                  onChangeDate={handleInputChange(index)}
                   label={input.label}
                   validation={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}
                   error={validation && validation.message && validation.message.description && validation.message.description[input.name_in_db]}

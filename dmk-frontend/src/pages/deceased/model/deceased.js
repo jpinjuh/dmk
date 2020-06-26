@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const DeceasedForm = [
   {
     label: 'Datum smrti',
@@ -6,7 +8,7 @@ export const DeceasedForm = [
     name_in_db: 'date_of_death',
     validation: null,
     error: false,
-    value: ''
+    value: moment()
   },
   {
     label: 'Mjesto smrti',
@@ -45,7 +47,7 @@ export const DeceasedForm = [
     name_in_db: 'act_date',
     validation: null,
     error: false,
-    value: ''
+    value: moment()
   },
   {
     label: 'Crkveni službenik sprovoda',
@@ -59,10 +61,10 @@ export const DeceasedForm = [
   },
   {
     label: 'Župa',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'district',
-    service: 'district/autocomplete',
+    service: 'district',
     validation: null,
     error: false,
     value: ''

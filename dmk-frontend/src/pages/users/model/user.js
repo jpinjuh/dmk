@@ -62,7 +62,7 @@ export const UserForm = [
     service: 'role',
     validation: null,
     error: false,
-    value: null
+    value: ''
   },
   {
     label: 'Župa',

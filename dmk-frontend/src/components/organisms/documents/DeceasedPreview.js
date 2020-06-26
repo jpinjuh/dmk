@@ -7,6 +7,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Box, Container, Modal, Backdrop, Fade} from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 // Atoms
 import Title from "Components/atoms/UI/Title";
@@ -32,9 +34,13 @@ import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles(theme => ({
   modal: {
+    position: 'absolute',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'scroll',
+    height:'100%',
+    display:'block'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -51,6 +57,7 @@ const useStyles = makeStyles(theme => ({
 const DeceasedPreview = ({ onOpen, closeModal }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const theme = useTheme();
   const [inputs, setInputs] = useState(NoteForm)
   
   const validation = useSelector(state => state.validation)
@@ -108,7 +115,7 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
         }}
       >
         <Fade in={onOpen}>
-          <Container className={classes.paper} maxWidth="md">
+          <Container className={classes.paper} maxWidth={useMediaQuery(theme.breakpoints.up('sm')) ? 'md' : 'xs'}>
             <Grid>
               <Box className={classes.title} display="flex" alignItems="center" justifyContent="center">
                 <Title
@@ -249,6 +256,14 @@ const DeceasedPreview = ({ onOpen, closeModal }) => {
                     </Grid>
                   </Grid>
                 </Box>
+              </Box>
+              <Box mt={4} mb={2}>
+                <Title
+                  variant={'h6'}
+                  align={'center'}
+                  title={'Bilješke'}
+                  bgColor={'#8e93b9'}
+                />
               </Box>
               <Box mt={3}>
                 <form>

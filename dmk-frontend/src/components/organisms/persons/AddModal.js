@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 // MUI
@@ -26,12 +26,20 @@ import { ExtraForm } from 'Pages/persons/model/person'
 
 // Actions
 import { postData } from "Modules/units/Persons";
+import { clearValidation } from "Modules/units/Validation";
+
+import moment from "moment";
+
 
 const useStyles = makeStyles(theme => ({
   modal: {
+    position: 'absolute',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'scroll',
+    height:'100%',
+    display:'block'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -57,6 +65,14 @@ const AddModal = ({ onOpen, closeModal }) => {
 
   const validation = useSelector(state => state.validation);
 
+  useEffect(() => {
+    return () =>
+    {
+      clearInputs()
+      dispatch(clearValidation())
+    }
+  }, [onOpen])
+
 
   const clearInputs = () => {
     setInputs(inputs.map(input => ({
@@ -67,7 +83,7 @@ const AddModal = ({ onOpen, closeModal }) => {
       service: input.service,
       validation: null,
       error: false,
-      value: ""
+      value: input.type === "date" ? moment() : ""
     })));
     setExtraInputs(extraInputs.map(input => ({
       label: input.label,
@@ -87,10 +103,18 @@ const AddModal = ({ onOpen, closeModal }) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      if (input.type === "date") {
+        body[input.name_in_db] = moment(input.value).format("YYYY-MM-DD")
+      } else {
+        body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      }
     })
     extraInputs.forEach(input => {
-      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      if (input.type === "date") {
+        body[input.name_in_db] = moment(input.value).format("YYYY-MM-DD")
+      } else {
+        body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      }
     })
     dispatch(postData(`person`, body, clearInputs, closeModal));
   };
@@ -112,7 +136,7 @@ const AddModal = ({ onOpen, closeModal }) => {
         <Fade in={onOpen}>
           <Container className={classes.paper} maxWidth={useMediaQuery(theme.breakpoints.up('sm')) ? 'md' : 'xs'}>
             <Box display="flex" flexDirection="column" p={2}>
-              <Box mb={3}>
+              <Box mb={2}>
                 <Title
                   variant="h5"
                   align={'left'}
@@ -120,7 +144,7 @@ const AddModal = ({ onOpen, closeModal }) => {
                 />
               </Box>
               <form>
-              <Box mt={4} mb={6}>
+              <Box mt={2} mb={3}>
               <Box mb={2}>
                   <Title
                     align={'left'}
@@ -131,7 +155,7 @@ const AddModal = ({ onOpen, closeModal }) => {
               <InputForm inputs={inputs} setInputs={setInputs} xs={12} md={6} lg={6} spacing={2} validation={validation}></InputForm>
             </Box>
             <Divider />
-            <Box mt={4} mb={6}>
+            <Box mt={2} mb={3}>
               <Box mb={2}>
                 <Title
                   align={'left'}

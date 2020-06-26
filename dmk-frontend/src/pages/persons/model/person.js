@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const PersonForm = [
   {
     label: 'Ime',
@@ -29,7 +31,8 @@ export const PersonForm = [
     disabled: false,
     name_in_db: 'birth_date',
     validation: null,
-    error: false
+    error: false,
+    value: moment()
   },
   {
     label: 'Mjesto rođenja',
@@ -77,10 +80,10 @@ export const PersonForm = [
   },
   {
     label: 'Župa',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'district',
-    service: 'district/autocomplete',
+    service: 'district',
     validation: null,
     error: false
   },
@@ -98,10 +101,10 @@ export const PersonForm = [
 export const ExtraForm = [
   {
     label: 'Župa krštenja',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'baptism_district',
-    service: 'district/autocomplete',
+    service: 'district',
     validation: null,
     error: false,
     value: ''
@@ -113,7 +116,7 @@ export const ExtraForm = [
     name_in_db: 'baptism_date',
     validation: null,
     error: false,
-    value: ''
+    value: moment()
   },
   {
     label: 'Roditelji kanonski vjenčani',
@@ -151,7 +154,8 @@ export const SearchForm = [
     disabled: false,
     name_in_db: 'birth_date',
     validation: null,
-    error: false
+    error: false,
+    value: moment()
   },
   {
     label: 'JMBG',

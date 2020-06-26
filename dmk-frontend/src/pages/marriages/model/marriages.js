@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const MarriageForm = [
   {
     label: 'Zaručnik',
@@ -45,7 +47,8 @@ export const MarriageForm = [
     disabled: false,
     name_in_db: 'act_date',
     validation: null,
-    error: false
+    error: false,
+    value: moment()
   },
   {
     label: 'Vjenčatelj',
@@ -59,10 +62,10 @@ export const MarriageForm = [
   },
   {
     label: 'Župa',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'district',
-    service: 'district/autocomplete',
+    service: 'district',
     validation: null,
     error: false,
     value: ''

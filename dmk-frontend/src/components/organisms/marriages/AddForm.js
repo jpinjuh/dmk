@@ -26,6 +26,9 @@ import AddModal from 'Components/organisms/persons/AddModal'
 import { postData } from "Modules/units/Marriages";
 import { clearValidation } from "Modules/units/Validation";
 
+import moment from "moment";
+
+
 const useStyles = makeStyles((theme) => ({
   title: {
     backgroundColor: '#dcdeef',
@@ -60,7 +63,7 @@ const AddForm = ({open, setOpen}) => {
       name_in_db: input.name_in_db,
       validation: null,
       error: false,
-      value: ""
+      value: input.type === "date" ? moment() : ""
     })));
     setOtherInputs(otherInputs.map(input => ({
       label: input.label,
@@ -80,7 +83,11 @@ const AddForm = ({open, setOpen}) => {
     const body = {};
 
     inputs.forEach(input => {
-      body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      if (input.type === "date") {
+        body[input.name_in_db] = moment(input.value).format("YYYY-MM-DD")
+      } else {
+        body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;
+      }
     })
     otherInputs.forEach(input => {
       body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;

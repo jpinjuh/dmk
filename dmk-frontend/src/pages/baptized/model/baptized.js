@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const UserForm = [
   {
     label: 'Ime',
@@ -23,7 +25,8 @@ export const UserForm = [
     disabled: false,
     name_in_db: 'birth_date',
     validation: null,
-    error: false
+    error: false,
+    value: moment()
   },
   {
     label: 'Mjesto rođenja',
@@ -75,10 +78,10 @@ export const UserForm = [
   },
   {
     label: 'Župa',
-    type: 'autocomplete',
+    type: 'dropdown',
     disabled: false,
     name_in_db: 'district',
-    service: 'district/autocomplete',
+    service: 'district',
     validation: null,
     error: false,
     value: ''
@@ -102,7 +105,8 @@ export const BaptizedForm = [
     disabled: false,
     name_in_db: 'act_date',
     validation: null,
-    error: false
+    error: false,
+    value: moment()
   },
   {
     label: 'Krstitelj',
