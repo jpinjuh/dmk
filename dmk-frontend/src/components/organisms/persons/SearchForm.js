@@ -47,7 +47,7 @@ const SearchForm = () => {
       name_in_db: input.name_in_db,
       validation: null,
       error: false,
-      value: input.type === "date" ? moment() : ""
+      value: ""
     })));
   }
 
@@ -57,7 +57,7 @@ const SearchForm = () => {
     const body = {};
 
     inputs.forEach(input => {
-      if (input.type === "date") {
+      if (input.type === "date" && input.value !== '') {
         body[input.name_in_db] = moment(input.value).format("YYYY-MM-DD")
       } else {
         body[input.name_in_db] = typeof input.value === 'object' ? { id: input.value['id'] } : input.value;

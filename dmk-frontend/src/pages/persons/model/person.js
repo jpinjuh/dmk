@@ -155,7 +155,7 @@ export const SearchForm = [
     name_in_db: 'birth_date',
     validation: null,
     error: false,
-    value: moment()
+    //value: ''
   },
   {
     label: 'JMBG',

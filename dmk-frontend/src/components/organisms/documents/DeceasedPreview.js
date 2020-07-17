@@ -39,8 +39,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'scroll',
-    height:'100%',
-    display:'block'
+    //height:'100%',
+    //display:'block'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,

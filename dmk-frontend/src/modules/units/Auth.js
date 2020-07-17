@@ -64,7 +64,7 @@ export const login = (url, body, history, clearInputs) => async dispatch => {
     if (typeof response.status.description === "object") {
       dispatch({ type: VALIDATION_MESSAGE, message: response.status });
     }
-    NotificationManager.error(response.status.description);
+    NotificationManager.error(response.message);
     dispatch({ type: LOGIN_FLR });
   }
 };

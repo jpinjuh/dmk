@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from "react-router-dom";
@@ -88,7 +88,7 @@ const Sidebar = ({open, setClosed, setOpen}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const [nestedOpen, setNestedOpen] = React.useState(true);
+  const [nestedOpen, setNestedOpen] = useState(true);
   const administrationArray = ['Role', 'Prava', 'Privilegije', 'Korisnici', 'Župe', 'Biskupije', 'Gradovi', 'Države']
 
   const handleClick = () => {
