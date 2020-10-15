@@ -72,7 +72,7 @@ const ChrismNotePdf = ({chrisms}) =>{
         <View>
           <View style={styles.title}>
             <Text>KRIZMENA CEDULJA</Text>
-            <Text>Župa {chrisms.chrism_district && chrisms.chrism_district.name.split(',')[1]}</Text>
+            <Text>Župa {chrisms.chrism_district && chrisms.chrism_district.name}</Text>
           </View>
         </View>
         <View style={styles.section}>

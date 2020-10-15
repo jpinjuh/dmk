@@ -10,6 +10,7 @@ import CustomSearch from "Components/molecules/CustomSearch";
 import MUIDataTable from "mui-datatables";
 import { Box } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Organisms
 import EditModal from 'Components/organisms/districts/EditModal'
@@ -19,6 +20,14 @@ import ActivateModal from 'Components/organisms/districts/ActivateModal'
 // Actions
 import { getData, getOneItem, searchData } from "Modules/units/Districts";
 
+const useStyles = makeStyles((theme) => ({
+  chip: {
+    '& .MuiChip-label': {
+      color: 'green'
+    }
+  },
+}));
+
 const Table = ({open, setOpen}) => {
   const [deactivateOpen, setDeactivateOpen] = useState(false);
   const [activateOpen, setActivateOpen] = useState(false);
@@ -26,6 +35,7 @@ const Table = ({open, setOpen}) => {
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
   const isInitialMount = useRef(true);
+  const classes = useStyles();
 
   const dispatch = useDispatch();
   const tableData = useSelector(state => state.districts);
@@ -73,8 +83,8 @@ const Table = ({open, setOpen}) => {
           return (
             <div>
               {(value === 1)
-                ? <Chip label="Aktivan" color="primary" />
-                : <Chip label="Neaktivan" disabled />
+                ? <Chip label="AKTIVAN" color="info" className={classes.chip} />
+                : <Chip label="NEAKTIVAN" disabled />
               }
             </div>
           );

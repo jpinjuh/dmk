@@ -7,14 +7,14 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: "#f1f1f1",
-      paper: "#f9f9f9"
+      default: "#F3F3F3",
+      paper: "#fff"
     },
     primary: {
-      main: "#0073b6"
+      main: "#2196f3"
     },
     secondary: {
-      main: "#2e3359"
+      main: "#2E3359"
     },
     spacing: 8,
   },
@@ -39,7 +39,6 @@ const theme = createMuiTheme({
         padding: '8px 0',
         fontSize: '14px',
         fontWeight: 'bold',
-        backgroundColor: '#f9f9f9 !important'
       }
     },
     MuiTableCell: {
@@ -58,7 +57,7 @@ const theme = createMuiTheme({
     },
     MuiPaper: {
       root: {
-        backgroundColor: '#f9f9f9'
+        backgroundColor: '#fff'
       }
     },
     MuiButton: {

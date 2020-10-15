@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Sidebar from 'Layouts/sections/Sidebar';
 import Header from 'Layouts/sections/Header';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 
 const style = makeStyles(theme => ({
@@ -23,7 +23,6 @@ const style = makeStyles(theme => ({
     paddingBottom: theme.spacing(4),
     display: 'flex',
     alignItems: 'flex-start',
-    backgroundColor: '#f1f1f1'
   },
   content: {
     width: '100%',
@@ -56,7 +55,7 @@ const style = makeStyles(theme => ({
 const MainLayout = (state) => {
   const history = useHistory();
   const classes = style();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);

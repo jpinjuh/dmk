@@ -24,7 +24,7 @@ import moment from "moment";
 
 const style = makeStyles(theme => ({
   title: {
-    backgroundColor: '#dcdeef',
+    borderBottom: '1px solid #e0e0e0',
     padding: '8px 8px 8px 24px'
   }
 }));

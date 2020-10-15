@@ -10,17 +10,21 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
+import Drawer from '@material-ui/core/Drawer';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Box } from '@material-ui/core';
 
 // Atoms
 import Logo from "Components/atoms/UI/Logo";
+import Icon from "Components/atoms/UI/Icon";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -37,19 +41,28 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    border: 'none'
+    backgroundColor: '#fff',
+    border: '1px solid #E3E3E3',
   },
   drawerContainer: {
     overflow: 'auto',
     width: drawerWidth,
-    //position: 'fixed',
-    marginTop: theme.spacing(2),
+    position: 'fixed',
+    marginTop: theme.spacing(10),
     '& .MuiListItem-button': {
-        paddingLeft: '24px',
-        borderRadius: '7px'
+      paddingLeft: '16px !important',
     },
+    '& .Mui-selected': {
+      borderLeft: `3px solid ${theme.palette.primary.main}`,
+      color: theme.palette.primary.main,
+      '& .MuiIcon-root': {
+        color: theme.palette.primary.main
+      }
+    },
+    '& .MuiListItemIcon-root':{
+      width: '40px !important',
+      minWidth: '24px !important'
+    }
   },
   drawerHeader: {
     display: 'flex',
@@ -63,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none'
   },
   nested: {
-    paddingLeft: theme.spacing(4),
+    paddingLeft: theme.spacing(7),
   },
 }));
 
@@ -77,14 +90,14 @@ const sidebarListItems = [
   {name:'Biskupije', path: '/biskupije'},
   {name:'Gradovi', path: '/gradovi'},
   {name:'Države', path: '/države'},
-  {name:'Krsni', path: '/krsni'},
-  {name:'Smrtni', path: '/smrtni'},
-  {name:'Vjenčani', path: '/vjenčani'},
-  {name:'Krizmena cedulja', path: '/krizmena'},
-  {name:'Osobe', path: '/osobe'},
+  {name:'Osobe', path: '/osobe', icon: 'people'},
+  {name:'Dodaj krsni list', path: '/krsni', icon: 'person_add'},
+  {name:'Dodaj krizmena cedulju', path: '/krizmena', icon: 'note_add'},
+  {name:'Dodaj vjenčani list', path: '/vjenčani', icon: 'post_add'},
+  {name:'Dodaj smrtni list', path: '/smrtni', icon: 'library_books'},
 ]
 
-const Sidebar = ({open, setClosed, setOpen}) => {
+const Sidebar = ({open, setClosed}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -96,29 +109,27 @@ const Sidebar = ({open, setClosed, setOpen}) => {
   };
 
   return (
-      <SwipeableDrawer
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
         className={clsx(classes.drawer, open===false && classes.hidden)}
-        variant="temporary"
         anchor="left"
         open={open}
-        onClose={setClosed}
-        onOpen={setOpen}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <Box className={classes.title} ml={2}>
-            <Logo type="light" width="115px" goTo={"role"} />
-          </Box>
           <IconButton onClick={setClosed}>
-            <ClearIcon style={{ color: 'white' }} />
+            <ChevronLeftIcon />
           </IconButton>
         </div>
-        <Divider />
         <div className={classes.drawerContainer}>
           <List>
             <ListItem button onClick={handleClick}>
+              <ListItemIcon>
+                <Icon icon="security" size="16" color="secondary"/>
+              </ListItemIcon>
               <ListItemText primary="Administracija" />
               {nestedOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
@@ -138,7 +149,7 @@ const Sidebar = ({open, setClosed, setOpen}) => {
                 ))}
               </List>
             </Collapse>
-            {sidebarListItems.map(route => (
+            {sidebarListItems.map((route, index) => (
               !administrationArray.includes(route.name) &&
               <ListItem
                 button key={route.name}
@@ -146,12 +157,15 @@ const Sidebar = ({open, setClosed, setOpen}) => {
                 to={route.path}
                 selected={route.path === location.pathname}
               >
+                <ListItemIcon>
+                    <Icon icon={route.icon} size="16" color="secondary"/>
+                </ListItemIcon>
                 <ListItemText primary={route.name} />
               </ListItem>
             ))}
           </List>
         </div>
-      </SwipeableDrawer>
+      </Drawer>
   );
 }
 

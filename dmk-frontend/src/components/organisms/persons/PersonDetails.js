@@ -28,12 +28,15 @@ import { getOneItemPerson } from "Modules/units/Persons";
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    backgroundColor: '#dcdeef',
+    borderBottom: '1px solid #e0e0e0',
     padding: '8px 8px 8px 24px'
   },
   documents: {
-    paddingBottom: '8px',
-    borderBottom: `1px solid #e0e0e0`
+    paddingTop: '8px',
+    borderTop: `1px solid #e0e0e0`
+  },
+  subtitle: {
+    color: '#afafaf'
   }
 }));
 
@@ -55,7 +58,7 @@ const PersonDetails = () => {
 
   return (
     <div>
-      <Grid>
+      <Grid className={classes.subtitle}>
         <Box className={classes.title}>
           <Title
             variant="h6"
@@ -63,131 +66,138 @@ const PersonDetails = () => {
             title={'Pregled detalja osobe'}
           />
         </Box>
-        <Box mt={3} mb={5}>
-          <Grid container alignItems="center" spacing={3}>
+        <Box mt={3} mb={10}>
+          <Box pl={3} mb={2}>
+            <Title
+              align={'left'}
+              title={'OSOBNI PODACI'}
+            />
+          </Box>
+          <Grid container alignItems="center" spacing={10}>
             <Grid item xs={3}> 
               <Container>
+                {'Ime'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Ime'}
+                  title={person.first_name || '-'}
                 />
-                {person.first_name || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'Prezime'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Prezime'}
+                  title={person.last_name || '-'}
                 />
-                {person.last_name || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'Djevojačko prezime'}
                 <Title
                     variant="h6"
                     align={'left'}
-                    title={'Djevojačko prezime'}
+                    title={person.maiden_name || '-'}
                   />
-                {person.maiden_name || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'JMBG'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'JMBG'}
+                  title={person.identity_number || '-'}
                 />
-                {person.identity_number || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}> 
               <Container>
+                {'Datum rođenja'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Datum rođenja'}
+                  title={formatLocalDate(person.birth_date) || '-'}
                 />
-                {formatLocalDate(person.birth_date) || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'Mjesto rođenja'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Mjesto rođenja'}
+                  title={person.birth_place ? person.birth_place.name : '-'}
                 />
-                {person.birth_place ? person.birth_place.name : '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'Prebivalište'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Prebivalište'}
+                  title={person.domicile || '-'}
                 />
-                {person.domicile || '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'Majka'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Majka'}
+                  title={person.mother ? person.mother.first_name : '-'}
                 />
-                {person.mother ? person.mother.first_name : '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
+                {'Otac'}
                 <Title
                   variant="h6"
                   align={'left'}
-                  title={'Otac'}
+                  title={person.father ? person.father.first_name : '-'}
                 />
-                {person.father ? person.father.first_name : '-'}
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
-              <Title
-                variant="h6"
-                align={'left'}
-                title={'Župa'}
-              />
-              {person.district ? person.district.name : '-'}
+                {'Župa'}
+                <Title
+                  variant="h6"
+                  align={'left'}
+                  title={person.district ? person.district.name : '-'}
+                />
               </Container>
             </Grid>
             <Grid item xs={3}>
               <Container>
-              <Title
-                variant="h6"
-                align={'left'}
-                title={'Religija'}
-              />
-              {person.religion ? person.religion.value : '-'}
+                {'Religija'}
+                <Title
+                  variant="h6"
+                  align={'left'}
+                  title={person.religion ? person.religion.value : '-'}
+                />
               </Container>
             </Grid>
           </Grid>
         </Box>
+
         <Box mx={3} className={classes.documents}>
           <Title
-            variant="h6"
             align={'left'}
-            title={'Dokumenti'}
+            title={'DOKUMENTI'}
           />
         </Box>
+
         <Box mt={3} mb={4} display="flex">
           {person.documents && person.documents[0] &&
-            <Grid container item alignItems="center" spacing={2} xs={2}>
-              <Grid item>
+            
+              <Grid item xs={3}>
                 <Container>
                   <ButtonWithIcon
                     label={'Krsni List'}
@@ -197,11 +207,10 @@ const PersonDetails = () => {
                   />
                 </Container>
               </Grid>
-            </Grid>
+            
           }
           {person.documents && person.documents[1] &&
-            <Grid container item alignItems="center" spacing={2} xs={2}>
-              <Grid item>
+              <Grid item xs={3}>
                 <Container>
                   <ButtonWithIcon
                     label={'Krizmena Cedulja'}
@@ -211,11 +220,9 @@ const PersonDetails = () => {
                   />
                 </Container>
               </Grid>
-            </Grid>
           }
           {person.documents && person.documents[2] &&
-            <Grid container item alignItems="center" spacing={2} xs={2}>
-              <Grid item>
+              <Grid item xs={3}>
                 <Container>
                   <ButtonWithIcon
                     label={'Vjenčani List'}
@@ -225,11 +232,9 @@ const PersonDetails = () => {
                   />
                 </Container>
               </Grid>
-            </Grid>
           }
           {person.documents && person.documents[3] &&
-            <Grid container item alignItems="center" spacing={2} xs={2}>
-              <Grid item>
+              <Grid item xs={3}>
                 <Container>
                   <ButtonWithIcon
                     label={'Smrtni List'}
@@ -239,7 +244,6 @@ const PersonDetails = () => {
                   />
                 </Container>
               </Grid>
-            </Grid>
           }
         </Box>
       </Grid>

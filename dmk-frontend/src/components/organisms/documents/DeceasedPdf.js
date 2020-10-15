@@ -21,7 +21,10 @@ Font.register({
 const styles = StyleSheet.create({
   text: {
     fontSize: '10px',
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
+    position: 'absolute',
+    top: '2px',
+    left: '2px'
   },
   arch: {
     position: 'absolute',

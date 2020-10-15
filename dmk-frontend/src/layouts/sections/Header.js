@@ -7,18 +7,20 @@ import clsx from 'clsx';
 import { AppBar, Toolbar, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 
 // Atoms
 import ToogleMenu from "Components/organisms/ToogleMenu"
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 
 const style = makeStyles(theme => ({
   appBar: {
     zIndex: '1300',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
+    border: '1px solid #E3E3E3',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -28,12 +30,19 @@ const style = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  logo1: {
+    color: theme.palette.primary.main
+  },
+  logo2: {
+    color: theme.palette.secondary.main
+  }
 }));
 
 const Header = ({open, setOpen}) => {
@@ -50,7 +59,7 @@ const Header = ({open, setOpen}) => {
       >
       {user ? (
         <Toolbar>
-          <Box flexGrow={1}>
+          <Box>
             <IconButton
               aria-label="open drawer"
               onClick={setOpen}
@@ -59,6 +68,13 @@ const Header = ({open, setOpen}) => {
             >
               <MenuIcon />
             </IconButton>
+          </Box>
+
+          <Box flexGrow={1}>
+            <div style={{fontSize: '20px', fontWeight: 'bold'}}>
+              <span className={classes.logo2}>DMK</span>
+              <span className={classes.logo1}>Sys</span>
+            </div>
           </Box>
           <Box ml={1}>
 

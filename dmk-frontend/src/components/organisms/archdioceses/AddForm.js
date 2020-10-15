@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
 // MUI
-import { Box } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
 // Atoms
@@ -26,7 +26,7 @@ import { clearValidation } from "Modules/units/Validation";
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    backgroundColor: '#dcdeef',
+    borderBottom: '1px solid #e0e0e0',
     padding: '8px 8px 8px 24px'
   }
 }));
@@ -80,12 +80,15 @@ const AddForm = ({open, setOpen}) => {
         <Box mx={3} mt={1}>
           <form>
             <InputForm inputs={inputs} setInputs={setInputs} spacing={2} validation={open ? null : validation}></InputForm>
-            <Box mt={2}>
-              <Button
-                label="+ Dodaj biskupiju"
-                onClick={addItem}
-              />
-            </Box>
+            <Grid item xs={12} md={6} lg={4}>
+              <Box mt={3} mb={2} pr={1}>
+                <Button
+                  label="DODAJ BISKUPIJU"
+                  onClick={addItem}
+                  fullWidth={true}
+                />
+              </Box>
+            </Grid>
           </form>
         </Box>
       </Box>

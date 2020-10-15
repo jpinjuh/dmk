@@ -20,7 +20,10 @@ Font.register({
 const styles = StyleSheet.create({
   text: {
     fontSize: '10px',
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
+    position: 'absolute',
+    left: '2px',
+    top: '2px',
   },
   arch: {
     position: 'absolute',
@@ -196,7 +199,7 @@ const BaptizedPdf = ({baptized}) =>{
               ${baptized.chrism_city ? 'Mjesto potvrde: ' + baptized.chrism_city.name : ''} 
               ${baptized.note.chrism_date ? 'Datum potvrde: ' + formatLocalDate(baptized.note.chrism_date) : ''} 
               ${baptized.marriage_district ? 'Župa ženidbe: ' + baptized.marriage_district.name : ''}
-              ${baptized.note.chrism_date ? 'Datum ženidbe: ' + formatLocalDate(baptized.note.marriage_date) : ''}
+              ${baptized.note.marriage_date ? 'Datum ženidbe: ' + formatLocalDate(baptized.note.marriage_date) : ''}
               ${baptized.note.spouse_name ? 'Ime supruga-e: ' + baptized.note.spouse_name : ''}
               ${baptized.note.other_notes ? baptized.note.other_notes : ''}
               `

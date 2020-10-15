@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 // MUI
-import { Box } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
 // Atoms
@@ -27,8 +27,8 @@ import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    backgroundColor: '#dcdeef',
-    padding: '8px 8px 8px 24px',
+    borderBottom: '1px solid #e0e0e0',
+    padding: '8px 8px 8px 24px'
   },
   center: {
     display: 'flex',
@@ -85,7 +85,7 @@ const AddForm = () => {
           <Title
             variant="h6"
             align={'left'}
-            title={'Krizmena cedulja'}
+            title={'Dodavanje krizmene cedulje'}
             bgColor={'#8e93b9'}
           />
         </Box>
@@ -111,12 +111,15 @@ const AddForm = () => {
               </Box>
               <InputForm inputs={inputs} setInputs={setInputs} spacing={2} validation={validation}></InputForm>
             </Box>
-            <Box mt={4}>
-              <Button
-                label="+ Dodaj"
-                onClick={addItem}
-              />
-            </Box>
+            <Grid item xs={12} md={6} lg={4}>
+              <Box mt={3} mb={2} pr={1}>
+                <Button
+                  label="DODAJ KRIZMENU CEDULJU"
+                  onClick={addItem}
+                  fullWidth={true}
+                />
+              </Box>
+            </Grid>
           </form>
         </Box>
       </Box>
